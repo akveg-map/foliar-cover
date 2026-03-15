@@ -3,7 +3,6 @@ aspct_16,aspct_16_10,aspct,16,Aspect (Window: 16),Morphometry,10,Int16,Direct,10
 aspct_32,aspct_32_10,aspct,32,Aspect (Window: 32),Morphometry,10,Int16,Direct,10m
 aspct_4,aspct_4_10,aspct,4,Aspect (Window: 4),Morphometry,10,Int16,Direct,10m
 ca_10,ca_10_1,ca,10,Catchment Area (Area: 10),Hydrology,1,Float32,Direct,10m
-ca_10000,ca_10000_1,ca,10000,Catchment Area (Area: 10000),Hydrology,1,Float32,Direct,10m
 ci_16,ci_16_100,ci,16,Convergence Index (Window: 16),Morphometry,100,Int16,Direct,10m
 ci_32,ci_32_100,ci,32,Convergence Index (Window: 32),Morphometry,100,Int16,Direct,10m
 ci_4,ci_4_100,ci,4,Convergence Index (Window: 4),Morphometry,100,Int16,Direct,10m
@@ -18,7 +17,6 @@ dfa,dfa_10,dfa,none,dfa,Unknown,10,Int16,Unverified,10m
 diffmeanelev_16,diffmeanelev_16_100,diffmeanelev,16,Difference from Mean Elevation (Window: 16),Focal Statistics,100,Int16,Direct,10m
 diffmeanelev_32,diffmeanelev_32_100,diffmeanelev,32,Difference from Mean Elevation (Window: 32),Focal Statistics,100,Int16,Direct,10m
 diffmeanelev_4,diffmeanelev_4_100,diffmeanelev,4,Difference from Mean Elevation (Window: 4),Focal Statistics,100,Int16,Direct,10m
-diffopen_2,diffopen_2_100k,diffopen,2,Topographic Openness (Difference) (Window: 2),Lighting/Visibility,100000,Int16,Direct,10m
 diffopen_256,diffopen_256_100k,diffopen,256,Topographic Openness (Difference) (Window: 256),Lighting/Visibility,100000,Int16,Direct,10m
 diffopen_32,diffopen_32_100k,diffopen,32,Topographic Openness (Difference) (Window: 32),Lighting/Visibility,100000,Int16,Direct,10m
 dis,dis_100,dis,none,dis,Unknown,100,Int16,Unverified,10m
@@ -51,7 +49,6 @@ morpfeat_32,morpfeat_32_1,morpfeat,32,Morphometric Features (Window: 32),Morphom
 morpfeat_4,morpfeat_4_1,morpfeat,4,Morphometric Features (Window: 4),Morphometry,1,Byte,Direct,30m
 msp,msp_10k,msp,none,Mid-slope Position,Morphometry,10000,Int16,Direct,10m
 nh,nh_10k,nh,none,Normalized Height,Morphometry,10000,Int16,Semantic,10m
-no_2,no_2_10k,no,2,Topographic Openness (Negative) (Window: 2),Lighting/Visibility,10000,Int16,Direct,10m
 no_256,no_256_10k,no,256,Topographic Openness (Negative) (Window: 256),Lighting/Visibility,10000,Int16,Direct,10m
 no_32,no_32_10k,no,32,Topographic Openness (Negative) (Window: 32),Lighting/Visibility,10000,Int16,Direct,10m
 perctelev_16,perctelev_16_100,perctelev,16,Percentile Elevation (Window: 16),Focal Statistics,100,Int16,Semantic,10m
@@ -83,9 +80,6 @@ profc_4,profc_4_1M,profc,4,Profile Curvature (Window: 4),Morphometry,1000000,Int
 relelev_16,relelev_16_10,relelev,16,Relative Elevation (Window: 16),Focal Statistics,10,Int16,Semantic,10m
 relelev_32,relelev_32_10,relelev,32,Relative Elevation (Window: 32),Focal Statistics,10,Int16,Semantic,10m
 relelev_4,relelev_4_10,relelev,4,Relative Elevation (Window: 4),Focal Statistics,10,Int16,Semantic,10m
-relmeanelev_16,relmeanelev_16_100,relmeanelev,16,Relative Mean Elevation (Window: 16),Focal Statistics,100,Int16,Semantic,10m
-relmeanelev_32,relmeanelev_32_100,relmeanelev,32,Relative Mean Elevation (Window: 32),Focal Statistics,100,Int16,Semantic,10m
-relmeanelev_4,relmeanelev_4_100,relmeanelev,4,Relative Mean Elevation (Window: 4),Focal Statistics,100,Int16,Semantic,10m
 sl_16,sl_16_100,sl,16,Slope (Window: 16),Morphometry,100,Int16,Direct,10m
 sl_32,sl_32_100,sl,32,Slope (Window: 32),Morphometry,100,Int16,Direct,10m
 sl_4,sl_4_100,sl,4,Slope (Window: 4),Morphometry,100,Int16,Direct,10m

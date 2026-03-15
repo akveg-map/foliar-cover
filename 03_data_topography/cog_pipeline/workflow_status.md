@@ -1,27 +1,24 @@
-# Workflow Status: Topography COG Scaling (Finalized)
+# Workflow Status: Topography COG Scaling (Unified Int32)
 
 ## Current Objective
-Topography scaling, verification, and Earth Engine registration are 100% complete. The workflow has been distilled into a maintainable sequence of 6 core scripts.
+Executing the final high-integrity topography run using the **Unified Int32** architecture. This run eliminates clamping, pushes precision < 0.11% for all continuous bands, and prunes redundant variables.
 
 ## Current State
-- **Distilled Pipeline:** The `cog_pipeline/` folder is now organized into a clear sequence:
-    1. `01_extract_raw_stats.py`
-    2. `02_production_worker.py` (Core scaling/clamping logic)
-    3. `03_submit_production.py` (Batch orchestration)
-    4. `04_register_gee_assets.py` (Asset registration)
-    5. `05_gee_sample_extraction.py` (10k point sampling)
-    6. `06_comparative_analysis.py` (Final QA/QC report generation)
-- **Metadata Vetted:** `metadata_crosswalk.csv` is the source of truth for all 111 variables.
-- **Fluvial Healing:** Pipeline correctly masks negative background artifacts in `dfa` and `spi`.
-- **GEE Assets Registered:** Exactly 111 assets in both `aksdb_topo_v20250422_raw` and `_scaled`.
-- **Final Reports:** Rendered via **Typst** (`topography_cog_scaling_report.pdf`) with full metrics and GEE asset paths listed.
-- **Legacy Archived:** All one-off debugging and trial scripts moved to `03_data_topography/archive/`.
+- **High-Integrity Architecture:** All 103 continuous variables moved to **Int32** with optimized scaling factors (1, 10k, 100k, 10M).
+- **Pruning Complete:** 6 redundant variables (`ca_10000`, `relmeanelev_*`, `no_2`, `diffopen_2`) removed from the stack to ensure high information density. 
+- **Tracking:** Pruned variables are documented in **`dropped_covars.csv`**.
+- **Distilled Pipeline:** The 6 core scripts (`01_` to `06_`) have been updated to support `Int32`, unique job IDs, and dynamic configuration lookup.
+- **Verification Run:** Initial batch of 9 representative variables currently running in `aksdb_dem_covars_v20250422_scaled_i32/`.
+- **Reports:** Branded Typst and HTML reports will be updated once the full 105-variable run is complete.
 
 ## Next Immediate Sub-tasks
-1.  **Handoff:** Topography is finished. Transition to the next covariate set (e.g., Floodplains, Hydrography) or model training.
+1.  **Monitor**: Verify completion of the 9 initial `Int32` jobs.
+2.  **QA/QC**: Run `06_comparative_analysis.py` on the test results.
+3.  **Full Submission**: Launch the remaining 96 variables.
+4.  **Reporting**: Update metrics and re-render final PDF/HTML.
 
 ## Resume Prompt
 > Read `03_data_topography/cog_pipeline/workflow_status.md`.
 >
-> **Current State:** Topography is 100% complete and verified. The pipeline is distilled to 6 scripts.
-> **Next Task:** Await user instruction for the next major project milestone.
+> **Current State:** Transitioning to **Unified Int32** architecture for elite precision and zero clamping. 6 redundant variables pruned. 9 initial verification jobs are currently running.
+> **Next Task:** QA/QC the verification jobs and then submit the full 105-variable stack.

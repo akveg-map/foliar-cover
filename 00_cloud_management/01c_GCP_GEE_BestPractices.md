@@ -7,61 +7,48 @@ This document outlines mandatory practices for all scripts interacting with GCP 
 Never rely on the local environment's default credentials to infer the correct billing project. The default project might be a personal account or an outdated configuration, leading to incorrect billing or permission errors.
 
 *   **Rule:** Always define a `PROJECT_ID` variable and **explicitly pass it** to initialization functions.
-*   **Earth Engine (Python):**
-    ```python
-    import ee
-    
-    PROJECT_ID = "akveg-map"
-    
-    # WRONG: ee.Initialize()  <- Defaults to local auth context
-    # RIGHT:
-    ee.Initialize(project=PROJECT_ID)
-    ```
-*   **Google Cloud Clients (Storage, Batch, etc.):**
-    ```python
-    from google.cloud import storage
-    
-    PROJECT_ID = "akveg-map"
-    
-    # WRONG: client = storage.Client()
-    # RIGHT:
-    client = storage.Client(project=PROJECT_ID)
-    ```
+*   **Earth Engine (Python):** `ee.Initialize(project=PROJECT_ID)`
+*   **Google Cloud Clients:** `client = storage.Client(project=PROJECT_ID)`
 
-## 2. Reading Data: Cloud Storage vs. Native GEE Assets
+## 2. Reading Data: Choosing the Right GEE Access Method
 
-Earth Engine allows you to read Cloud-Optimized GeoTIFFs (COGs) directly from Google Cloud Storage (GCS) on the fly, but this is often a trap for heavy workloads.
+Earth Engine offers three ways to access Cloud-Optimized GeoTIFFs (COGs) stored in GCS. Choosing the wrong one for heavy workloads can lead to massive I/O penalties and runaway costs.
 
-### The "On-the-Fly" I/O Penalty
-Using `ee.Image.loadGeoTIFF('gs://bucket/file.tif')` is convenient for quickly viewing a single image or doing a simple summary. 
+### A. Native GEE Assets (Best Performance)
+Formal **ingestion** copies data into Earth Engine's internal, highly-distributed format. This provides the lowest latency and is recommended for production model training and global-scale analytics.
+*   **Method:** `earthengine upload image ...`
 
-**The Problem:** When you run complex spatial queries—such as extracting 10,000 random points across Alaska (`reduceRegions`) from a stack of 111 COGs—Earth Engine has to make hundreds of thousands of individual HTTP network requests to GCS. 
-*   GEE spins up hundreds of compute workers.
-*   Those workers spend 99% of their time idle, waiting for data to travel over the network from GCS.
-*   **You are billed for the idle wait time.** This is how a simple extraction can accidentally consume 500,000+ EECU-seconds.
+### B. COG-backed Assets / ImageCollections (Good Middle Ground)
+You can register GCS-hosted COGs as Earth Engine assets without a full copy. This is significantly more efficient than on-the-fly loading because Earth Engine caches metadata and optimizes tile requests.
+*   **Method:** `ee.data.createAsset({'type': 'IMAGE', 'gcs_location': ...})`
 
-### The Solution: Ingesting to an Image Collection
-For production models, large-scale sampling, or intensive processing, data must be **ingested** into Earth Engine.
+### C. On-the-Fly (OTF) Loading (The "Trap")
+Using `ee.Image.loadGeoTIFF('gs://...')` reads data directly from GCS with no registration. While convenient for quick visualization, it is a **trap for heavy workloads** (e.g., extracting 10,000 random points). Workers spend most of their time idle waiting for GCS network requests, leading to massive EECU-second billing.
 
-**What does "Ingesting" mean?**
-Ingestion is the process of formally importing data from a GCS bucket (`gs://...`) into a native Earth Engine Asset (`projects/akveg-map/assets/...`). During ingestion, Earth Engine copies your GeoTIFF and restructures it into its proprietary, highly distributed, and heavily tiled internal format.
+## 3. Google Cloud Batch: Massive Raster Processing
 
-**Why is it necessary?**
-1.  **Speed:** Native assets sit directly next to Earth Engine's compute nodes. Network latency drops to near zero.
-2.  **Cost:** Because data retrieval is instantaneous, compute workers actually compute. An operation that takes 500,000 EECU-seconds reading from GCS might take 500 EECU-seconds reading from a native asset.
-3.  **Parallelism:** Native assets are pre-optimized for GEE's specific brand of MapReduce distributed computing.
+### Resiliency and Cost
+*   **Provisioning Model:** Always consider **SPOT** instances for substantial cost savings (60-90%).
+    *   **Caveat:** SPOT is best suited for jobs that are **relatively quick** (under a few hours) or can be **resumed** from where they left off.
+    *   **Intermediate Work:** For long-running jobs using SPOT, the processing logic must periodically save intermediate state/data to persistent storage (e.g., GCS) to avoid losing all progress upon preemption.
+*   **Automatic Retries:** Set `maxRetryCount` to at least **3** to handle SPOT preemption. Google Cloud Batch will automatically restart the task on a new instance.
+*   **Disk Capacity:** For large raster processing (source files > 50GB), ensure the boot disk is at least **500 GB**.
 
-**How to Ingest:**
-Instead of `ee.Image.loadGeoTIFF()`, you use the `earthengine` CLI or the Python API's upload manifest system to create the asset:
-```bash
-earthengine upload image --asset_id projects/akveg-map/assets/my_collection/my_image gs://akveg-data/my_image.tif
-```
-Once ingested, you load it instantly:
-```python
-img = ee.Image('projects/akveg-map/assets/my_collection/my_image')
-```
+### Resource Allocation
+*   **CPU/RAM:** Aim for at least **4GB of RAM per vCPU** for block-based raster operations. `n2-standard-16` (16 vCPU / 64GB RAM) is a recommended baseline for stable performance.
 
-## 3. General Cost Management and Monitoring
+### GDAL & Parallelism
+*   **Window Processing:** For massive rasters, consider using `rasterio.block_windows()` and a `ProcessPoolExecutor` to process small windows in parallel. This can optimize memory usage and throughput.
+*   **GDAL Cache:** On high-RAM instances, set `--config GDAL_CACHEMAX` (e.g., 32768) to maximize throughput during COG conversion.
 
-*   **Watch for Bottlenecks:** If an Earth Engine task feels like it is taking an exceptionally long time (hours instead of minutes) and accumulating massive EECU-seconds, **cancel it**. It is almost certainly hitting an I/O bottleneck.
-*   **Batch Processing:** For massive raster operations that do not strictly require Earth Engine's specific APIs (e.g., applying mathematical scaling to millions of pixels), use Google Cloud Batch or local parallelization. It is often much cheaper and faster to process the files as standard rasters before interacting with GEE.
+### COG Standards
+To maintain consistency across the AKVEG stack, follow these Cloud Optimized GeoTIFF (COG) guidelines:
+*   **Tiling:** Use `BLOCKXSIZE=512`, `BLOCKYSIZE=512` as the project standard. For extremely high-resolution statewide datasets (e.g., 5m IFSAR), consider `1024` to optimize spatial index performance.
+*   **Compression:** `COMPRESS=DEFLATE` is preferred for storage efficiency.
+*   **Predictor:** Use `PREDICTOR=2` for **Integer** (`Int16`, `Int32`) data. **Never** use Predictor 2 for Float32 data.
+*   **Overviews:** Generate a **full pyramid depth**. Use `RESAMPLING=AVERAGE` for continuous variables and `RESAMPLING=MODE` for categorical variables.
+
+## 4. General Cost Management and Monitoring
+
+*   **Watch for Bottlenecks:** If an Earth Engine task takes hours instead of minutes and accumulates massive EECU-seconds, **cancel it**. It is likely hitting an I/O bottleneck.
+*   **Batch Processing:** For massive raster operations that do not strictly require GEE APIs (e.g., mathematical scaling), use Google Cloud Batch or local parallelization.

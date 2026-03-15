@@ -1,11 +1,18 @@
 import pandas as pd
 import numpy as np
 import json
+import os
 
 def analyze():
     # Load config to get scales and suffixes
     with open("03_data_topography/cog_pipeline/scaling_config.json", "r") as f:
         config = json.load(f)
+
+    # Load pruned variables to ignore them
+    pruned_vars = []
+    if os.path.exists("03_data_topography/cog_pipeline/dropped_covars.csv"):
+        pruned_df = pd.read_csv("03_data_topography/cog_pipeline/dropped_covars.csv")
+        pruned_vars = pruned_df['raw_id'].tolist()
 
     print("Loading 10,000 point datasets...")
     orig = pd.read_csv("03_data_topography/cog_pipeline/assessment_orig_10000.csv")
@@ -15,7 +22,7 @@ def analyze():
     orig = orig.sort_values("system:index").reset_index(drop=True)
     scaled = scaled.sort_values("system:index").reset_index(drop=True)
     
-    gee_bands = [c for c in orig.columns if c not in ["system:index", ".geo", "control_band", "latitude", "longitude"]]
+    gee_bands = [c for c in orig.columns if c not in ["system:index", ".geo", "control_band", "latitude", "longitude"] and c not in pruned_vars]
     results = []
     config_keys_sorted = sorted(config.keys(), key=len, reverse=True)
 
@@ -24,71 +31,73 @@ def analyze():
     for col in scaled.columns:
         if col in ["system:index", ".geo", "latitude", "longitude"]:
             continue
-        # Scaled names are like 'aspct_16_10_B0'
-        # We need to find which original band it belongs to.
-        # It should start with one of our orig bands.
         for b in gee_bands:
-            # We need to handle the dot replacement in bands like mbi_0.1 -> mbi_0p1
             safe_b = b.replace(".", "p")
             if col.startswith(safe_b + "_"):
                 scaled_col_map[b] = col
                 break
 
     for b in gee_bands:
-        orig_key = None
-        for key in config_keys_sorted:
-            # Match the band name to the config key to get scale and type
-            if b.startswith(key):
-                orig_key = key
-                break
+        orig_key = next((key for key in config_keys_sorted if b.startswith(key)), None)
         
         if not orig_key:
-            orig_key = b
-            scale = 1.0
-            dtype = "Int16"
-        else:
-            scale = config[orig_key]["scale"]
-            dtype = config[orig_key]["type"]
+            print(f"Warning: No config found for {b}")
+            continue
+            
+        scale = config[orig_key]["scale"]
+        dtype = config[orig_key]["type"]
 
         scaled_col = scaled_col_map.get(b)
         if not scaled_col:
             print(f"Warning: Scaled column for {b} not found in scaled CSV.")
             continue
 
-        # 1. Mask Check
-        orig_mask = (orig[b] == -99999)
-        
-        # In GEE sampling, we unmasked both stacks to -99999.
-        # But the scaled COGs might also return their internal NoData values.
+        # Dynamic NoData & Clamping
         if dtype == "Float32":
-            nodata_val = -99999
+            nodata_val = -99999.0
+            clamp_limit = 1e30
+            err_limit = 0.001
+        elif dtype == "Int32":
+            nodata_val = -2147483648
+            clamp_limit = 2147483647
+            err_limit = 1.5
         elif dtype == "Byte":
             nodata_val = 0
+            clamp_limit = 255
+            err_limit = 1.5
         else: # Int16
             nodata_val = -32768
-            
-        scaled_nodata = (scaled[scaled_col] == -99999) | (scaled[scaled_col] == nodata_val) | (scaled[scaled_col] == -32000)
-        
+            clamp_limit = 32000
+            err_limit = 1.5
+
+        # 1. Mask Check
+        orig_mask = (orig[b] == -99999) | orig[b].isna()
+        scaled_nodata = (scaled[scaled_col] == -99999) | (scaled[scaled_col] == nodata_val) | scaled[scaled_col].isna()
         mask_diff = (orig_mask != scaled_nodata).sum()
         
-        # 2. Clamping check (only for real data points)
-        if dtype == "Int16":
-            is_clamped = ((scaled[scaled_col] == 32000) | (scaled[scaled_col] == -32000)) & ~orig_mask
+        # Capture error coordinates
+        if mask_diff > 0:
+            err_idx = orig_mask != scaled_nodata
+            err_coords = orig.loc[err_idx, ['latitude', 'longitude']].head(2).to_dict('records')
+        else:
+            err_coords = []
+        
+        # 2. Clamping check
+        if dtype in ["Int16", "Int32"]:
+            is_clamped = (scaled[scaled_col].abs() >= clamp_limit) & ~orig_mask
             scaled_clamped = is_clamped.sum()
         else:
             scaled_clamped = 0
         
-        # 3. Value Accuracy Check (only for non-masked, non-clamped data)
+        # 3. Value Accuracy Check
         valid_idx = ~orig_mask & ~scaled_nodata
         if valid_idx.any():
             actual_scaled = scaled.loc[valid_idx, scaled_col]
             expected_scaled = orig.loc[valid_idx, b] * scale
             diff_scaled = np.abs(actual_scaled - expected_scaled)
             max_diff_scaled = diff_scaled.max()
-            limit = 1.5 if dtype != "Float32" else 0.001
         else:
             max_diff_scaled = 0
-            limit = 0
 
         results.append({
             "Band": b,
@@ -97,7 +106,8 @@ def analyze():
             "Mask_Mismatches": mask_diff,
             "Scaled_Clamped": scaled_clamped,
             "Max_Diff_Scaled": round(max_diff_scaled, 4),
-            "Limit": limit
+            "Limit": err_limit,
+            "Err_Coords": err_coords
         })
         
     res_df = pd.DataFrame(results)
@@ -112,7 +122,7 @@ def analyze():
     
     if not problems.empty:
         print("\n--- PROBLEM DETAIL ---")
-        cols = ["Band", "Type", "Scale", "Mask_Mismatches", "Scaled_Clamped", "Max_Diff_Scaled"]
+        cols = ["Band", "Type", "Scale", "Mask_Mismatches", "Scaled_Clamped", "Max_Diff_Scaled", "Err_Coords"]
         print(problems[cols].sort_values("Max_Diff_Scaled", ascending=False).to_string(index=False))
     else:
         print("\nALL BANDS MATCH SOURCE MASKS AND SCALE CORRECTLY.")

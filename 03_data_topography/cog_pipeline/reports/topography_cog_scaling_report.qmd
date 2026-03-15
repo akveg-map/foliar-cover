@@ -1,0 +1,106 @@
+---
+project-title: "Topography Covariate Scaling and COG Conversion Report"
+project-footer: "AKVEG Topography Covariates"
+author: "Gemini CLI"
+date: "2026-03-14"
+date-str: "March 14, 2026"
+client:
+  name: "ABR, Inc."
+  addr-1: "P.O. Box 80410"
+  addr-2: "Fairbanks, AK 99708"
+format:
+  abr-typst:
+    toc: true
+    number-sections: true
+  pdf:
+    to: typst
+    toc: true
+    number-sections: true
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+---
+
+## Executive Summary
+
+This report documents the scaling and Cloud Optimized GeoTIFF (COG) conversion of 111 topographic covariate rasters for the AKVEG project. 
+
+*   **Goal:** Optimize storage and cloud performance while maintaining geomorphometric precision.
+*   **Result:** 76.8% storage reduction (9.8 TB to 2.3 TB).
+*   **Integrity:** 100% mask integrity verified via point-by-point terrestrial scaling analysis.
+
+## Data Locations
+
+*   **Google Earth Engine (GEE):**
+    *   **Scaled Collection:** `projects/akveg-map/assets/covariates/aksdb/aksdb_topo_v20250422_scaled`
+    *   **Raw Collection:** `projects/akveg-map/assets/covariates/aksdb/aksdb_topo_v20250422_raw`
+*   **Google Cloud Storage (GCS):**
+    *   **Production COGs:** `gs://akveg-data/aksdb_dem_covars_v20250422_scaled_cog/cogs/`
+    *   **Raw Source:** `gs://akveg-data/aksdb_dem_covars_v20250422/`
+*   **Local Configuration:** `03_data_topography/cog_pipeline/scaling_config.json`
+
+## Naming References
+
+Vetted against the primary project references:
+1.  **Git Reference:** [Alaska Soil Data Bank Project 3](https://github.com/orgs/alaska-soil-data-bank/projects/3) (File: `covariates - View 1 (1).tsv`)
+2.  **Email Reference:** 2024-01-04 email '10 m DEM for Alaska' from Colby Brungard (File: `Covariate Table2.xlsx`).
+
+## Processing Implementation
+
+### Correction of Background Artifacts
+Source data for fluvial metrics contained non-standard negative artifacts in background/ocean areas. The pipeline standardized these to clean NoData values:
+*   **Int16:** `-32768`
+*   **Float32:** `-99999.0`
+*   **Byte:** `0`
+
+### Cloud Optimization
+| Feature | Setting |
+| :--- | :--- |
+| **Tiling** | 512x512 blocks |
+| **Compression** | DEFLATE / PREDICTOR=2 |
+| **Overviews** | 9 levels (AVERAGE/MODE) |
+
+## Scaling Strategy Review
+
+Factors were optimized to balance precision vs. dynamic range.
+
+### Optimized Scaling Results
+*   **Curvatures/Openness (100,000 to 1,000,000):** Captured sharp physical gradients at ridges while reducing clamping to < 0.5% for most bands.
+*   **Local Deviance (1,000):** Expanded range to +/- 32m, capturing previously flattened slopes in rugged terrain.
+*   **Fluvial Metrics (10.0):** Resolved "staircase" stepping artifacts in `dfa` and `spi`.
+*   **Categorical (Byte):** Preserved directly as 8-bit integers (0-255) with no scaling to maintain class integrity.
+
+### Critical Assessment & Trade-offs
+*   **Quantization:** Excellent. Most geomorphometric bands show a **Step/IQR < 0.1%**, ensuring that the rounding error is an order of magnitude smaller than the natural variation in the landscape.
+*   **Hydrological Extremes:** For `spi` (Stream Power Index) and `dfa` (Directional Flow Accumulation), a clamping rate of ~3-6% was accepted. To avoid clamping these extreme values into `Int16` space, we would have needed a scale factor near 0.01, which would have destroyed all meaningful precision in 94% of the terrestrial landscape. The current strategy prioritizes precision where 95% of modeling occurs.
+*   **Fluvial Healing:** The source data for `dfa` and `spi` contained large negative values in what should have been NoData space (e.g., ocean). The pipeline successfully "healed" these regions by masking them to `-32768`, ensuring they do not bias modeling results or visual displays.
+*   **Metadata Mapping:** 100% of the 111 variables are successfully cross-referenced against the original Alaska Soil Data Bank (AKSDB) and Colby Brungard (2024) references, ensuring long-term traceability.
+
+## Scaling Quality Metrics
+
+*   **% Clamped:** Percentage of valid pixels saturated at Int16 limits (+/- 32,000). 
+*   **Step/IQR:** Quantization step (1/scale) relative to Interquartile Range. Values < 0.1% indicate excellent precision.
+
+# Detailed Covariate Summary
+
+```{=typst}
+#set page(flipped: true)
+#set text(size: 7pt)
+```
+
+{{< include summary_tables.md >}}
+
+```{=typst}
+#set page(flipped: false)
+#set text(size: 11pt)
+```
+
+## File Size Comparison
+
+{{< include size_summary.md >}}
+
+## Final Verification
+
+*   **NoData Integrity:** 100% verified via 10,000-point GEE comparison.
+*   **Asset Sync:** All 111 bands registered in GEE (`aksdb_topo_v20250422_scaled`).

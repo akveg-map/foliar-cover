@@ -13,6 +13,7 @@
 *.log
 *.xml
 *.iml
+batch_logs.txt
 
 # OS generated files #
 ######################
@@ -36,3 +37,30 @@ __pycache__
 venv
 venv/
 .Rproj.user
+
+# Large Data & Artifacts #
+##########################
+*.tif
+*.tif.aux.xml
+*.gstmp
+scaled_files.txt
+raw_files.txt
+
+# Explicit Large CSV Assessment Data
+# (Stored in GCS qaqc/ folder for long-term reference)
+*assessment_10000.csv
+*assessment_1000pts.csv
+*assessment_scaled_final.csv
+*assessment_orig_final.csv
+raw_sample_10000_stats.csv
+rebuild_robust_stats.csv
+cog_summary.csv
+
+# Keep metadata and summaries
+!metadata_crosswalk.csv
+!cog_stats_summary_full.csv
+!AKVEG_Schema_FoliarCover.csv
+
+# Config Artifacts
+config_mbi_*.json
+~$*.xlsx

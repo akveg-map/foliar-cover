@@ -1,7 +1,9 @@
-# Full Environment Setup for Maxar OTB Pipeline (OTB v9.1.1)
+# [DEPRECATED] Full Environment Setup for Maxar OTB Pipeline (OTB v9.1.1)
 
-This is the comprehensive, start-to-finish guide to installing Orfeo ToolBox and resolving the Python 3.13 symbol conflicts on 'mason'.
+> **FAILURE NOTICE:** The OTB-specific environment setup documented below was a failure and has been abandoned. 
+> Do not use this for current production work. Use the `akveg` conda environment instead.
 
+<!-- 
 ## 1. Install System & Build Dependencies
 ```bash
 # Check dependencies
@@ -75,3 +77,4 @@ export OTB_PYTHON_EXE=$(which python)
 source ~/.bashrc
 conda activate otb_env
 python -c "import pyotb; print('Success! Applications loaded:', len(pyotb.get_available_applications()))"
+-->

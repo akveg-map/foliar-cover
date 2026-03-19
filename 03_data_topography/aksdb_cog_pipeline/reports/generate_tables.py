@@ -149,18 +149,30 @@ def main():
     df["sort_key"] = df.apply(sort_key, axis=1)
     df = df.sort_values("sort_key")
 
-    with open("03_data_topography/aksdb_cog_pipeline/reports/summary_tables.md", "w") as f:
-        f.write("### Continuous Covariates Summary\n\n")
-        cont_df = df[df["Out Type"] != "Byte"]
-        for g in sorted(cont_df["Group"].unique()):
-            f.write(format_section(g, cont_df[cont_df["Group"] == g]))
-            f.write("\n\n")
+    # Group by category and write individual tables
+    for cat in df["Group"].unique():
+        # Normalize category name for filename
+        cat_norm = str(cat).lower().replace(" ", "_").replace("/", "_")
+        out_file = f"03_data_topography/aksdb_cog_pipeline/reports/table_{cat_norm}.md"
         
-        f.write("### Categorical Covariates Summary\n\n")
-        cat_df = df[df["Out Type"] == "Byte"]
-        for g in sorted(cat_df["Group"].unique()):
-            f.write(format_section(g, cat_df[cat_df["Group"] == g]))
-            f.write("\n\n")
+        cat_df = df[df["Group"] == cat]
+        
+        # Split into Continuous and Categorical within the category if needed?
+        # The prompt says "write individual markdown files for each category".
+        # I'll keep the Continuous/Categorical separation if they exist in the category.
+        
+        with open(out_file, "w") as f:
+            cont_df = cat_df[cat_df["Out Type"] != "Byte"]
+            if not cont_df.empty:
+                f.write(f"### {cat} - Continuous\n\n")
+                f.write(format_section(cat, cont_df))
+                f.write("\n\n")
+            
+            cat_byte_df = cat_df[cat_df["Out Type"] == "Byte"]
+            if not cat_byte_df.empty:
+                f.write(f"### {cat} - Categorical\n\n")
+                f.write(format_section(cat, cat_byte_df))
+                f.write("\n\n")
 
     total_raw_tb = df["Raw GB"].sum() / 1024
     total_scaled_tb = df["Scaled GB"].sum() / 1024

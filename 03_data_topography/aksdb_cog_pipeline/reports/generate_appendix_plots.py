@@ -66,11 +66,8 @@ extent_geom = ee.Geometry.Rectangle(
     proj='EPSG:3338', geodesic=False
 )
 
-# 3. Pagination
-plots_per_page = 10
-rows = 5
-cols = 2
-num_pages = math.ceil(len(variables) / plots_per_page)
+# 3. Pagination by Category
+categories = sorted(df['category'].unique())
 
 # Palettes
 seq_hex = ['#440154', '#414487', '#2a788e', '#22a884', '#7ad151', '#fde725']
@@ -88,188 +85,202 @@ def format_num(val, scale=1):
     if abs(phys_val) > 1000: return f"{phys_val:,.1f}"
     return f"{phys_val:.3f}"
 
-print(f"Generating {num_pages} appendix pages for {len(variables)} variables...")
+plots_per_page = 10
+rows = 5
+cols = 2
 
-for page in tqdm(range(num_pages), desc="Pages"):
-    start_idx = page * plots_per_page
-    end_idx = min(start_idx + plots_per_page, len(variables))
-    page_vars = variables[start_idx:end_idx]
+print(f"Generating appendix plots for {len(categories)} categories...")
+
+for cat in categories:
+    cat_vars = [v for v in variables if v['category'] == cat]
+    num_vars = len(cat_vars)
+    num_cat_pages = math.ceil(num_vars / plots_per_page)
     
-    fig_width = 12
-    fig_height = fig_width * (rows / cols) / aspect_ratio
-    fig, axes = plt.subplots(rows, cols, figsize=(fig_width, fig_height))
-    fig.patch.set_facecolor('white')
-    axes = axes.flatten()
+    cat_norm = str(cat).lower().replace(" ", "_").replace("/", "_")
     
-    for i, var in enumerate(page_vars):
-        ax = axes[i]
+    for page in range(num_cat_pages):
+        start_idx = page * plots_per_page
+        end_idx = min(start_idx + plots_per_page, len(cat_vars))
+        page_vars = cat_vars[start_idx:end_idx]
         
-        # Stats (Scaled)
-        mean = var.get('s_mean', 0)
-        std = var.get('s_std', 0)
-        p1, p5, p10, p25, p50, p75, p90, p95, p99 = [var.get(f's_p{x}', 0) for x in [1, 5, 10, 25, 50, 75, 90, 95, 99]]
-        scale = var.get('scale', 1)
-        scale_str = f"{scale:,.0f}" if scale >= 1 else f"{scale:g}"
+        print(f"  Category: {cat} (Page {page+1}/{num_cat_pages}) -> appendix_{cat_norm}_{page+1:02d}.png")
         
-        asset_name = var['scaled_id'].replace('.', 'p')
-        asset_id = f"projects/akveg-map/assets/covariates/aksdb/aksdb_topo_v20250422_scaled_i32/{asset_name}"
-        img = ee.Image(asset_id)
+        fig_width = 12
+        fig_height = fig_width * (rows / cols) / aspect_ratio
         
-        is_categorical = var['data_type'] == 'Byte'
-        is_divergent = any(x in str(var['raw_id']) for x in ['diff', 'dev', 'tpi', 'rel'])
-        is_hydrology = any(x in str(var['raw_id']) for x in ['ca_', 'dfa', 'spi', 'swi', 'vlyd'])
+        fig, axes = plt.subplots(rows, cols, figsize=(fig_width, fig_height))
+        fig.patch.set_facecolor('white')
+        axes = axes.flatten()
         
-        stretch_method = "P1"
-        v_min, v_max = p1, p99
-        
-        if is_categorical:
-            stretch_method = "Categorical"
-            v_min, v_max = var.get('s_min', 1), var.get('s_max', 10)
-        else:
-            if is_hydrology:
-                p1_clean = max(1, p1)
-                if p99 > p1_clean:
-                    img = img.where(img.lte(0), 1).log10()
-                    v_min, v_max = math.log10(p1_clean), math.log10(p99)
-                    stretch_method = "Log10(P1)"
-                else:
-                    stretch_method = "P1"
-                    v_min, v_max = p1, p99
+        for i, var in enumerate(page_vars):
+            ax = axes[i]
+            
+            # Stats (Scaled)
+            mean = var.get('s_mean', 0)
+            std = var.get('s_std', 0)
+            p1, p5, p10, p25, p50, p75, p90, p95, p99 = [var.get(f's_p{x}', 0) for x in [1, 5, 10, 25, 50, 75, 90, 95, 99]]
+            scale = var.get('scale', 1)
+            scale_str = f"{scale:,.0f}" if scale >= 1 else f"{scale:g}"
+            
+            asset_name = var['scaled_id'].replace('.', 'p')
+            asset_id = f"projects/akveg-map/assets/covariates/aksdb/aksdb_topo_v20250422_scaled_i32/{asset_name}"
+            img = ee.Image(asset_id)
+            
+            is_categorical = var['data_type'] == 'Byte'
+            is_divergent = any(x in str(var['raw_id']) for x in ['diff', 'dev', 'tpi', 'rel'])
+            is_hydrology = any(x in str(var['raw_id']) for x in ['ca_', 'dfa', 'spi', 'swi', 'vlyd'])
+            
+            stretch_method = "P1"
+            v_min, v_max = p1, p99
+            
+            if is_categorical:
+                stretch_method = "Categorical"
+                v_min, v_max = var.get('s_min', 1), var.get('s_max', 10)
             else:
-                candidates = {
-                    "SD0.5": (mean - 0.5*std, mean + 0.5*std),
-                    "SD1": (mean - std, mean + std),
-                    "P10": (p10, p90),
-                    "P5": (p5, p95),
-                    "SD2": (mean - 2*std, mean + 2*std),
-                    "P1": (p1, p99)
-                }
-                
-                iqr = p75 - p25
-                # Percentile and Percentage variables should use P1 to show the full 0-100 range
-                is_bounded = any(x in str(var['raw_id']) for x in ['perct', 'percl', 'percc'])
-                
-                if iqr > 0 and not is_bounded and 'twi' not in str(var['raw_id']):
-                    for method in ["SD0.5", "P10", "SD1", "P5", "SD2", "P1"]:
-                        cmin, cmax = candidates[method]
-                        
-                        # Apply symmetric logic during selection for divergent metrics
-                        if is_divergent and abs(p50 / scale) < 0.1:
-                            limit = max(abs(cmin), abs(cmax))
-                            cmin, cmax = -limit, limit
-                            
-                        crange = cmax - cmin
-                        if crange > 0:
-                            # If IQR covers at least 25% of the range, this is a "good enough" stretch
-                            # to show landscape variance without washing out 95% of pixels.
-                            if (iqr / crange) > 0.25:
-                                stretch_method = method
-                                v_min, v_max = cmin, cmax
-                                break
+                if is_hydrology:
+                    p1_clean = max(1, p1)
+                    if p99 > p1_clean:
+                        img = img.where(img.lte(0), 1).log10()
+                        v_min, v_max = math.log10(p1_clean), math.log10(p99)
+                        stretch_method = "Log10(P1)"
                     else:
-                        # Fallback if no method is tight enough
+                        stretch_method = "P1"
+                        v_min, v_max = p1, p99
+                else:
+                    candidates = {
+                        "SD0.5": (mean - 0.5*std, mean + 0.5*std),
+                        "SD1": (mean - std, mean + std),
+                        "P10": (p10, p90),
+                        "P5": (p5, p95),
+                        "SD2": (mean - 2*std, mean + 2*std),
+                        "P1": (p1, p99)
+                    }
+                    
+                    iqr = p75 - p25
+                    # Percentile and Percentage variables should use P1 to show the full 0-100 range
+                    is_bounded = any(x in str(var['raw_id']) for x in ['perct', 'percl', 'percc'])
+                    
+                    if iqr > 0 and not is_bounded and 'twi' not in str(var['raw_id']):
+                        for method in ["SD0.5", "P10", "SD1", "P5", "SD2", "P1"]:
+                            cmin, cmax = candidates[method]
+                            
+                            # Apply symmetric logic during selection for divergent metrics
+                            if is_divergent and abs(p50 / scale) < 0.1:
+                                limit = max(abs(cmin), abs(cmax))
+                                cmin, cmax = -limit, limit
+                                
+                            crange = cmax - cmin
+                            if crange > 0:
+                                # If IQR covers at least 25% of the range, this is a "good enough" stretch
+                                # to show landscape variance without washing out 95% of pixels.
+                                if (iqr / crange) > 0.25:
+                                    stretch_method = method
+                                    v_min, v_max = cmin, cmax
+                                    break
+                        else:
+                            # Fallback if no method is tight enough
+                            stretch_method = "P1"
+                            v_min, v_max = p1, p99
+                            if is_divergent and abs(p50 / scale) < 0.1:
+                                limit = max(abs(v_min), abs(v_max))
+                                v_min, v_max = -limit, limit
+                    else:
                         stretch_method = "P1"
                         v_min, v_max = p1, p99
                         if is_divergent and abs(p50 / scale) < 0.1:
                             limit = max(abs(v_min), abs(v_max))
                             v_min, v_max = -limit, limit
-                else:
-                    stretch_method = "P1"
-                    v_min, v_max = p1, p99
-                    if is_divergent and abs(p50 / scale) < 0.1:
-                        limit = max(abs(v_min), abs(v_max))
-                        v_min, v_max = -limit, limit
 
-        current_cmap = cat_cmap if is_categorical else (div_cmap if is_divergent else seq_cmap)
-        current_hex = cat_hex if is_categorical else (div_hex if is_divergent else seq_hex)
-        
-        viz = {'min': v_min, 'max': v_max, 'palette': current_hex}
-        nodata_val = -2147483648 if 'Int32' in var['data_type'] else (-32768 if 'Int16' in var['data_type'] else 0)
-        overlay = img.visualize(**viz).updateMask(img.neq(nodata_val))
-        
-        overlay_img = PIL.Image.new('RGBA', (600, 600), (0, 0, 0, 0))
-        for attempt in range(3):
-            try:
-                url = overlay.getThumbURL({'region': extent_geom, 'crs': 'EPSG:3338', 'dimensions': 600, 'format': 'png'})
-                r = requests.get(url, timeout=30)
-                if r.status_code == 200:
-                    overlay_img = PIL.Image.open(io.BytesIO(r.content))
-                    break
-            except: time.sleep(2)
-        
-        ax.set_facecolor('#add8e6')
-        land_3338.plot(ax=ax, facecolor='#bdbdbd', edgecolor='#969696', linewidth=0.3, zorder=1)
-        ax.imshow(overlay_img, extent=[view_extent['xmin'], view_extent['xmax'], view_extent['ymin'], view_extent['ymax']], zorder=5)
-        
-        # --- Add 10m Chip in the Ocean ---
-        # Chip Location: Near Denali (-151.0, 63.5)
-        chip_loc = ee.Geometry.Point([-151.0, 63.5])
-        # Chip region: 2.5km x 2.5km (250x250 pixels at 10m)
-        chip_region = chip_loc.buffer(1250).bounds()
-        
-        chip_img = PIL.Image.new('RGBA', (250, 250), (0, 0, 0, 0))
-        for attempt in range(3):
-            try:
-                # Use same viz parameters as the main map
-                url = overlay.getThumbURL({'region': chip_region, 'crs': 'EPSG:3338', 'dimensions': 250, 'format': 'png'})
-                r = requests.get(url, timeout=30)
-                if r.status_code == 200:
-                    chip_img = PIL.Image.open(io.BytesIO(r.content))
-                    break
-            except: time.sleep(2)
+            current_cmap = cat_cmap if is_categorical else (div_cmap if is_divergent else seq_cmap)
+            current_hex = cat_hex if is_categorical else (div_hex if is_divergent else seq_hex)
             
-        # Position chip in ocean (West of mainland, North of Aleutians)
-        # Bounding box in EPSG:3338 for the chip (moved lower to clear legend):
-        chip_x_min, chip_y_min = -1800000, 800000
-        chip_x_max, chip_y_max = -1300000, 1300000
-        ax.imshow(chip_img, extent=[chip_x_min, chip_x_max, chip_y_min, chip_y_max], zorder=10)
-        # Add a border to the chip
-        rect = patches.Rectangle((chip_x_min, chip_y_min), chip_x_max - chip_x_min, chip_y_max - chip_y_min, 
-                                 linewidth=1, edgecolor='black', facecolor='none', zorder=11)
-        ax.add_patch(rect)
-        ax.text(chip_x_min, chip_y_max + 20000, "Full Res. Chip\n(2.5 km)", fontsize=6, verticalalignment='bottom', horizontalalignment='left', zorder=11)
-        
-        # Add a red dot at the chip geographic location (EPSG:3338 for Denali is ~149038, 1507004)
-        dot_x, dot_y = 149038.67, 1507004.13
-        ax.plot(dot_x, dot_y, marker='o', markersize=3, color='red', markeredgecolor='black', markeredgewidth=0.5, zorder=12)
-        
-        ax.set_xlim(view_extent['xmin'], view_extent['xmax'])
-        ax.set_ylim(view_extent['ymin'], view_extent['ymax'])
-        ax.set_xticks([]); ax.set_yticks([])
-        
-        title_text = f"{var['title']} ({var['raw_id']})"
-        wrapped_title = "\n".join(textwrap.wrap(title_text, width=45))
-        ax.set_title(wrapped_title, fontsize=10, pad=15)
-        
-        # Legend labels: show raw Int32 values
-        stats_text = f"Scale: {scale_str} | 1%: {format_num(p1, scale)} | Med: {format_num(p50, scale)} | 99%: {format_num(p99, scale)}\nMean: {format_num(mean, scale)} | SD: {format_num(std, scale)}"
-        if is_categorical:
-            stats_text = f"Scale: None | Mean: {mean:.1f} | SD: {std:.1f}"
-        ax.text(0.5, -0.02, stats_text, transform=ax.transAxes, fontsize=8, horizontalalignment='center', verticalalignment='top')
-
-        ax_ins = inset_axes(ax, width="30%", height="4%", loc='upper left', borderpad=2)
-        cb = mpl.colorbar.ColorbarBase(ax_ins, cmap=current_cmap, orientation='horizontal')
-        ax_ins.set_xticks([])
-        
-        ax_ins.text(0.5, 1.2, stretch_method, transform=ax_ins.transAxes, fontsize=7, horizontalalignment='center', verticalalignment='bottom')
-        
-        # For legend, show the raw Int32 values used in the 'viz' params
-        if is_categorical or 'Log10' not in stretch_method:
-            low_val_str = f"{v_min:,.0f}"
-            high_val_str = f"{v_max:,.0f}"
-        else:
-            # For Log10, show the actual log value of the Int32
-            low_val_str = f"{v_min:.2f}"
-            high_val_str = f"{v_max:.2f}"
+            viz = {'min': v_min, 'max': v_max, 'palette': current_hex}
+            nodata_val = -2147483648 if 'Int32' in var['data_type'] else (-32768 if 'Int16' in var['data_type'] else 0)
+            overlay = img.visualize(**viz).updateMask(img.neq(nodata_val))
             
-        ax_ins.text(0.0, -0.2, low_val_str, transform=ax_ins.transAxes, fontsize=7, horizontalalignment='left', verticalalignment='top')
-        ax_ins.text(1.0, -0.2, high_val_str, transform=ax_ins.transAxes, fontsize=7, horizontalalignment='right', verticalalignment='top')
+            overlay_img = PIL.Image.new('RGBA', (600, 600), (0, 0, 0, 0))
+            for attempt in range(3):
+                try:
+                    url = overlay.getThumbURL({'region': extent_geom, 'crs': 'EPSG:3338', 'dimensions': 600, 'format': 'png'})
+                    r = requests.get(url, timeout=30)
+                    if r.status_code == 200:
+                        overlay_img = PIL.Image.open(io.BytesIO(r.content))
+                        break
+                except: time.sleep(2)
+            
+            ax.set_facecolor('#add8e6')
+            land_3338.plot(ax=ax, facecolor='#bdbdbd', edgecolor='#969696', linewidth=0.3, zorder=1)
+            ax.imshow(overlay_img, extent=[view_extent['xmin'], view_extent['xmax'], view_extent['ymin'], view_extent['ymax']], zorder=5)
+            
+            # --- Add 10m Chip in the Ocean ---
+            # Chip Location: Near Denali (-151.0, 63.5)
+            chip_loc = ee.Geometry.Point([-151.0, 63.5])
+            # Chip region: 2.5km x 2.5km (250x250 pixels at 10m)
+            chip_region = chip_loc.buffer(1250).bounds()
+            
+            chip_img = PIL.Image.new('RGBA', (250, 250), (0, 0, 0, 0))
+            for attempt in range(3):
+                try:
+                    # Use same viz parameters as the main map
+                    url = overlay.getThumbURL({'region': chip_region, 'crs': 'EPSG:3338', 'dimensions': 250, 'format': 'png'})
+                    r = requests.get(url, timeout=30)
+                    if r.status_code == 200:
+                        chip_img = PIL.Image.open(io.BytesIO(r.content))
+                        break
+                except: time.sleep(2)
+                
+            # Position chip in ocean (West of mainland, North of Aleutians)
+            # Bounding box in EPSG:3338 for the chip (moved lower to clear legend):
+            chip_x_min, chip_y_min = -1800000, 800000
+            chip_x_max, chip_y_max = -1300000, 1300000
+            ax.imshow(chip_img, extent=[chip_x_min, chip_x_max, chip_y_min, chip_y_max], zorder=10)
+            # Add a border to the chip
+            rect = patches.Rectangle((chip_x_min, chip_y_min), chip_x_max - chip_x_min, chip_y_max - chip_y_min, 
+                                    linewidth=1, edgecolor='black', facecolor='none', zorder=11)
+            ax.add_patch(rect)
+            ax.text(chip_x_min, chip_y_max + 20000, "Full Res. Chip\n(2.5 km)", fontsize=6, verticalalignment='bottom', horizontalalignment='left', zorder=11)
+            
+            # Add a red dot at the chip geographic location (EPSG:3338 for Denali is ~149038, 1507004)
+            dot_x, dot_y = 149038.67, 1507004.13
+            ax.plot(dot_x, dot_y, marker='o', markersize=3, color='red', markeredgecolor='black', markeredgewidth=0.5, zorder=12)
+            
+            ax.set_xlim(view_extent['xmin'], view_extent['xmax'])
+            ax.set_ylim(view_extent['ymin'], view_extent['ymax'])
+            ax.set_xticks([]); ax.set_yticks([])
+            
+            title_text = f"{var['title']} ({var['raw_id']})"
+            wrapped_title = "\n".join(textwrap.wrap(title_text, width=45))
+            ax.set_title(wrapped_title, fontsize=10, pad=15)
+            
+            # Legend labels: show raw Int32 values
+            stats_text = f"Scale: {scale_str} | 1%: {format_num(p1, scale)} | Med: {format_num(p50, scale)} | 99%: {format_num(p99, scale)}\nMean: {format_num(mean, scale)} | SD: {format_num(std, scale)}"
+            if is_categorical:
+                stats_text = f"Scale: None | Mean: {mean:.1f} | SD: {std:.1f}"
+            ax.text(0.5, -0.02, stats_text, transform=ax.transAxes, fontsize=8, horizontalalignment='center', verticalalignment='top')
 
-    for j in range(len(page_vars), len(axes)):
-        axes[j].axis('off')
-        
-    plt.tight_layout(pad=2.0, h_pad=3.5, w_pad=1.5)
-    plt.savefig(f"{out_dir}/appendix_page_{page+1:02d}.png", dpi=150, bbox_inches='tight', facecolor='white')
-    plt.close(fig)
+            ax_ins = inset_axes(ax, width="30%", height="4%", loc='upper left', borderpad=2)
+            cb = mpl.colorbar.ColorbarBase(ax_ins, cmap=current_cmap, orientation='horizontal')
+            ax_ins.set_xticks([])
+            
+            ax_ins.text(0.5, 1.2, stretch_method, transform=ax_ins.transAxes, fontsize=7, horizontalalignment='center', verticalalignment='bottom')
+            
+            # For legend, show the raw Int32 values used in the 'viz' params
+            if is_categorical or 'Log10' not in stretch_method:
+                low_val_str = f"{v_min:,.0f}"
+                high_val_str = f"{v_max:,.0f}"
+            else:
+                # For Log10, show the actual log value of the Int32
+                low_val_str = f"{v_min:.2f}"
+                high_val_str = f"{v_max:.2f}"
+                
+            ax_ins.text(0.0, -0.2, low_val_str, transform=ax_ins.transAxes, fontsize=7, horizontalalignment='left', verticalalignment='top')
+            ax_ins.text(1.0, -0.2, high_val_str, transform=ax_ins.transAxes, fontsize=7, horizontalalignment='right', verticalalignment='top')
+
+        for j in range(len(page_vars), len(axes)):
+            axes[j].axis('off')
+            
+        plt.tight_layout(pad=2.0, h_pad=3.5, w_pad=1.5)
+        plt.savefig(f"{out_dir}/appendix_{cat_norm}_{page+1:02d}.png", dpi=150, bbox_inches='tight', facecolor='white')
+        plt.close(fig)
 
 print("Appendix generation complete.")

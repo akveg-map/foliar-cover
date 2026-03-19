@@ -141,39 +141,71 @@ For high-dynamic-range metrics like `spi` and `dfa`, a clamping rate of ~3-6% wa
 
 The AKVEG Topography Covariate stack is now fully processed, verified, and registered in Earth Engine. The new **Unified Int32** collection provides a high-performance, high-precision foundation for subsequent spatial modeling tasks.
 
-# Detailed Covariate Summary
+# Detailed Covariate Summary and Audit
+
+The following sections provide a detailed statistical summary and visual audit for each category of topographic covariates.
 
 ```{=typst}
-#set page(flipped: true)
 #set text(size: 7pt)
 ```
 
-{{< include summary_tables.md >}}
+{{< pagebreak >}}
+
+## Morphometry
+
+{{< include table_morphometry.md >}}
+
+![Topographic Covariate Maps: Morphometry (1/5)](appendix/appendix_morphometry_01.png)
+![Topographic Covariate Maps: Morphometry (2/5)](appendix/appendix_morphometry_02.png)
+![Topographic Covariate Maps: Morphometry (3/5)](appendix/appendix_morphometry_03.png)
+![Topographic Covariate Maps: Morphometry (4/5)](appendix/appendix_morphometry_04.png)
+![Topographic Covariate Maps: Morphometry (5/5)](appendix/appendix_morphometry_05.png)
+
+{{< pagebreak >}}
+
+## Hydrology
+
+{{< include table_hydrology.md >}}
+
+![Topographic Covariate Maps: Hydrology](appendix/appendix_hydrology_01.png)
+
+{{< pagebreak >}}
+
+## Lighting and Visibility
+
+{{< include table_lighting_visibility.md >}}
+
+![Topographic Covariate Maps: Lighting and Visibility (1/3)](appendix/appendix_lighting_visibility_01.png)
+![Topographic Covariate Maps: Lighting and Visibility (2/3)](appendix/appendix_lighting_visibility_02.png)
+![Topographic Covariate Maps: Lighting and Visibility (3/3)](appendix/appendix_lighting_visibility_03.png)
+
+{{< pagebreak >}}
+
+## Focal Statistics
+
+{{< include table_focal_statistics.md >}}
+
+![Topographic Covariate Maps: Focal Statistics (1/2)](appendix/appendix_focal_statistics_01.png)
+![Topographic Covariate Maps: Focal Statistics (2/2)](appendix/appendix_focal_statistics_02.png)
+
+{{< pagebreak >}}
+
+## Geomorphons
+
+{{< include table_geomorphons.md >}}
+
+![Topographic Covariate Maps: Geomorphons](appendix/appendix_geomorphons_01.png)
+
+{{< pagebreak >}}
+
+## Unknown / Unverified
+
+{{< include table_unknown.md >}}
+
+![Topographic Covariate Maps: Unknown](appendix/appendix_unknown_01.png)
 
 ```{=typst}
-#set page(flipped: false)
 #set text(size: 11pt)
 ```
 
 # Final Verification
-
-- **Asset ID:** `projects/akveg-map/assets/covariates/aksdb/aksdb_topo_v20250422_scaled_i32`
-- **Active Bands:** 105
-- **Verification Sample:** 35,000 points
-- **Integrity Status:** All verified bands match source masks and scaling factors within expected numerical limits.
-
-# Appendix: Comprehensive Variable Audit
-
-The following pages present a visual audit of all 105 active topographic covariates in the final production stack. Each panel displays the variable stretched from the 1st to 99th percentile of its terrestrial distribution (except categorical variables, which show Min/Max). The exact percentile values, medians, and the scale factor used to convert the Float32 source to the Int32 production asset are noted in each panel's subtitle.
-
-![Covariate Audit: Page 1](appendix/appendix_page_01.png)
-![Covariate Audit: Page 2](appendix/appendix_page_02.png)
-![Covariate Audit: Page 3](appendix/appendix_page_03.png)
-![Covariate Audit: Page 4](appendix/appendix_page_04.png)
-![Covariate Audit: Page 5](appendix/appendix_page_05.png)
-![Covariate Audit: Page 6](appendix/appendix_page_06.png)
-![Covariate Audit: Page 7](appendix/appendix_page_07.png)
-![Covariate Audit: Page 8](appendix/appendix_page_08.png)
-![Covariate Audit: Page 9](appendix/appendix_page_09.png)
-![Covariate Audit: Page 10](appendix/appendix_page_10.png)
-![Covariate Audit: Page 11](appendix/appendix_page_11.png)

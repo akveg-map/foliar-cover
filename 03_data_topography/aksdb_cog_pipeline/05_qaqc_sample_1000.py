@@ -5,7 +5,7 @@ import os
 
 PROJECT_ID = "akveg-map"
 COLLECTION_ID = f"projects/{PROJECT_ID}/assets/topography/aksdb_dem_covars_v20250422_scaled_i32"
-BASELINE_CSV = "assessment_orig_35000.csv"
+BASELINE_CSV = "03_data_topography/aksdb_cog_pipeline/qaqc_data/assessment_orig_35000.csv"
 SCALING_CONFIG = "03_data_topography/aksdb_cog_pipeline/scaling_config.json"
 
 def main():

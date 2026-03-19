@@ -55,6 +55,7 @@ raw_files.txt
 raw_sample_10000_stats.csv
 rebuild_robust_stats.csv
 cog_summary.csv
+03_data_topography/aksdb_cog_pipeline/qaqc_data/
 
 # Keep metadata and summaries
 !metadata_crosswalk.csv

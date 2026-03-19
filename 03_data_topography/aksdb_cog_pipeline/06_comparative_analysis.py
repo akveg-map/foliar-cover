@@ -15,8 +15,8 @@ def analyze():
         pruned_vars = pruned_df['raw_id'].tolist()
 
     print("Loading 10,000 point datasets...")
-    orig = pd.read_csv("03_data_topography/aksdb_cog_pipeline/assessment_orig_10000.csv")
-    scaled = pd.read_csv("03_data_topography/aksdb_cog_pipeline/assessment_scaled_10000.csv")
+    orig = pd.read_csv("03_data_topography/aksdb_cog_pipeline/qaqc_data/assessment_orig_10000.csv")
+    scaled = pd.read_csv("03_data_topography/aksdb_cog_pipeline/qaqc_data/assessment_scaled_10000.csv")
     
     # Ensure they are aligned by index
     orig = orig.sort_values("system:index").reset_index(drop=True)

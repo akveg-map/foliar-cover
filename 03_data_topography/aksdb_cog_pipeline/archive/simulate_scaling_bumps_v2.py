@@ -3,9 +3,7 @@ import numpy as np
 import os
 
 # Load 10k point raw dataset
-csv_path = "assessment_orig_10000.csv"
-if not os.path.exists(csv_path):
-    csv_path = "03_data_topography/aksdb_cog_pipeline/assessment_orig_10000.csv"
+csv_path = "03_data_topography/aksdb_cog_pipeline/qaqc_data/assessment_orig_10000.csv"
 
 df = pd.read_csv(csv_path)
 

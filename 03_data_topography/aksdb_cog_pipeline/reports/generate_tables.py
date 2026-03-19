@@ -63,13 +63,13 @@ def main():
         sizes = json.load(f)
     cw = pd.read_csv("03_data_topography/aksdb_cog_pipeline/metadata_crosswalk.csv")
     
-    orig_path = "assessment_orig_35000.csv"
-    scaled_path = "assessment_scaled_35000.csv"
+    orig_path = "03_data_topography/aksdb_cog_pipeline/qaqc_data/assessment_orig_35000.csv"
+    scaled_path = "03_data_topography/aksdb_cog_pipeline/qaqc_data/assessment_scaled_35000.csv"
     
     if not os.path.exists(orig_path) or not os.path.exists(scaled_path):
         print("WARNING: 35k datasets missing, falling back to 10k")
-        orig_path = "assessment_orig_10000.csv"
-        scaled_path = "assessment_scaled_10000.csv"
+        orig_path = "03_data_topography/aksdb_cog_pipeline/qaqc_data/assessment_orig_10000.csv"
+        scaled_path = "03_data_topography/aksdb_cog_pipeline/qaqc_data/assessment_scaled_10000.csv"
 
     orig_35k = pd.read_csv(orig_path)
     scaled_35k = pd.read_csv(scaled_path)

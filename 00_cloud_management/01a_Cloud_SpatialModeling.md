@@ -109,8 +109,7 @@ gcloud storage rsync gs://akveg-data/scripts ~/scripts --recursive
 Use vim to update the scripts as necessary. To begin editing a file once it has been opened in vim, press "i". To save and close a file after editing it in vim, press ":wq".
 
 ```bash
-vim ~/scripts/01d_Validate_LGBM_Abundance.py
-vim ~/scripts/02d_Train_LGBM_Abundance.py
+vim ~/scripts/01b_Validate_Train_Abundance_LGBM.py
 i
 :wq
 ```
@@ -131,6 +130,6 @@ Once the image creates successfully, other vm can be created using the custom im
 To run a script, first make sure the target vm is running and then open terminal in a browser using ssh. Run the script using the python command. Adding "nohup" to the command will prevent ssh interruptions from stopping the script. The script will run as long as the vm is running and store printed statements in a nohup file (otherwise terminal interruptions will stop the script). When running scripts using "nohup", print statements will not appear in the terminal.
 
 ```bash
-nohup python3 ~/scripts/01d_Validate_LGBM_Abundance.py
+nohup python3 ~/scripts/01b_Validate_Train_Abundance_LGBM.py
 ```
 

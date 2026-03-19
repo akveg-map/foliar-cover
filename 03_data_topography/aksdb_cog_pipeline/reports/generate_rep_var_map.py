@@ -13,7 +13,7 @@ PROJECT_ID = "akveg-map"
 ee.Initialize(project=PROJECT_ID)
 
 # 1. Load Sample Stats
-stats_df = pd.read_csv('03_data_topography/cog_pipeline/reports/sample_stats_scaled.csv')
+stats_df = pd.read_csv('03_data_topography/aksdb_cog_pipeline/reports/sample_stats_scaled.csv')
 tpi_stats = stats_df[stats_df['scaled_id'] == 'tpi_32_10k'].iloc[0]
 
 # Stretched 1-99% using the sample stats (already scaled to Int32 values)
@@ -110,6 +110,6 @@ cax = fig.add_axes([0.93, 0.25, 0.015, 0.5])
 cb = mpl.colorbar.ColorbarBase(cax, cmap=cmap, norm=norm, orientation='vertical')
 cb.set_label('Topographic Position Index', fontsize=14)
 
-out_path = '03_data_topography/cog_pipeline/reports/representative_variable.png'
+out_path = '03_data_topography/aksdb_cog_pipeline/reports/representative_variable.png'
 plt.savefig(out_path, dpi=150, pad_inches=0, facecolor='#add8e6', edgecolor='none')
 print(f"Final representative map saved to {out_path}")

@@ -13,13 +13,13 @@ BASE_IMAGE = "gcr.io/akveg-map/vhr-cpu:latest"
 OUTPUT_ROOT = "aksdb_dem_covars_v20250422_scaled_i32"
 OUTPUT_BUCKET = "akveg-data"
 
-WORKER_SCRIPT_LOCAL = "03_data_topography/cog_pipeline/02_production_worker.py"
+WORKER_SCRIPT_LOCAL = "03_data_topography/aksdb_cog_pipeline/02_production_worker.py"
 WORKER_SCRIPT_GCS = f"gs://{OUTPUT_BUCKET}/{OUTPUT_ROOT}/config/production_worker.py"
-CONFIG_LOCAL = "03_data_topography/cog_pipeline/scaling_config.json"
+CONFIG_LOCAL = "03_data_topography/aksdb_cog_pipeline/scaling_config.json"
 CONFIG_GCS = f"gs://{OUTPUT_BUCKET}/{OUTPUT_ROOT}/config/scaling_config.json"
 
 # FETCH FULL FILE LIST (111 files) from crosswalk
-cw = pd.read_csv("03_data_topography/cog_pipeline/metadata_crosswalk.csv")
+cw = pd.read_csv("03_data_topography/aksdb_cog_pipeline/metadata_crosswalk.csv")
 FILES_TO_PROCESS = cw["raw_id"].tolist()
 
 def submit_batch_job(basename):

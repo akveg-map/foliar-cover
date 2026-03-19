@@ -16,7 +16,7 @@ Final visual verification. Perform a careful, page-by-page audit of the 11-page 
 
 
 ## Resume Prompt
-> Read `03_data_topography/cog_pipeline/workflow_status.md`.
+> Read `03_data_topography/aksdb_cog_pipeline/workflow_status.md`.
 >
 > **Current State**: Topography COG Scaling technical work is COMPLETE. 105 variables registered and reports rendered. 
 > **Immediate Task**: Perform careful visual audit of the 11-page appendix in the final report.

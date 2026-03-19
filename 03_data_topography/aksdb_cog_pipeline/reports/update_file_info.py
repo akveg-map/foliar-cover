@@ -24,7 +24,7 @@ def main():
         'scaled': get_sizes(scaled_url)
     }
     
-    out_path = '03_data_topography/cog_pipeline/reports/file_sizes.json'
+    out_path = '03_data_topography/aksdb_cog_pipeline/reports/file_sizes.json'
     with open(out_path, 'w') as f:
         json.dump(data, f, indent=2)
     print(f"Updated {out_path} with {len(data['raw'])} raw and {len(data['scaled'])} scaled sizes.")

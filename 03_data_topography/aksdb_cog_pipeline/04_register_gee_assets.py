@@ -116,10 +116,10 @@ def sync_collection(collection_id, filename_col, gcs_root, crosswalk_df, descrip
             time.sleep(1)
 
 def main():
-    cw_path = '03_data_topography/cog_pipeline/metadata_crosswalk.csv'
+    cw_path = '03_data_topography/aksdb_cog_pipeline/metadata_crosswalk.csv'
     df = pd.read_csv(cw_path)
     
-    with open('03_data_topography/cog_pipeline/scaling_config.json', 'r') as f:
+    with open('03_data_topography/aksdb_cog_pipeline/scaling_config.json', 'r') as f:
         config = json.load(f)
     
     raw_root = 'gs://akveg-data/aksdb_dem_covars_v20250422/'

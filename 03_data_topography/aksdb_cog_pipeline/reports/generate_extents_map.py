@@ -78,6 +78,6 @@ ax.axis('off')
 # Legend - Top Right
 ax.legend(loc='upper right', frameon=True, framealpha=0.95, fontsize=14, borderaxespad=2)
 
-out_path = '03_data_topography/cog_pipeline/reports/extents_map.png'
+out_path = '03_data_topography/aksdb_cog_pipeline/reports/extents_map.png'
 plt.savefig(out_path, dpi=150, pad_inches=0, facecolor='#add8e6', edgecolor='none')
 print(f"Extents map saved to {out_path}")

@@ -49,5 +49,5 @@ url = background.getThumbURL({
 print(f"Downloading basemap from: {url}")
 response = requests.get(url)
 img = PIL.Image.open(io.BytesIO(response.content))
-img.save('03_data_topography/cog_pipeline/reports/background_final.png')
+img.save('03_data_topography/aksdb_cog_pipeline/reports/background_final.png')
 print("Basemap saved.")

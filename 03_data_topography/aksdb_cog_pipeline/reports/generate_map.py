@@ -29,7 +29,7 @@ view_extent = {
 fig, ax = plt.subplots(figsize=(14, 10))
 
 # Load basemap
-bg_path = '03_data_topography/cog_pipeline/reports/background_final.png'
+bg_path = '03_data_topography/aksdb_cog_pipeline/reports/background_final.png'
 bg_img = mpimg.imread(bg_path)
 
 # Display background exactly over the view extent
@@ -63,5 +63,5 @@ ax.set_title('Topographic Covariate Spatial Extents', fontsize=18, pad=20)
 # Legend adjustment: slightly inward to avoid cropping
 ax.legend(loc='lower left', frameon=True, framealpha=0.9, fontsize=12, borderaxespad=1.5)
 
-plt.savefig('03_data_topography/cog_pipeline/reports/extents_map.png', dpi=150, bbox_inches='tight')
+plt.savefig('03_data_topography/aksdb_cog_pipeline/reports/extents_map.png', dpi=150, bbox_inches='tight')
 print("Extents map updated.")

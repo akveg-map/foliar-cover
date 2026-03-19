@@ -80,5 +80,5 @@ cb.set_label('Topographic Position Index', fontsize=12)
 
 ax.set_title('Representative Variable: Topographic Position Index (Window: 32)', fontsize=18, pad=20)
 
-plt.savefig('03_data_topography/cog_pipeline/reports/representative_variable.png', dpi=150, bbox_inches='tight')
+plt.savefig('03_data_topography/aksdb_cog_pipeline/reports/representative_variable.png', dpi=150, bbox_inches='tight')
 print("Final representative map updated.")

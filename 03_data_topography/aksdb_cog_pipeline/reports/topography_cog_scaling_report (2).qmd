@@ -1,0 +1,183 @@
+---
+project-title: "Topography Covariate Scaling and COG Conversion Report"
+project-footer: "AKVEG Topography Covariates"
+author: "Gemini CLI"
+date: "2026-03-16"
+date-str: "March 16, 2026"
+client:
+  name: "ABR, Inc."
+  addr-1: "P.O. Box 80410"
+  addr-2: "Fairbanks, AK 99708"
+  addr-3: ""
+  addr-4: ""
+
+format:
+  abr-typst:
+    toc: true
+    number-sections: true
+  pdf:
+    to: typst
+    toc: true
+    number-sections: true
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+---
+
+# Executive Summary
+
+This report documents the systematic scaling, Cloud Optimized GeoTIFF (COG) conversion, and Earth Engine registration of 111 topographic covariate rasters for the AKVEG project. The primary objective was to optimize cloud-based performance and storage efficiency while preserving the high geomorphometric precision required for predictive vegetation modeling. The final **Unified Int32** architecture achieved a **53.2% storage reduction** (9.0 TiB to 4.2 TiB) while providing standardized NoData handling and verified numerical integrity across all 105 active variables.
+
+**Data Availability:**
+
+*   **Google Cloud Storage (COGs)**: `gs://akveg-data/aksdb_dem_covars_v20250422_scaled_i32/cogs/`
+*   **Google Earth Engine (ImageCollection)**: `projects/akveg-map/assets/covariates/aksdb/aksdb_topo_v20250422_scaled_i32`
+
+# Introduction
+
+Topographic covariates derived from digital elevation models (DEMs) are foundational to spatial modeling in the AKVEG project. However, the raw Float32 data format is storage-intensive and often contains non-standard artifacts in background regions. This project implements a unified scaling strategy to convert these layers into a high-performance integer format (Int32) suitable for cloud-native workflows in Google Earth Engine (GEE).
+
+# Methods
+
+## Scaling Architecture (Unified Int32)
+
+To balance precision and dynamic range, variables were assigned to one of four scaling profiles based on their physical units and terrestrial distributions. All continuous variables were converted to 32-bit signed integers (Int32) using a fixed multiplier (Scale).
+
+## Statistical Methodology
+
+Two distinct datasets were utilized for statistical characterization and verification:
+
+1.  **Full-Raster Characterization:** Descriptive statistics (Min, Max, Median, and Percentiles) were derived from an analysis of the raw Float32 rasters using a Google Cloud Batch workflow (`01_extract_raw_stats.py`). To ensure computational efficiency, statistics were calculated from the **deepest available overview level** (typically a 16x or 32x decimation). These "population" statistics provide a robust estimate of the terrestrial distribution across the full geographic extent and were used to define the scaling profiles and visualization stretches.
+2.  **Point-Sample Verification:** A 35,000-point random sample across the study area bounding box was extracted from both the raw and production ImageCollections. This sample was used to empirically verify terrestrial mask consistency and quantify any clamping or rounding errors introduced by the Int32 scaling process.
+
+### Statistical Alignment and Representative Sampling
+
+An assessment of the alignment between the full-raster (population) and point-sample datasets revealed expected variances primarily attributable to sampling methodology and spatial extents:
+
+- **General Convergence:** For stable topographic metrics (e.g., Aspect, Slope, Topographic Position Index), the 35,000-point random sample aligns closely with the population medians and upper percentiles (typically within 2-5% relative difference).
+- **Effect of Spatial Extent:** The 35,000-point sample utilizes a unified study area bounding box (EPSG:3338), whereas the population statistics derived from individual raw rasters reflect their native, variable extents. Discrepancies in metrics like Catchment Area (`ca_10`) are more pronounced (up to 50% variance in extreme percentiles) because the random sample captures a broader geographic range that includes more heterogeneous terrain than the primary source raster's focused terrestrial footprint.
+- **Overview-Level Approximations:** Because population statistics were derived from decimated overviews, they effectively act as a spatial smoothing filter. This tends to slightly narrow the dynamic range compared to the 10m point-sample extraction, which captures the high-frequency local variance of the original rasters.
+
+For the purpose of high-integrity scaling, the **overview-derived population stats** provided a conservative and computationally efficient baseline for setting scaling factors, while the **point-sample verification** confirmed that the final production assets maintain 100% mask integrity and numerical precision relative to the source data at the pixel level.
+
+- **Quantization Step:** Defined as the smallest numerical difference representable in the scaled format ($1/\text{Scale}$).
+- **IQR (Interquartile Range):** The difference between the 75th and 25th percentiles of terrestrial values, representing the core distribution of the data.
+- **Step/IQR Ratio:** The quantization step expressed as a percentage of the IQR. A ratio below 0.1% indicates that rounding errors are at least three orders of magnitude smaller than the natural landscape variation.
+
+## Cloud Optimization and Masking
+
+Rasters were converted to Cloud Optimized GeoTIFF (COG) format with the following specifications:
+- **Tiling:** 512x512 pixel blocks for efficient spatial subsetting.
+- **Compression:** DEFLATE algorithm with horizontal differencing (Predictor 2) to minimize bit-depth overhead.
+- **NoData Standardization:** All background and ocean regions were standardized to a unified NoData value of `-2,147,483,648`.
+- **Background Cleanup:** In specific layers such as `dfa` (Directional Flow Accumulation) and `spi` (Stream Power Index), raw source data contained large negative values in non-terrestrial regions. These were identified and masked to the unified NoData value during processing.
+
+# Metadata and Naming Consistency
+
+Variable names and definitions were reconciled against two primary project references: (1) The Alaska Soil Data Bank (AKSDB) Project 3 Git repository and (2) The Colby Brungard (2024) 10m DEM reference table.
+
+## Variable Abbr to Name Match
+
+The relationship between raw filenames and reference definitions is categorized as follows:
+
+- **Direct:** The variable abbreviation and parameters (e.g., window size) exactly match the reference documentation.
+- **Semantic:** The abbreviation or parameter name differs from the reference but represents the same physical metric (e.g., `perctelev` matching "Percentile Elevation").
+- **Unverified:** These layers (specifically `dfa`, `dis`, and `fel`) were present in the source dataset but could not be definitively matched to the primary project documentation. Their definitions are currently based on standard geomorphometric naming conventions but remain unconfirmed by the core project references.
+
+# Results
+
+## Storage Efficiency
+
+The transition to the Unified Int32 architecture resulted in significant storage savings while maintaining high precision.
+
+{{< include size_summary.md >}}
+
+## Precision and Integrity
+
+Numerical integrity was verified using a 35,000-point random sample across the full study area bounding box (EPSG:3338). 
+
+- **NoData Frequency Assessment:** Across the 35,000-point sample, the median number of valid terrestrial hits per variable was 9,194 (~26.3%), with a maximum of 9,510 (~27.2%). Layers with restricted spatial extents (e.g., hydrological metrics) yielded a minimum of 1,587 valid hits (~4.5%).
+- **Step/IQR Analysis:** As shown in the detailed summary, most geomorphometric variables achieve a Step/IQR ratio below 0.05%, ensuring negligible quantization error.
+- **Mask Integrity:** 100% terrestrial mask consistency was confirmed between raw and scaled versions across all 105 active variables.
+
+## Spatial Distributions and Extents
+
+Variables in the stack fall into two primary spatial extents (Figure 1). The majority of morphometric and focal statistics layers cover the full EPSG:3338 bounding box, while specific hydrological and unverified layers (`dfa`, `dis`, `fel`) cover a smaller terrestrial-focused subset.
+
+![Spatial Extents of Topographic Covariates](extents_map.png)
+
+### Cartographic Design and Color Ramps
+
+To ensure visual consistency and scientific clarity across the 105-variable stack, three distinct color ramp strategies were employed in all appendix visualizations:
+
+- **Sequential (Viridis-like):** Applied to variables representing magnitude or intensity (e.g., elevation, slope, ruggedness, catchment area). This perceptually uniform ramp provides high contrast for terrestrial gradients.
+- **Divergent (RdBu):** Applied to relative or bipolar metrics (e.g., difference from mean elevation, topographic position index, deviance). The center of the ramp (white) represents the local mean or neutral position, while blue and red represent lower and higher relative values respectively.
+- **Qualitative (Discrete):** Applied exclusively to categorical Byte layers (e.g., geomorphons). This uses a set of distinct colors to emphasize discrete classes rather than a numerical gradient.
+
+#### Symmetric vs. Asymmetric Stretching
+
+For divergent metrics, there is a fundamental trade-off between statistical representation and visual intuition. This report utilizes a **dynamic stretching strategy** to maximize visual contrast:
+
+- **Asymmetric Stretch (P1):** Tied to the 1st and 99th percentiles of the actual terrestrial distribution ($p_1$ to $p_{99}$).
+- **Standard Deviation Stretch (SD2/SD3):** Used when the 2-sigma or 3-sigma range provides a tighter, higher-contrast representation of the core data distribution than the 1% percentiles.
+- **Symmetric Zero-Centering:** For relative metrics (e.g., TPI, Deviance) where the mean is near zero, the stretch is forced to be symmetric ($[-L, L]$) to ensure that the neutral color (white) correctly represents the physical zero.
+
+Each panel in the Appendix explicitly notes the stretch method and end-points used. This approach ensures that the entire stack can be visually audited for artifacts or masking errors with maximum clarity.
+
+All continuous plots utilize this **1% to 99% percentile stretch** to ensure core landscape variation is visible while preventing extreme hydrological outliers from washing out the visualization.
+
+# Discussion
+
+## Pruned Variables
+
+Six variables were excluded from the final production stack to reduce redundancy and storage overhead:
+
+- **ca_10000:** Identical to `ca_10`.
+- **diffopen_2** and **no_2:** Mathematically redundant with `po_2`.
+- **relmeanelev_4, 16, 32:** Functionally identical to the `diffmeanelev` series.
+
+## Hydrological Metric Trade-offs
+
+For high-dynamic-range metrics like `spi` and `dfa`, a clamping rate of ~3-6% was accepted at the extreme tails of the distribution. Preserving these extreme outliers without clamping would have required a scale factor so low that it would have compromised precision in 95% of the terrestrial landscape where modeling occurs.
+
+# Conclusion
+
+The AKVEG Topography Covariate stack is now fully processed, verified, and registered in Earth Engine. The new **Unified Int32** collection provides a high-performance, high-precision foundation for subsequent spatial modeling tasks.
+
+# Detailed Covariate Summary
+
+```{=typst}
+#set page(flipped: true)
+#set text(size: 7pt)
+```
+
+{{< include summary_tables.md >}}
+
+```{=typst}
+#set page(flipped: false)
+#set text(size: 11pt)
+```
+
+# Final Verification
+
+- **Asset ID:** `projects/akveg-map/assets/covariates/aksdb/aksdb_topo_v20250422_scaled_i32`
+- **Active Bands:** 105
+- **Verification Sample:** 35,000 points
+- **Integrity Status:** All verified bands match source masks and scaling factors within expected numerical limits.
+
+# Appendix: Comprehensive Variable Audit
+
+The following pages present a visual audit of all 105 active topographic covariates in the final production stack. Each panel displays the variable stretched from the 1st to 99th percentile of its terrestrial distribution (except categorical variables, which show Min/Max). The exact percentile values, medians, and the scale factor used to convert the Float32 source to the Int32 production asset are noted in each panel's subtitle.
+
+![Covariate Audit: Page 1](appendix/appendix_page_01.png)
+![Covariate Audit: Page 2](appendix/appendix_page_02.png)
+![Covariate Audit: Page 3](appendix/appendix_page_03.png)
+![Covariate Audit: Page 4](appendix/appendix_page_04.png)
+![Covariate Audit: Page 5](appendix/appendix_page_05.png)
+![Covariate Audit: Page 6](appendix/appendix_page_06.png)
+![Covariate Audit: Page 7](appendix/appendix_page_07.png)
+![Covariate Audit: Page 8](appendix/appendix_page_08.png)
+![Covariate Audit: Page 9](appendix/appendix_page_09.png)
+![Covariate Audit: Page 10](appendix/appendix_page_10.png)
+![Covariate Audit: Page 11](appendix/appendix_page_11.png)

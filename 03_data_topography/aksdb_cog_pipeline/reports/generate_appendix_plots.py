@@ -19,13 +19,13 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 PROJECT_ID = "akveg-map"
 ee.Initialize(project=PROJECT_ID)
 
-out_dir = '03_data_topography/cog_pipeline/reports/appendix'
+out_dir = '03_data_topography/aksdb_cog_pipeline/reports/appendix'
 os.makedirs(out_dir, exist_ok=True)
 
 # 1. Load Metadata and Stats
 print("Loading metadata and stats...")
-cw = pd.read_csv('03_data_topography/cog_pipeline/metadata_crosswalk.csv')
-stats = pd.read_csv('03_data_topography/cog_pipeline/reports/sample_stats_scaled.csv')
+cw = pd.read_csv('03_data_topography/aksdb_cog_pipeline/metadata_crosswalk.csv')
+stats = pd.read_csv('03_data_topography/aksdb_cog_pipeline/reports/sample_stats_scaled.csv')
 
 # Merge
 df = pd.merge(cw, stats, on='scaled_id', how='left')

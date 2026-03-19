@@ -4,8 +4,8 @@ import math
 import os
 
 print("Loading metadata and stats...")
-cw = pd.read_csv('03_data_topography/cog_pipeline/metadata_crosswalk.csv')
-stats = pd.read_csv('03_data_topography/cog_pipeline/reports/sample_stats_scaled.csv')
+cw = pd.read_csv('03_data_topography/aksdb_cog_pipeline/metadata_crosswalk.csv')
+stats = pd.read_csv('03_data_topography/aksdb_cog_pipeline/reports/sample_stats_scaled.csv')
 
 # Merge
 df = pd.merge(cw, stats, on='scaled_id', how='left')
@@ -115,7 +115,7 @@ js_lines.extend(layer_adds)
 js_lines.append("")
 js_lines.append("Map.setCenter(-150.0, 64.0, 4);")
 
-out_file = '03_data_topography/cog_pipeline/reports/viz_topo_cogs.js'
+out_file = '03_data_topography/aksdb_cog_pipeline/reports/viz_topo_cogs.js'
 with open(out_file, 'w') as f:
     f.write('\n'.join(js_lines))
 

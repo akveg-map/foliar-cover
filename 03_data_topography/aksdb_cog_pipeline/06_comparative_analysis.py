@@ -5,18 +5,18 @@ import os
 
 def analyze():
     # Load config to get scales and suffixes
-    with open("03_data_topography/cog_pipeline/scaling_config.json", "r") as f:
+    with open("03_data_topography/aksdb_cog_pipeline/scaling_config.json", "r") as f:
         config = json.load(f)
 
     # Load pruned variables to ignore them
     pruned_vars = []
-    if os.path.exists("03_data_topography/cog_pipeline/dropped_covars.csv"):
-        pruned_df = pd.read_csv("03_data_topography/cog_pipeline/dropped_covars.csv")
+    if os.path.exists("03_data_topography/aksdb_cog_pipeline/dropped_covars.csv"):
+        pruned_df = pd.read_csv("03_data_topography/aksdb_cog_pipeline/dropped_covars.csv")
         pruned_vars = pruned_df['raw_id'].tolist()
 
     print("Loading 10,000 point datasets...")
-    orig = pd.read_csv("03_data_topography/cog_pipeline/assessment_orig_10000.csv")
-    scaled = pd.read_csv("03_data_topography/cog_pipeline/assessment_scaled_10000.csv")
+    orig = pd.read_csv("03_data_topography/aksdb_cog_pipeline/assessment_orig_10000.csv")
+    scaled = pd.read_csv("03_data_topography/aksdb_cog_pipeline/assessment_scaled_10000.csv")
     
     # Ensure they are aligned by index
     orig = orig.sort_values("system:index").reset_index(drop=True)

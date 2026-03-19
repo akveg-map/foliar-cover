@@ -57,11 +57,11 @@ def format_section(group_name, df):
     return "\n".join(md)
 
 def main():
-    with open("03_data_topography/cog_pipeline/scaling_config.json", "r") as f:
+    with open("03_data_topography/aksdb_cog_pipeline/scaling_config.json", "r") as f:
         config = json.load(f)
-    with open("03_data_topography/cog_pipeline/reports/file_sizes.json", "r") as f:
+    with open("03_data_topography/aksdb_cog_pipeline/reports/file_sizes.json", "r") as f:
         sizes = json.load(f)
-    cw = pd.read_csv("03_data_topography/cog_pipeline/metadata_crosswalk.csv")
+    cw = pd.read_csv("03_data_topography/aksdb_cog_pipeline/metadata_crosswalk.csv")
     
     orig_path = "assessment_orig_35000.csv"
     scaled_path = "assessment_scaled_35000.csv"
@@ -149,7 +149,7 @@ def main():
     df["sort_key"] = df.apply(sort_key, axis=1)
     df = df.sort_values("sort_key")
 
-    with open("03_data_topography/cog_pipeline/reports/summary_tables.md", "w") as f:
+    with open("03_data_topography/aksdb_cog_pipeline/reports/summary_tables.md", "w") as f:
         f.write("### Continuous Covariates Summary\n\n")
         cont_df = df[df["Out Type"] != "Byte"]
         for g in sorted(cont_df["Group"].unique()):
@@ -166,7 +166,7 @@ def main():
     total_scaled_tb = df["Scaled GB"].sum() / 1024
     reduction = (1 - (total_scaled_tb / total_raw_tb)) * 100
 
-    with open("03_data_topography/cog_pipeline/reports/size_summary.md", "w") as f:
+    with open("03_data_topography/aksdb_cog_pipeline/reports/size_summary.md", "w") as f:
         f.write("| Metric | Value |\n")
         f.write("| :--- | :---: |\n")
         f.write(f"| Total Raw Size | {total_raw_tb:.2f} TB |\n")

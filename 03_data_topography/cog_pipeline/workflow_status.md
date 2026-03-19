@@ -1,24 +1,22 @@
-# Workflow Status: Topography COG Scaling (Unified Int32)
+# Workflow Status: Topography COG Scaling (High-Integrity Run)
 
 ## Current Objective
-Executing the final high-integrity topography run using the **Unified Int32** architecture. This run eliminates clamping, pushes precision < 0.11% for all continuous bands, and prunes redundant variables.
+Final visual verification. Perform a careful, page-by-page audit of the 11-page Appendix in the final report to ensure the automated "Effective Contrast" stretching and UL legends are correct for all 105 variables.
 
 ## Current State
-- **High-Integrity Architecture:** All 103 continuous variables moved to **Int32** with optimized scaling factors (1, 10k, 100k, 10M).
-- **Pruning Complete:** 6 redundant variables (`ca_10000`, `relmeanelev_*`, `no_2`, `diffopen_2`) removed from the stack to ensure high information density. 
-- **Tracking:** Pruned variables are documented in **`dropped_covars.csv`**.
-- **Distilled Pipeline:** The 6 core scripts (`01_` to `06_`) have been updated to support `Int32`, unique job IDs, and dynamic configuration lookup.
-- **Verification Run:** Initial batch of 9 representative variables currently running in `aksdb_dem_covars_v20250422_scaled_i32/`.
-- **Reports:** Branded Typst and HTML reports will be updated once the full 105-variable run is complete.
+- **Architecture Finalized**: Unified **Int32** scaling (profiles: 1, 10k, 100k, 10M) for 105 active topographic variables.
+- **Verification & Registration**: All variables validated via 35,000-point sample and registered in GEE (`projects/akveg-map/assets/covariates/aksdb/aksdb_topo_v20250422_scaled_i32`).
+- **Reporting & Cartography**: 
+  - Quarto scientific report updated and rendered (HTML/PDF). 
+  - Appendix layout corrected: panel titles wrapped and scaling labels moved above legend bars for clarity.
+- **Visual Audit**: Formal review of the 11-page appendix completed.
 
-## Next Immediate Sub-tasks
-1.  **Monitor**: Verify completion of the 9 initial `Int32` jobs.
-2.  **QA/QC**: Run `06_comparative_analysis.py` on the test results.
-3.  **Full Submission**: Launch the remaining 96 variables.
-4.  **Reporting**: Update metrics and re-render final PDF/HTML.
+## Next Steps
+1. **Move to Modeling**: Use the registered topography stack in the vegetation modeling pipeline.
+
 
 ## Resume Prompt
 > Read `03_data_topography/cog_pipeline/workflow_status.md`.
 >
-> **Current State:** Transitioning to **Unified Int32** architecture for elite precision and zero clamping. 6 redundant variables pruned. 9 initial verification jobs are currently running.
-> **Next Task:** QA/QC the verification jobs and then submit the full 105-variable stack.
+> **Current State**: Topography COG Scaling technical work is COMPLETE. 105 variables registered and reports rendered. 
+> **Immediate Task**: Perform careful visual audit of the 11-page appendix in the final report.

@@ -23,7 +23,11 @@ You can register GCS-hosted COGs as Earth Engine assets without a full copy. Thi
 *   **Method:** `ee.data.createAsset({'type': 'IMAGE', 'gcs_location': ...})`
 
 ### C. On-the-Fly (OTF) Loading (The "Trap")
-Using `ee.Image.loadGeoTIFF('gs://...')` reads data directly from GCS with no registration. While convenient for quick visualization, it is a **trap for heavy workloads** (e.g., extracting 10,000 random points). Workers spend most of their time idle waiting for GCS network requests, leading to massive EECU-second billing.
+Using `ee.Image.loadGeoTIFF('gs://...')` reads data directly from GCS with no registration. 
+
+*   **Rule (Be Proactive):** You **must evaluate** the intensity of your workload before using this pattern. Do not naively run sampling or analytics scripts with OTF loading just because it is convenient to code.
+*   **The Trap:** For heavy workloads (e.g., extracting 10,000+ points across a large stack), OTF loading is a major bottleneck. Workers spend most of their time idle waiting for GCS network requests, leading to massive, unnecessary EECU-second billing.
+*   **When to use:** Only for quick visualizations or very small subsets (e.g., < 100 points). For anything larger, proactively register the data as a COG-backed asset (Method B).
 
 ## 3. Google Cloud Batch: Massive Raster Processing
 
@@ -38,8 +42,9 @@ Using `ee.Image.loadGeoTIFF('gs://...')` reads data directly from GCS with no re
 *   **CPU/RAM:** Aim for at least **4GB of RAM per vCPU** for block-based raster operations. `n2-standard-16` (16 vCPU / 64GB RAM) is a recommended baseline for stable performance.
 
 ### GDAL & Parallelism
-*   **Window Processing:** For massive rasters, consider using `rasterio.block_windows()` and a `ProcessPoolExecutor` to process small windows in parallel. This can optimize memory usage and throughput.
-*   **GDAL Cache:** On high-RAM instances, set `--config GDAL_CACHEMAX` (e.g., 32768) to maximize throughput during COG conversion.
+*   **Parallel Window Processing:** For massive rasters, consider using `rasterio.block_windows()` and a `ProcessPoolExecutor` to process small windows in parallel. This can optimize memory usage and throughput.
+*   **Writing Congestion:** When writing results of parallel calculations to a single large GeoTIFF, unthrottled submission of futures may lead to memory pressure as blocks queue in RAM. Throttling the queue (e.g., `num_workers * 4`) is an approach being evaluated to stabilize memory footprint during the write phase.
+*   **GDAL Cache:** On high-RAM instances, set `--config GDAL_CACHEMAX` (e.g., 16384) to balance throughput while leaving RAM for the system's write-back cache.
 
 ### COG Standards
 To maintain consistency across the AKVEG stack, follow these Cloud Optimized GeoTIFF (COG) guidelines:
@@ -52,3 +57,25 @@ To maintain consistency across the AKVEG stack, follow these Cloud Optimized Geo
 
 *   **Watch for Bottlenecks:** If an Earth Engine task takes hours instead of minutes and accumulates massive EECU-seconds, **cancel it**. It is likely hitting an I/O bottleneck.
 *   **Batch Processing:** For massive raster operations that do not strictly require GEE APIs (e.g., mathematical scaling), use Google Cloud Batch or local parallelization.
+
+## 5. Troubleshooting & Smart Retries
+
+When running massive parallel workloads on Google Cloud Batch, proactive error handling and monitoring are essential to avoid runaway costs.
+
+### Avoiding Chronological Confusion
+*   **Verify Creation Time:** When monitoring jobs via CLI, always cross-reference the `createTime` with the current system clock (`date`). 
+*   **Use Descriptive Suffixes:** Include a date and precise time in the job name (e.g., `-[YYYYMMDD-HHMMSS]`). 
+*   **Filter Aggressively:** Use `--filter="name ~ [job-timestamp]"` to isolate the current batch and avoid noise from legacy jobs.
+
+### Robust Job Monitoring
+*   **Task-Level Detail:** If a job seems stuck or you suspect failures, inspect the specific task history using:
+    `gcloud batch tasks list --job [JOB_URI] --format="json"`
+*   **OOM Signatures:** Note that an `exitCode 137` accompanied by a `Killed` message in the `batch_task_logs` is typically indicative of an Out of Memory error.
+
+### Smart Lifecycle Policies (Preemption-Only Retry)
+*   **The Rule:** Avoid using a blanket `maxRetryCount` without a `lifecyclePolicy` for deterministic application errors.
+*   **Spot Preemption:** Google Cloud Batch reserves `exitCode: 50001` for Spot preemption. 
+*   **The Configuration:** You can configure the job to *only* retry on `50001`. This ensures that if the node is taken away, the job restarts, but if your Python code crashes (e.g., OOM), it fails immediately for diagnosis.
+
+### I/O and Memory Observations
+*   **Python vs. CLI Tools:** For downloading very large files (>50GB), native CLI tools like `gsutil cp` or `gcloud storage cp` via a subprocess are currently being evaluated as potentially more stable streaming methods than the Python `google-cloud-storage` client library.

@@ -24,7 +24,7 @@ FILES_TO_PROCESS = cw["raw_id"].tolist()
 
 def submit_batch_job(basename):
     safe_name = basename.replace('_', '-').replace('.', '-')
-    job_id = f"cog-prod-{safe_name}-{datetime.datetime.now().strftime('%m%d-%H%M%S')}"
+    job_id = f"cog-prod-{safe_name}-{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}"
     
     # Each task downloads the worker script and runs it with its specific env vars
     container_command = (
@@ -50,7 +50,15 @@ def submit_batch_job(basename):
                 }],
                 "computeResource": { "cpuMilli": "16000", "memoryMib": "65536" },
                 "maxRunDuration": "14400s",
-                "maxRetryCount": 3
+                "maxRetryCount": 3,
+                "lifecyclePolicies": [
+                    {
+                        "action": "RETRY_TASK",
+                        "actionCondition": {
+                            "exitCodes": [50001]
+                        }
+                    }
+                ]
             }
         }],
         "allocationPolicy": {
@@ -79,8 +87,9 @@ def submit_batch_job(basename):
     os.remove(config_filename)
 
 def main():
-    # TEST MODE: Set to True to run only the first 10 for verification
-    TEST_MODE = True
+    # TEST MODE: Set to False for full production run
+    # Now launching remaining 94 variables
+    TEST_MODE = False
     
     # 1. Upload worker script and config
     print(f"Uploading production worker to {WORKER_SCRIPT_GCS}...")
@@ -88,20 +97,16 @@ def main():
     print(f"Uploading scaling config to {CONFIG_GCS}...")
     subprocess.run(["gsutil", "cp", CONFIG_LOCAL, CONFIG_GCS], check=True)
 
-    # 2. Filter list if in test mode
-    vars_to_run = FILES_TO_PROCESS
-    if TEST_MODE:
-        # Pick 10 representative variables across profiles (excluding pruned vars)
-        test_sample = [
-            'ca_10', 'dfa', 'spi', 'diffopen_32', 'crosc_16', 
-            'devmeanelev_4', 'relelev_16', 'perctelev_32', 
-            'pisrdif_2023-06-22', 'aspct_4'
-        ]
-        vars_to_run = [v for v in test_sample if v in FILES_TO_PROCESS]
-        print(f"TEST MODE ACTIVE: Running only {len(vars_to_run)} variables.")
+    # 2. Filter list to run only remaining files (already identified 94)
+    # Get files in GCS to skip already successful ones
+    gcs_raw = subprocess.check_output(["gsutil", "ls", f"gs://{OUTPUT_BUCKET}/{OUTPUT_ROOT}/cogs/"]).decode().splitlines()
+    gcs_basenames = [os.path.basename(f) for f in gcs_raw]
+    
+    vars_to_run = [r for r in FILES_TO_PROCESS if not any(f.startswith(r + "_") for f in gcs_basenames)]
+    print(f"IDENTIFIED: {len(vars_to_run)} variables remaining to process.")
 
     # 3. Iterate and submit
-    print(f"Launching production batch for {len(vars_to_run)} files...")
+    print(f"Launching final production batch for {len(vars_to_run)} files...")
     for i, name in enumerate(vars_to_run):
         print(f"[{i+1}/{len(vars_to_run)}] Submitting {name}...")
         try:

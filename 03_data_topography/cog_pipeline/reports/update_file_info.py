@@ -17,7 +17,7 @@ def get_sizes(url):
 
 def main():
     raw_url = 'gs://akveg-data/aksdb_dem_covars_v20250422/'
-    scaled_url = 'gs://akveg-data/aksdb_dem_covars_v20250422_scaled_cog/cogs/'
+    scaled_url = 'gs://akveg-data/aksdb_dem_covars_v20250422_scaled_i32/cogs/'
     
     data = {
         'raw': get_sizes(raw_url),

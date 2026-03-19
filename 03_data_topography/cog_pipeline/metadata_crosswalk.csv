@@ -1,106 +1,106 @@
 raw_id,scaled_id,prefix,neighborhood,title,category,scale,data_type,match_type,res
-aspct_16,aspct_16_10,aspct,16,Aspect (Window: 16),Morphometry,10,Int16,Direct,10m
-aspct_32,aspct_32_10,aspct,32,Aspect (Window: 32),Morphometry,10,Int16,Direct,10m
-aspct_4,aspct_4_10,aspct,4,Aspect (Window: 4),Morphometry,10,Int16,Direct,10m
-ca_10,ca_10_1,ca,10,Catchment Area (Area: 10),Hydrology,1,Float32,Direct,10m
-ci_16,ci_16_100,ci,16,Convergence Index (Window: 16),Morphometry,100,Int16,Direct,10m
-ci_32,ci_32_100,ci,32,Convergence Index (Window: 32),Morphometry,100,Int16,Direct,10m
-ci_4,ci_4_100,ci,4,Convergence Index (Window: 4),Morphometry,100,Int16,Direct,10m
-crosc_16,crosc_16_1M,crosc,16,Cross-sectional Curvature (Window: 16),Morphometry,1000000,Int16,Direct,10m
-crosc_32,crosc_32_1M,crosc,32,Cross-sectional Curvature (Window: 32),Morphometry,1000000,Int16,Direct,10m
-crosc_4,crosc_4_1M,crosc,4,Cross-sectional Curvature (Window: 4),Morphometry,1000000,Int16,Direct,10m
-dah,dah_10k,dah,none,Diurnal Anisotropic Heating,Lighting/Visibility,10000,Int16,Direct,10m
-devmeanelev_16,devmeanelev_16_1k,devmeanelev,16,Deviance from Mean Elevation (Window: 16),Focal Statistics,1000,Int16,Direct,10m
-devmeanelev_32,devmeanelev_32_1k,devmeanelev,32,Deviance from Mean Elevation (Window: 32),Focal Statistics,1000,Int16,Direct,10m
-devmeanelev_4,devmeanelev_4_1k,devmeanelev,4,Deviance from Mean Elevation (Window: 4),Focal Statistics,1000,Int16,Direct,10m
-dfa,dfa_10,dfa,none,dfa,Unknown,10,Int16,Unverified,10m
-diffmeanelev_16,diffmeanelev_16_100,diffmeanelev,16,Difference from Mean Elevation (Window: 16),Focal Statistics,100,Int16,Direct,10m
-diffmeanelev_32,diffmeanelev_32_100,diffmeanelev,32,Difference from Mean Elevation (Window: 32),Focal Statistics,100,Int16,Direct,10m
-diffmeanelev_4,diffmeanelev_4_100,diffmeanelev,4,Difference from Mean Elevation (Window: 4),Focal Statistics,100,Int16,Direct,10m
-diffopen_256,diffopen_256_100k,diffopen,256,Topographic Openness (Difference) (Window: 256),Lighting/Visibility,100000,Int16,Direct,10m
-diffopen_32,diffopen_32_100k,diffopen,32,Topographic Openness (Difference) (Window: 32),Lighting/Visibility,100000,Int16,Direct,10m
-dis,dis_100,dis,none,dis,Unknown,100,Int16,Unverified,10m
-fel,fel_1,fel,none,fel,Unknown,1,Int16,Unverified,10m
-gmrph_ms_30,gmrph_ms_30_1,gmrph_ms,30,Geomorphon (Multiscale) (Radius: 30),Geomorphons,1,Byte,Direct,30m
-gmrph_ms_300,gmrph_ms_300_1,gmrph_ms,300,Geomorphon (Multiscale) (Radius: 300),Geomorphons,1,Byte,Direct,30m
-gmrph_r_30,gmrph_r_30_1,gmrph_r,30,Geomorphon (Radius) (Radius: 30),Geomorphons,1,Byte,Semantic,30m
-gmrph_r_300,gmrph_r_300_1,gmrph_r,300,Geomorphon (Radius) (Radius: 300),Geomorphons,1,Byte,Semantic,30m
-gmrph_r_3000,gmrph_r_3000_1,gmrph_r,3000,Geomorphon (Radius) (Radius: 3000),Geomorphons,1,Byte,Semantic,30m
-hs_st,hs_st_100,hs_st,none,Hillshade (Standard),Lighting/Visibility,100,Int16,Direct,10m
-longc_16,longc_16_1M,longc,16,Longitudinal Curvature (Window: 16),Morphometry,1000000,Int16,Direct,10m
-longc_32,longc_32_1M,longc,32,Longitudinal Curvature (Window: 32),Morphometry,1000000,Int16,Direct,10m
-longc_4,longc_4_1M,longc,4,Longitudinal Curvature (Window: 4),Morphometry,1000000,Int16,Direct,10m
-maxc_16,maxc_16_1M,maxc,16,Maximum Curvature (Window: 16),Morphometry,1000000,Int16,Semantic,10m
-maxc_32,maxc_32_1M,maxc,32,Maximum Curvature (Window: 32),Morphometry,1000000,Int16,Semantic,10m
-maxc_4,maxc_4_1M,maxc,4,Maximum Curvature (Window: 4),Morphometry,1000000,Int16,Semantic,10m
-mbi_0.001,mbi_0.001_10k,mbi,0.001,Mass Balance Index (Threshold: 0.001),Morphometry,10000,Int16,Direct,10m
-mbi_0.01,mbi_0.01_10k,mbi,0.01,Mass Balance Index (Threshold: 0.01),Morphometry,10000,Int16,Direct,10m
-mbi_0.1,mbi_0.1_100k,mbi,0.1,Mass Balance Index (Threshold: 0.1),Morphometry,100000,Int16,Direct,10m
-mca_10,mca_10_1,mca,10,Modified Catchment Area (Area: 10),Hydrology,1,Float32,Direct,10m
-mca_10000,mca_10000_1,mca,10000,Modified Catchment Area (Area: 10000),Hydrology,1,Float32,Direct,10m
-minc_16,minc_16_1M,minc,16,Minimum Curvature (Window: 16),Morphometry,1000000,Int16,Semantic,10m
-minc_32,minc_32_1M,minc,32,Minimum Curvature (Window: 32),Morphometry,1000000,Int16,Semantic,10m
-minc_4,minc_4_1M,minc,4,Minimum Curvature (Window: 4),Morphometry,1000000,Int16,Semantic,10m
-minelev_16,minelev_16_1,minelev,16,Minimum Elevation (Window: 16),Focal Statistics,1,Int16,Direct,10m
-minelev_32,minelev_32_1,minelev,32,Minimum Elevation (Window: 32),Focal Statistics,1,Int16,Direct,10m
-minelev_4,minelev_4_1,minelev,4,Minimum Elevation (Window: 4),Focal Statistics,1,Int16,Direct,10m
-morpfeat_16,morpfeat_16_1,morpfeat,16,Morphometric Features (Window: 16),Morphometry,1,Byte,Direct,30m
-morpfeat_32,morpfeat_32_1,morpfeat,32,Morphometric Features (Window: 32),Morphometry,1,Byte,Direct,30m
-morpfeat_4,morpfeat_4_1,morpfeat,4,Morphometric Features (Window: 4),Morphometry,1,Byte,Direct,30m
-msp,msp_10k,msp,none,Mid-slope Position,Morphometry,10000,Int16,Direct,10m
-nh,nh_10k,nh,none,Normalized Height,Morphometry,10000,Int16,Semantic,10m
-no_256,no_256_10k,no,256,Topographic Openness (Negative) (Window: 256),Lighting/Visibility,10000,Int16,Direct,10m
-no_32,no_32_10k,no,32,Topographic Openness (Negative) (Window: 32),Lighting/Visibility,10000,Int16,Direct,10m
-perctelev_16,perctelev_16_100,perctelev,16,Percentile Elevation (Window: 16),Focal Statistics,100,Int16,Semantic,10m
-perctelev_32,perctelev_32_100,perctelev,32,Percentile Elevation (Window: 32),Focal Statistics,100,Int16,Semantic,10m
-perctelev_4,perctelev_4_100,perctelev,4,Percentile Elevation (Window: 4),Focal Statistics,100,Int16,Semantic,10m
-pisrdif_2023-01-22,pisrdif_2023-01-22_10k,pisrdif,2023-01-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-01-22),Lighting/Visibility,10000,Int16,Direct,10m
-pisrdif_2023-02-22,pisrdif_2023-02-22_10k,pisrdif,2023-02-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-02-22),Lighting/Visibility,10000,Int16,Direct,10m
-pisrdif_2023-03-22,pisrdif_2023-03-22_10k,pisrdif,2023-03-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-03-22),Lighting/Visibility,10000,Int16,Direct,10m
-pisrdif_2023-04-22,pisrdif_2023-04-22_10k,pisrdif,2023-04-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-04-22),Lighting/Visibility,10000,Int16,Direct,10m
-pisrdif_2023-05-22,pisrdif_2023-05-22_10k,pisrdif,2023-05-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-05-22),Lighting/Visibility,10000,Int16,Direct,10m
-pisrdif_2023-06-22,pisrdif_2023-06-22_10k,pisrdif,2023-06-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-06-22),Lighting/Visibility,10000,Int16,Direct,10m
-pisrdif_2023-12-22,pisrdif_2023-12-22_10k,pisrdif,2023-12-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-12-22),Lighting/Visibility,10000,Int16,Direct,10m
-pisrdir_2023-01-22,pisrdir_2023-01-22_1k,pisrdir,2023-01-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-01-22),Lighting/Visibility,1000,Int16,Direct,10m
-pisrdir_2023-02-22,pisrdir_2023-02-22_1k,pisrdir,2023-02-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-02-22),Lighting/Visibility,1000,Int16,Direct,10m
-pisrdir_2023-03-22,pisrdir_2023-03-22_1k,pisrdir,2023-03-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-03-22),Lighting/Visibility,1000,Int16,Direct,10m
-pisrdir_2023-04-22,pisrdir_2023-04-22_1k,pisrdir,2023-04-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-04-22),Lighting/Visibility,1000,Int16,Direct,10m
-pisrdir_2023-05-22,pisrdir_2023-05-22_1k,pisrdir,2023-05-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-05-22),Lighting/Visibility,1000,Int16,Direct,10m
-pisrdir_2023-06-22,pisrdir_2023-06-22_1k,pisrdir,2023-06-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-06-22),Lighting/Visibility,1000,Int16,Direct,10m
-pisrdir_2023-12-22,pisrdir_2023-12-22_1k,pisrdir,2023-12-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-12-22),Lighting/Visibility,1000,Int16,Direct,10m
-planc_16,planc_16_100k,planc,16,Plan Curvature (Window: 16),Morphometry,100000,Int16,Direct,10m
-planc_32,planc_32_100k,planc,32,Plan Curvature (Window: 32),Morphometry,100000,Int16,Direct,10m
-planc_4,planc_4_100k,planc,4,Plan Curvature (Window: 4),Morphometry,100000,Int16,Direct,10m
-po_2,po_2_10k,po,2,Topographic Openness (Positive) (Window: 2),Lighting/Visibility,10000,Int16,Direct,10m
-po_256,po_256_10k,po,256,Topographic Openness (Positive) (Window: 256),Lighting/Visibility,10000,Int16,Direct,10m
-po_32,po_32_10k,po,32,Topographic Openness (Positive) (Window: 32),Lighting/Visibility,10000,Int16,Direct,10m
-profc_16,profc_16_1M,profc,16,Profile Curvature (Window: 16),Morphometry,1000000,Int16,Direct,10m
-profc_32,profc_32_1M,profc,32,Profile Curvature (Window: 32),Morphometry,1000000,Int16,Direct,10m
-profc_4,profc_4_1M,profc,4,Profile Curvature (Window: 4),Morphometry,1000000,Int16,Direct,10m
-relelev_16,relelev_16_10,relelev,16,Relative Elevation (Window: 16),Focal Statistics,10,Int16,Semantic,10m
-relelev_32,relelev_32_10,relelev,32,Relative Elevation (Window: 32),Focal Statistics,10,Int16,Semantic,10m
-relelev_4,relelev_4_10,relelev,4,Relative Elevation (Window: 4),Focal Statistics,10,Int16,Semantic,10m
-sl_16,sl_16_100,sl,16,Slope (Window: 16),Morphometry,100,Int16,Direct,10m
-sl_32,sl_32_100,sl,32,Slope (Window: 32),Morphometry,100,Int16,Direct,10m
-sl_4,sl_4_100,sl,4,Slope (Window: 4),Morphometry,100,Int16,Direct,10m
-slh,slh_10,slh,none,Slope Height,Morphometry,10,Int16,Semantic,10m
-spi,spi_10,spi,none,Stream Power Index,Hydrology,10,Int16,Direct,10m
-stddevelev_16,stddevelev_16_100,stddevelev,16,stddevelev (Window: 16),Focal Statistics,100,Int16,Semantic,10m
-stddevelev_32,stddevelev_32_100,stddevelev,32,stddevelev (Window: 32),Focal Statistics,100,Int16,Semantic,10m
-stddevelev_4,stddevelev_4_100,stddevelev,4,stddevelev (Window: 4),Focal Statistics,100,Int16,Semantic,10m
-stdh,stdh_10,stdh,none,Standardized Height,Morphometry,10,Int16,Semantic,10m
-swi_10,swi_10_1k,swi,10,Saga Wetness Index (Area: 10),Hydrology,1000,Int16,Direct,10m
-swi_10000,swi_10000_1k,swi,10000,Saga Wetness Index (Area: 10000),Hydrology,1000,Int16,Direct,10m
-tpi_32,tpi_32_1k,tpi,32,Multiscale Topographic Position Index (Window: 32),Morphometry,1000,Int16,Direct,10m
-tpi_4,tpi_4_1k,tpi,4,Multiscale Topographic Position Index (Window: 4),Morphometry,1000,Int16,Direct,10m
-tri_16,tri_16_100,tri,16,Terrain Ruggedness Index (Window: 16),Morphometry,100,Int16,Direct,10m
-tri_32,tri_32_100,tri,32,Terrain Ruggedness Index (Window: 32),Morphometry,100,Int16,Direct,10m
-tri_4,tri_4_100,tri,4,Terrain Ruggedness Index (Window: 4),Morphometry,100,Int16,Direct,10m
-tsc_16,tsc_16_100,tsc,16,Terrain Surface Convexity (Window: 16),Morphometry,100,Int16,Direct,10m
-tsc_32,tsc_32_100,tsc,32,Terrain Surface Convexity (Window: 32),Morphometry,100,Int16,Direct,10m
-tsc_4,tsc_4_100,tsc,4,Terrain Surface Convexity (Window: 4),Morphometry,100,Int16,Direct,10m
-twi,twi_1k,twi,none,Topographic Wetness Index,Hydrology,1000,Int16,Direct,10m
-vlyd,vlyd_10,vlyd,none,Valley Depth,Hydrology,10,Int16,Semantic,10m
-vrm_16,vrm_16_100k,vrm,16,Vector Ruggedness Index (Window: 16),Morphometry,100000,Int16,Semantic,10m
-vrm_32,vrm_32_100k,vrm,32,Vector Ruggedness Index (Window: 32),Morphometry,100000,Int16,Semantic,10m
-vrm_4,vrm_4_100k,vrm,4,Vector Ruggedness Index (Window: 4),Morphometry,100000,Int16,Semantic,10m
+aspct_16,aspct_16_10k,aspct,16,Aspect (Window: 16),Morphometry,10000,Int32,Direct,10m
+aspct_32,aspct_32_10k,aspct,32,Aspect (Window: 32),Morphometry,10000,Int32,Direct,10m
+aspct_4,aspct_4_10k,aspct,4,Aspect (Window: 4),Morphometry,10000,Int32,Direct,10m
+ca_10,ca_10_1,ca,10,Catchment Area (Area: 10),Hydrology,1,Int32,Direct,10m
+ci_16,ci_16_10k,ci,16,Convergence Index (Window: 16),Morphometry,10000,Int32,Direct,10m
+ci_32,ci_32_10k,ci,32,Convergence Index (Window: 32),Morphometry,10000,Int32,Direct,10m
+ci_4,ci_4_10k,ci,4,Convergence Index (Window: 4),Morphometry,10000,Int32,Direct,10m
+crosc_16,crosc_16_10M,crosc,16,Cross-sectional Curvature (Window: 16),Morphometry,10000000,Int32,Direct,10m
+crosc_32,crosc_32_10M,crosc,32,Cross-sectional Curvature (Window: 32),Morphometry,10000000,Int32,Direct,10m
+crosc_4,crosc_4_10M,crosc,4,Cross-sectional Curvature (Window: 4),Morphometry,10000000,Int32,Direct,10m
+dah,dah_100k,dah,none,Diurnal Anisotropic Heating,Lighting/Visibility,100000,Int32,Direct,10m
+devmeanelev_16,devmeanelev_16_10k,devmeanelev,16,Deviance from Mean Elevation (Window: 16),Focal Statistics,10000,Int32,Direct,10m
+devmeanelev_32,devmeanelev_32_10k,devmeanelev,32,Deviance from Mean Elevation (Window: 32),Focal Statistics,10000,Int32,Direct,10m
+devmeanelev_4,devmeanelev_4_10k,devmeanelev,4,Deviance from Mean Elevation (Window: 4),Focal Statistics,10000,Int32,Direct,10m
+dfa,dfa_10k,dfa,none,dfa,Unknown,10000,Int32,Unverified,10m
+diffmeanelev_16,diffmeanelev_16_10k,diffmeanelev,16,Difference from Mean Elevation (Window: 16),Focal Statistics,10000,Int32,Direct,10m
+diffmeanelev_32,diffmeanelev_32_10k,diffmeanelev,32,Difference from Mean Elevation (Window: 32),Focal Statistics,10000,Int32,Direct,10m
+diffmeanelev_4,diffmeanelev_4_10k,diffmeanelev,4,Difference from Mean Elevation (Window: 4),Focal Statistics,10000,Int32,Direct,10m
+diffopen_256,diffopen_256_100k,diffopen,256,Topographic Openness (Difference) (Window: 256),Lighting/Visibility,100000,Int32,Direct,10m
+diffopen_32,diffopen_32_100k,diffopen,32,Topographic Openness (Difference) (Window: 32),Lighting/Visibility,100000,Int32,Direct,10m
+dis,dis_10k,dis,none,dis,Unknown,10000,Int32,Unverified,10m
+fel,fel_10k,fel,none,fel,Unknown,10000,Int32,Unverified,10m
+gmrph_ms_30,gmrph_ms_30_cat,gmrph_ms,30,Geomorphon (Multiscale) (Radius: 30),Geomorphons,1,Byte,Direct,30m
+gmrph_ms_300,gmrph_ms_300_cat,gmrph_ms,300,Geomorphon (Multiscale) (Radius: 300),Geomorphons,1,Byte,Direct,30m
+gmrph_r_30,gmrph_r_30_cat,gmrph_r,30,Geomorphon (Radius) (Radius: 30),Geomorphons,1,Byte,Semantic,30m
+gmrph_r_300,gmrph_r_300_cat,gmrph_r,300,Geomorphon (Radius) (Radius: 300),Geomorphons,1,Byte,Semantic,30m
+gmrph_r_3000,gmrph_r_3000_cat,gmrph_r,3000,Geomorphon (Radius) (Radius: 3000),Geomorphons,1,Byte,Semantic,30m
+hs_st,hs_st_10k,hs_st,none,Hillshade (Standard),Lighting/Visibility,10000,Int32,Direct,10m
+longc_16,longc_16_10M,longc,16,Longitudinal Curvature (Window: 16),Morphometry,10000000,Int32,Direct,10m
+longc_32,longc_32_10M,longc,32,Longitudinal Curvature (Window: 32),Morphometry,10000000,Int32,Direct,10m
+longc_4,longc_4_10M,longc,4,Longitudinal Curvature (Window: 4),Morphometry,10000000,Int32,Direct,10m
+maxc_16,maxc_16_10M,maxc,16,Maximum Curvature (Window: 16),Morphometry,10000000,Int32,Semantic,10m
+maxc_32,maxc_32_10M,maxc,32,Maximum Curvature (Window: 32),Morphometry,10000000,Int32,Semantic,10m
+maxc_4,maxc_4_10M,maxc,4,Maximum Curvature (Window: 4),Morphometry,10000000,Int32,Semantic,10m
+mbi_0.001,mbi_0p001_10k,mbi,0.001,Mass Balance Index (Threshold: 0.001),Morphometry,10000,Int32,Direct,10m
+mbi_0.01,mbi_0p01_10k,mbi,0.01,Mass Balance Index (Threshold: 0.01),Morphometry,10000,Int32,Direct,10m
+mbi_0.1,mbi_0p1_10k,mbi,0.1,Mass Balance Index (Threshold: 0.1),Morphometry,10000,Int32,Direct,10m
+mca_10,mca_10_1,mca,10,Modified Catchment Area (Area: 10),Hydrology,1,Int32,Direct,10m
+mca_10000,mca_10000_1,mca,10000,Modified Catchment Area (Area: 10000),Hydrology,1,Int32,Direct,10m
+minc_16,minc_16_10M,minc,16,Minimum Curvature (Window: 16),Morphometry,10000000,Int32,Semantic,10m
+minc_32,minc_32_10M,minc,32,Minimum Curvature (Window: 32),Morphometry,10000000,Int32,Semantic,10m
+minc_4,minc_4_10M,minc,4,Minimum Curvature (Window: 4),Morphometry,10000000,Int32,Semantic,10m
+minelev_16,minelev_16_10k,minelev,16,Minimum Elevation (Window: 16),Focal Statistics,10000,Int32,Direct,10m
+minelev_32,minelev_32_10k,minelev,32,Minimum Elevation (Window: 32),Focal Statistics,10000,Int32,Direct,10m
+minelev_4,minelev_4_10k,minelev,4,Minimum Elevation (Window: 4),Focal Statistics,10000,Int32,Direct,10m
+morpfeat_16,morpfeat_16_cat,morpfeat,16,Morphometric Features (Window: 16),Morphometry,1,Byte,Direct,30m
+morpfeat_32,morpfeat_32_cat,morpfeat,32,Morphometric Features (Window: 32),Morphometry,1,Byte,Direct,30m
+morpfeat_4,morpfeat_4_cat,morpfeat,4,Morphometric Features (Window: 4),Morphometry,1,Byte,Direct,30m
+msp,msp_10k,msp,none,Mid-slope Position,Morphometry,10000,Int32,Direct,10m
+nh,nh_10k,nh,none,Normalized Height,Morphometry,10000,Int32,Semantic,10m
+no_256,no_256_100k,no,256,Topographic Openness (Negative) (Window: 256),Lighting/Visibility,100000,Int32,Direct,10m
+no_32,no_32_100k,no,32,Topographic Openness (Negative) (Window: 32),Lighting/Visibility,100000,Int32,Direct,10m
+perctelev_16,perctelev_16_10k,perctelev,16,Percentile Elevation (Window: 16),Focal Statistics,10000,Int32,Semantic,10m
+perctelev_32,perctelev_32_10k,perctelev,32,Percentile Elevation (Window: 32),Focal Statistics,10000,Int32,Semantic,10m
+perctelev_4,perctelev_4_10k,perctelev,4,Percentile Elevation (Window: 4),Focal Statistics,10000,Int32,Semantic,10m
+pisrdif_2023-01-22,pisrdif_2023-01-22_100k,pisrdif,2023-01-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-01-22),Lighting/Visibility,100000,Int32,Direct,10m
+pisrdif_2023-02-22,pisrdif_2023-02-22_100k,pisrdif,2023-02-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-02-22),Lighting/Visibility,100000,Int32,Direct,10m
+pisrdif_2023-03-22,pisrdif_2023-03-22_100k,pisrdif,2023-03-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-03-22),Lighting/Visibility,100000,Int32,Direct,10m
+pisrdif_2023-04-22,pisrdif_2023-04-22_100k,pisrdif,2023-04-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-04-22),Lighting/Visibility,100000,Int32,Direct,10m
+pisrdif_2023-05-22,pisrdif_2023-05-22_100k,pisrdif,2023-05-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-05-22),Lighting/Visibility,100000,Int32,Direct,10m
+pisrdif_2023-06-22,pisrdif_2023-06-22_100k,pisrdif,2023-06-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-06-22),Lighting/Visibility,100000,Int32,Direct,10m
+pisrdif_2023-12-22,pisrdif_2023-12-22_100k,pisrdif,2023-12-22,Potential Incoming Solar Radiation (Diffuse) (Date: 2023-12-22),Lighting/Visibility,100000,Int32,Direct,10m
+pisrdir_2023-01-22,pisrdir_2023-01-22_100k,pisrdir,2023-01-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-01-22),Lighting/Visibility,100000,Int32,Direct,10m
+pisrdir_2023-02-22,pisrdir_2023-02-22_100k,pisrdir,2023-02-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-02-22),Lighting/Visibility,100000,Int32,Direct,10m
+pisrdir_2023-03-22,pisrdir_2023-03-22_100k,pisrdir,2023-03-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-03-22),Lighting/Visibility,100000,Int32,Direct,10m
+pisrdir_2023-04-22,pisrdir_2023-04-22_100k,pisrdir,2023-04-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-04-22),Lighting/Visibility,100000,Int32,Direct,10m
+pisrdir_2023-05-22,pisrdir_2023-05-22_100k,pisrdir,2023-05-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-05-22),Lighting/Visibility,100000,Int32,Direct,10m
+pisrdir_2023-06-22,pisrdir_2023-06-22_100k,pisrdir,2023-06-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-06-22),Lighting/Visibility,100000,Int32,Direct,10m
+pisrdir_2023-12-22,pisrdir_2023-12-22_100k,pisrdir,2023-12-22,Potential Incoming Solar Radiation (Direct) (Date: 2023-12-22),Lighting/Visibility,100000,Int32,Direct,10m
+planc_16,planc_16_10M,planc,16,Plan Curvature (Window: 16),Morphometry,10000000,Int32,Direct,10m
+planc_32,planc_32_10M,planc,32,Plan Curvature (Window: 32),Morphometry,10000000,Int32,Direct,10m
+planc_4,planc_4_10M,planc,4,Plan Curvature (Window: 4),Morphometry,10000000,Int32,Direct,10m
+po_2,po_2_100k,po,2,Topographic Openness (Positive) (Window: 2),Lighting/Visibility,100000,Int32,Direct,10m
+po_256,po_256_100k,po,256,Topographic Openness (Positive) (Window: 256),Lighting/Visibility,100000,Int32,Direct,10m
+po_32,po_32_100k,po,32,Topographic Openness (Positive) (Window: 32),Lighting/Visibility,100000,Int32,Direct,10m
+profc_16,profc_16_10M,profc,16,Profile Curvature (Window: 16),Morphometry,10000000,Int32,Direct,10m
+profc_32,profc_32_10M,profc,32,Profile Curvature (Window: 32),Morphometry,10000000,Int32,Direct,10m
+profc_4,profc_4_10M,profc,4,Profile Curvature (Window: 4),Morphometry,10000000,Int32,Direct,10m
+relelev_16,relelev_16_10k,relelev,16,Relative Elevation (Window: 16),Focal Statistics,10000,Int32,Semantic,10m
+relelev_32,relelev_32_10k,relelev,32,Relative Elevation (Window: 32),Focal Statistics,10000,Int32,Semantic,10m
+relelev_4,relelev_4_10k,relelev,4,Relative Elevation (Window: 4),Focal Statistics,10000,Int32,Semantic,10m
+sl_16,sl_16_10k,sl,16,Slope (Window: 16),Morphometry,10000,Int32,Direct,10m
+sl_32,sl_32_10k,sl,32,Slope (Window: 32),Morphometry,10000,Int32,Direct,10m
+sl_4,sl_4_10k,sl,4,Slope (Window: 4),Morphometry,10000,Int32,Direct,10m
+slh,slh_10k,slh,none,Slope Height,Morphometry,10000,Int32,Semantic,10m
+spi,spi_10k,spi,none,Stream Power Index,Hydrology,10000,Int32,Direct,10m
+stddevelev_16,stddevelev_16_10k,stddevelev,16,stddevelev (Window: 16),Focal Statistics,10000,Int32,Semantic,10m
+stddevelev_32,stddevelev_32_10k,stddevelev,32,stddevelev (Window: 32),Focal Statistics,10000,Int32,Semantic,10m
+stddevelev_4,stddevelev_4_10k,stddevelev,4,stddevelev (Window: 4),Focal Statistics,10000,Int32,Semantic,10m
+stdh,stdh_10k,stdh,none,Standardized Height,Morphometry,10000,Int32,Semantic,10m
+swi_10,swi_10_10k,swi,10,Saga Wetness Index (Area: 10),Hydrology,10000,Int32,Direct,10m
+swi_10000,swi_10000_10k,swi,10000,Saga Wetness Index (Area: 10000),Hydrology,10000,Int32,Direct,10m
+tpi_32,tpi_32_10k,tpi,32,Multiscale Topographic Position Index (Window: 32),Morphometry,10000,Int32,Direct,10m
+tpi_4,tpi_4_10k,tpi,4,Multiscale Topographic Position Index (Window: 4),Morphometry,10000,Int32,Direct,10m
+tri_16,tri_16_10k,tri,16,Terrain Ruggedness Index (Window: 16),Morphometry,10000,Int32,Direct,10m
+tri_32,tri_32_10k,tri,32,Terrain Ruggedness Index (Window: 32),Morphometry,10000,Int32,Direct,10m
+tri_4,tri_4_10k,tri,4,Terrain Ruggedness Index (Window: 4),Morphometry,10000,Int32,Direct,10m
+tsc_16,tsc_16_10k,tsc,16,Terrain Surface Convexity (Window: 16),Morphometry,10000,Int32,Direct,10m
+tsc_32,tsc_32_10k,tsc,32,Terrain Surface Convexity (Window: 32),Morphometry,10000,Int32,Direct,10m
+tsc_4,tsc_4_10k,tsc,4,Terrain Surface Convexity (Window: 4),Morphometry,10000,Int32,Direct,10m
+twi,twi_10k,twi,none,Topographic Wetness Index,Hydrology,10000,Int32,Direct,10m
+vlyd,vlyd_10k,vlyd,none,Valley Depth,Hydrology,10000,Int32,Semantic,10m
+vrm_16,vrm_16_10M,vrm,16,Vector Ruggedness Index (Window: 16),Morphometry,10000000,Int32,Semantic,10m
+vrm_32,vrm_32_10M,vrm,32,Vector Ruggedness Index (Window: 32),Morphometry,10000000,Int32,Semantic,10m
+vrm_4,vrm_4_10M,vrm,4,Vector Ruggedness Index (Window: 4),Morphometry,10000000,Int32,Semantic,10m

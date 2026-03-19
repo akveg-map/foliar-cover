@@ -30,12 +30,13 @@ def sync_collection(collection_id, filename_col, gcs_root, crosswalk_df, descrip
         
         if config:
             # Dynamically determine the scaled filename and properties
+            img_id = row['scaled_id']
+            # Extract properties from config for consistency
             group = next((k for k in config_keys_sorted if raw_id.startswith(k)), None)
             if not group:
                 print(f"WARNING: No config group found for {raw_id}")
                 continue
             cfg = config[group]
-            img_id = f"{raw_id}{cfg['suffix']}"
             scale_factor = float(cfg['scale'])
             data_type = cfg['type']
             

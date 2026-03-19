@@ -1,0 +1,32 @@
+# 1. Sync Python scripts to GCS
+gsutil -m cp *.py gs://akveg-data/scripts/vhr_pipeline/
+
+# 1b. Sync Shell scripts to GCS (Shim Pattern)
+gsutil cp run_job_*.sh gs://akveg-data/scripts/vhr_pipeline/
+
+# 2. Rebuild Docker images in parallel (OPTIONAL: Only if dependencies/Dockerfile change)
+# Note: If files exist on GCS, this pipeline will RE-PROCESS and OVERWRITE them 
+# (except for Step 202 CCDC, which checks GCS).
+gcloud builds submit . --config=cloudbuild-cpu.yaml & \
+gcloud builds submit . --config=cloudbuild-gpu.yaml & \
+wait
+# IMPORTANT: Check that both builds succeeded above before proceeding!
+
+# 3. Redeploy the Workflow definition
+gcloud workflows deploy vhr-pipeline-orchestrator \
+    --source=vhr_orchestrator.yaml \
+    --location=us-central1
+
+# 3b. Clean up previous test output
+# gsutil -m rm -r gs://akveg-data/vhr/navy_north_slope/processed_quick_5m || echo "Output dir not found, skipping removal"
+
+# 4. Execute the Workflow (Quick Mode: 5m Pan / 20m MS)
+gcloud workflows execute vhr-pipeline-orchestrator \
+    --location=us-central1 \
+    --data='{
+        "dem_path": "gs://akveg-data/dem/alaska_ifsar_dsm_20200925_plus_us_noaa_g2009_cog1024_noLerc_deflate3.tif",
+        "input_dir": "gs://akveg-data/vhr/navy_north_slope/orders/unzipped/050300601010_01",
+        "output_base": "gs://akveg-data/vhr/navy_north_slope/processed_quick_5m",
+        "res_pan": 5.0,
+        "res_ms": 20.0
+    }'

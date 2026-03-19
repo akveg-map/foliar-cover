@@ -1,0 +1,5 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/akveg-map/vhr-cpu:latest', '.', '-f', 'Dockerfile.cpu']
+images:
+- 'gcr.io/akveg-map/vhr-cpu:latest'

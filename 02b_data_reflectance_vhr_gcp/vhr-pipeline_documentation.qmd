@@ -1,0 +1,63 @@
+# Very High Resolution (VHR) Pipeline Documentation
+
+## 200_ortho_pgc_warp.py
+Orthorectifies Maxar imagery with rational polynomial coefficients (RPC) and a geoid-adjusted 2009 IFSAR digital 
+surface model. RPCs provide a sensor-independent representation of ground-to-image geometry, thus allowing for 
+orthorectification without needing a specific camera model. The script also snaps the imagery to a predefined grid, and 
+copies image metadata to the filenames of the orthorectified images for use in downstream calculations.
+
+## 202_export_ccdc_sr.py
+Gets the extent and acquisition date of each orthorectified Maxar image and, using the Continuous Change Detection and 
+Classification (CCDC) algorithm (Zhu and Woodcock 2014), builds a synthetic Landsat image representing what each area 
+should have looked like had a Landsat image been collected on the same acquisition day as the Maxar imagery. The 
+synthetic Landsat data represents surface reflectance (SR) and is used for a later atmospheric correction.
+
+## 205_batch_calc_toa.py
+Converts orthorectified digital number (DN) imagery to top of atmosphere (TOA) reflectance. This conversion is 
+performed for the panchromatic (PAN), 4-band (MS-4), and 8-band products (MS-8). PAN consists of a single wide spectral 
+band, MS-4 contains blue, green, red, and near-infrared (NIR) bands, and MS-8 has the four bands from MS-4 plus coastal 
+blue, yellow, red-edge, and NIR2 (a different NIR wavelength range).
+
+## 210_generate_cloud_mask.py
+Uses the OmniCloudMask Python library to mask clouds in the orthorectified TOA imagery. The library uses red, green, 
+and NIR bands to perform cloud masking, and the imagery is downscaled to 10m beforehand for efficiency.
+
+https://github.com/DPIRD-DMA/OmniCloudMask
+
+## 212_pansharpen_gram_schmidt.py
+Performs Gram-Schmidt pan sharpening using the 0.5m panchromatic band to artificially increase the resolution of the 2m 
+bands (Laben and Brower 2000). The MS-4 product is processed as-is, while there is a flag for the MS-8 product 
+determining whether all bands are pan-sharpened or just the red, green, blue, and NIR bands.
+
+## 220_calculate_srlite_params.py
+Calculates linear regression parameters (slope/offset) to calibrate TOA imagery to match the Landsat CCDC SR images. It 
+first downsamples the VHR imagery to 30m to match the Landsat grid, and then applies water, NIR difference, and cloud 
+masks to ensure the regression is only taking cloud-free land pixels into account.
+
+## 225_apply_srlite.py
+Applies the calibration parameters found in the 220 script, transforming the pan-sharpened TOA data into SR imagery 
+that is consistent with the synthetic Landsat data. For each pixel, the function "SR = TOA x scale + offset" is applied.
+
+## 250_generate_cogs.py
+Converts processed imagery (TOA, pan-sharpened TOA, pan-sharpened SR) into Cloud Optimized GeoTIFFs (COG).
+
+## 255_upload_cogs.py
+Uploads COGs generated in the previous script to Google Cloud Storage.
+
+## 256_create_gee_script.py
+Generates a JavaScript Google Earth Engine script to visualize the uploaded COGs. Groups images into image collections 
+based on the first three parts of the image filename (MS/PS/P, SRLite/TOA/Cloud, 00p50m/02p00m).
+
+## 261_segmentation.py
+Performs Simple Non-Iterative Clustering (SNIC) on the MS_SRLite_02p00m images. The red, green, blue, and NIR bands are 
+used, and an NDVI band is calculated on-the-fly to assist with segmentation. A Gaussian kernel is first applied to the 
+imagery, and then the SNIC algorithm is run. Once the segments are generated, they are twice merged based on spectral 
+similarity (using the raw, non-smoothed imagery to calculate spectral means of polygons). Finally, all segments smaller 
+than 5 pixels are removed, and the gaps left behind are absorbed by adjacent segments.
+
+## References
+Laben, C.A. and Brower, B.V., Eastman Kodak Co, 2000. Process for enhancing the spatial resolution of multispectral 
+imagery using pan-sharpening. U.S. Patent 6,011,875.
+
+Zhu, Z. and Woodcock, C.E., 2014. Continuous change detection and classification of land cover using all available 
+Landsat data. Remote sensing of Environment, 144, pp.152-171.

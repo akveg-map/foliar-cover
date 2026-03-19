@@ -1,0 +1,20 @@
+FROM ghcr.io/osgeo/gdal:ubuntu-small-3.9.0
+
+RUN apt-get update && apt-get install -y curl apt-transport-https ca-certificates gnupg python3-pip git build-essential dos2unix \
+    && curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list \
+    && apt-get update && apt-get install -y google-cloud-cli \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --break-system-packages --ignore-installed --no-cache-dir --no-binary rasterio rasterio pandas "numpy<2" scikit-learn earthengine-api pysnic scipy lxml crcmod
+
+# Install CPU-only PyTorch and OmniCloudMask for Step B (Cloud Masking)
+RUN pip3 install --break-system-packages --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+RUN pip3 install --break-system-packages --no-cache-dir omnicloudmask
+
+# Clone imagery_utils at build time to avoid runtime network dependencies
+RUN git clone https://github.com/PolarGeospatialCenter/imagery_utils.git /imagery_utils
+
+WORKDIR /app
+COPY run_job_*.sh /app/
+RUN dos2unix /app/run_job_*.sh && chmod 755 /app/run_job_*.sh

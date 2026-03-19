@@ -1,0 +1,40 @@
+---
+title: "01_ortho"
+author: "Matt Macander"
+date: "2025-01-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(fs)
+library(terra)
+library(glue)
+
+vdatumDir <- path('/data/gis/gis_base/DEM/vDatum')
+```
+
+
+```{r convert to -180 to 180}
+vdatum_in <- tibble(
+  in_path = dir_ls(path(vdatumDir, 'raw_gtg_geoids'), glob='*.tif'),
+  in_file = path_file(in_path),
+  in_base = path_ext_remove(in_file),
+  out_file = path(vdatumDir, glue('{in_base}_180.tif'))
+) |>
+  filter(in_base != 'us_nga_egm2008_1')
+
+df <- vdatum_in |>
+  rowwise() |>
+  transmute(
+    # x = rast(in_path),
+    # x = list(rast(in_path)),
+    x = map(in_path, ~ raster::raster(.x)),
+    filename = out_file
+    )
+
+pwalk(df, rotate, .progress=TRUE)
+
+```
+

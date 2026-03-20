@@ -13,12 +13,12 @@ var psPath = 'gs://akveg-data/vhr/nome_beaver/processed/20100823_213936_WV02_103
 var chmPoC = ee.Image.loadGeoTIFF(chmPath);
 var ps = ee.Image.loadGeoTIFF(psPath);
 
-// 2. Load Meta Global Datasets (via Awesome GEE Community Catalog)
+// 2. Load Meta Global Datasets
 // Meta CHM v1 (DINOv2 based)
-var metaV1 = ee.ImageCollection('projects/sat-io/open-datasets/facebook/meta-canopy-height').mosaic();
+var metaV1 = ee.ImageCollection('projects/meta-forest-monitoring-okw37/assets/CanopyHeight').mosaic();
 
 // Meta CHM v2 (DINOv3 based)
-var metaV2 = ee.ImageCollection('projects/sat-io/open-datasets/facebook/meta-canopy-height-v2').mosaic();
+var metaV2 = ee.ImageCollection('projects/meta-forest-monitoring-okw37/assets/CanopyHeight_v2').mosaic();
 
 // Visualization Parameters
 var chmViz = {

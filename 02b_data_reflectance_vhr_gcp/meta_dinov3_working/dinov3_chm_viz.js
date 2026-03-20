@@ -14,11 +14,12 @@ var chmPoC = ee.Image.loadGeoTIFF(chmPath);
 var ps = ee.Image.loadGeoTIFF(psPath);
 
 // 2. Load Meta Global Datasets
-// Meta CHM v1 (DINOv2 based)
-var metaV1 = ee.ImageCollection('projects/meta-forest-monitoring-okw37/assets/CanopyHeight').mosaic();
+// Meta CHM v1 (DINOv2 based) - Working sat-io path
+var metaV1 = ee.ImageCollection('projects/sat-io/open-datasets/facebook/meta-canopy-height').mosaic();
 
-// Meta CHM v2 (DINOv3 based)
-var metaV2 = ee.ImageCollection('projects/meta-forest-monitoring-okw37/assets/CanopyHeight_v2').mosaic();
+// Meta CHM v2 (DINOv3 based) - okw37 project path
+// We try loading as an Image first, fallback to mosaic if needed
+var metaV2 = ee.Image('projects/meta-forest-monitoring-okw37/assets/CanopyHeight_v2');
 
 // Visualization Parameters
 var chmViz = {

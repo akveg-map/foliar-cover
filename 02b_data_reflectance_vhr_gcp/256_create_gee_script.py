@@ -45,6 +45,8 @@ def get_vis_params(filename):
         return "vis_cloud"
     if "rgb" in lower:
         return "vis_rgb"
+    if "chm" in lower:
+        return "vis_chm"
     # Pan detection: P_TOA, _pan, but not PS (Pansharpened)
     if ("p_toa" in lower or "_pan" in lower) and not ("ps_toa" in lower or "_ps_" in lower):
         return "vis_pan"
@@ -75,6 +77,7 @@ def main():
         "var vis_pan = {bands: ['pan'], min: 0, max: 5000};",
         "var vis_cloud = {min: 0, max: 1, palette: ['black', 'white']};",
         "var vis_rgb = {bands: ['red', 'green', 'blue'], min: 0, max: 5000};",
+        "var vis_chm = {min: 0, max: 20, palette: ['#f7fcf5','#e5f5e0','#c7e9c0','#a1d99b','#74c476','#41ab5d','#238b45','#006d2c','#00441b']};",
         "",
         "// Image Collections",
     ]
@@ -135,13 +138,14 @@ def main():
     sorted_keys = sorted(groups.keys())
     
     cat_cloud = [k for k in sorted_keys if "cloud" in k.lower()]
+    cat_chm = [k for k in sorted_keys if "chm" in k.lower()]
     cat_ps_srlite = [k for k in sorted_keys if "ps_srlite" in k.lower()]
     cat_ps_toa = [k for k in sorted_keys if "ps_toa" in k.lower()]
     cat_ms_srlite = [k for k in sorted_keys if "ms_srlite" in k.lower()]
     cat_ms_toa = [k for k in sorted_keys if "ms_toa" in k.lower()]
     cat_p_toa = [k for k in sorted_keys if "p_toa" in k.lower()]
     
-    used = set(cat_cloud + cat_ps_srlite + cat_ps_toa + cat_ms_srlite + cat_ms_toa + cat_p_toa)
+    used = set(cat_cloud + cat_chm + cat_ps_srlite + cat_ps_toa + cat_ms_srlite + cat_ms_toa + cat_p_toa)
     cat_others = [k for k in sorted_keys if k not in used]
     
     # Construct ordered list of layers to add
@@ -164,6 +168,9 @@ def main():
         layers_to_add.append((k, "true", False))
     # PS_SRLite (Default True)
     for k in cat_ps_srlite:
+        layers_to_add.append((k, "true", False))
+    # CHM (Default True)
+    for k in cat_chm:
         layers_to_add.append((k, "true", False))
     # Cloud (Default True)
     for k in cat_cloud:

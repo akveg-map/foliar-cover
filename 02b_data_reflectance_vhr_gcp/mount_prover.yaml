@@ -1,0 +1,25 @@
+# Mount Prover for Batch FUSE
+# Verifies the mount path on COS host
+taskGroups:
+  - taskSpec:
+      runnables:
+        - container:
+            imageUri: "gcr.io/akveg-map/vhr-chm-gpu:latest"
+            entrypoint: "/bin/bash"
+            commands:
+              - "-c"
+              - |
+                echo "--- MOUNT CHECK ---"
+                ls /mnt/disks/akveg/vhr/navy_north_slope || echo "Mount Failed"
+                echo "--- SUCCESS ---"
+            volumes:
+              - "/mnt/disks/akveg:/mnt/disks/akveg"
+      computeResource:
+        cpuMilli: 2000
+        memoryMib: 4096
+      volumes:
+        - gcs:
+            remotePath: "akveg-data"
+          mountPath: "/mnt/disks/akveg"
+logsPolicy:
+  destination: CLOUD_LOGGING

@@ -4,8 +4,31 @@ import argparse
 import subprocess
 import sys
 
+def list_files(path):
+    """List files in local or GCS path."""
+    if path.startswith("gs://"):
+        # List GCS files using gcloud storage
+        cmd = ["gcloud", "storage", "ls", path]
+        try:
+            result = subprocess.check_output(cmd, text=True)
+            files = result.strip().split('\n')
+            return [f.strip() for f in files if f.strip() and f.lower().endswith('.tif')]
+        except subprocess.CalledProcessError as e:
+            print(f"Error listing GCS path {path}: {e}")
+            return []
+    else:
+        # Use glob for local paths
+        found = glob.glob(os.path.join(path, "*.tif"))
+        return [f for f in found if ".ovr" not in f and "aux.xml" not in f]
+
+def gcs_to_vsigs(path):
+    if path.startswith("gs://"):
+        return path.replace("gs://", "/vsigs/")
+    return path
+
 """
 250_generate_cogs.py
+...
 
 Description:
     Step 5 of VHR Workflow (Final Output Generation).
@@ -22,7 +45,19 @@ Usage:
 """
 
 def convert_to_cog(src_path, dst_path, overwrite=False, resampling="AVERAGE", threads=1):
-    if os.path.exists(dst_path) and not overwrite:
+    # For /vsigs/ paths, os.path.exists fails.
+    exists = False
+    if dst_path.startswith("/vsigs/"):
+        cmd_check = ["gdalinfo", dst_path]
+        try:
+            subprocess.run(cmd_check, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+            exists = True
+        except subprocess.CalledProcessError:
+            exists = False
+    else:
+        exists = os.path.exists(dst_path)
+
+    if exists and not overwrite:
         print(f"Skipping {os.path.basename(dst_path)}, exists.")
         return True
 
@@ -62,33 +97,32 @@ def main():
     parser.add_argument("--threads", type=int, default=4, help="Number of threads for gdal_translate")
     args = parser.parse_args()
     
-    os.makedirs(args.output_dir, exist_ok=True)
+    if not args.output_dir.startswith("gs://"):
+        os.makedirs(args.output_dir, exist_ok=True)
     
     # Find all TIF files in input directories
     images = []
     for d in args.input_dirs:
-        # Avoid picking up temp files or non-image tifs if possible, but * is usually safe
-        # We exclude .ovr files
-        found = glob.glob(os.path.join(d, "*.tif"))
-        images.extend([f for f in found if ".ovr" not in f and "aux.xml" not in f])
+        images.extend(list_files(d))
     
     print(f"Found {len(images)} images to convert.")
     
     tasks = []
     for img_path in images:
         filename = os.path.basename(img_path)
-        # Optional: Add suffix or keep same name? 
-        # Usually keeping same name is fine if in different folder.
-        # Or we can ensure .tif extension (sometimes .TIF)
         base = os.path.splitext(filename)[0]
         out_name = base + "_cog.tif"
-        out_path = os.path.join(args.output_dir, out_name)
+        
+        if args.output_dir.startswith("gs://"):
+            out_path = args.output_dir.rstrip("/") + "/" + out_name
+        else:
+            out_path = os.path.join(args.output_dir, out_name)
         
         resampling = "AVERAGE"
         if "_cloud" in filename.lower():
             resampling = "MODE"
         
-        tasks.append((img_path, out_path, resampling))
+        tasks.append((gcs_to_vsigs(img_path), gcs_to_vsigs(out_path), resampling))
 
     # Run sequentially to avoid I/O thrashing and OOM on large files.
     # We use internal GDAL threading (NUM_THREADS) to speed up each file.

@@ -1,23 +1,30 @@
-# Workflow Status - March 19, 2026
+# Workflow Status - Navy North Slope CHM Production
 
-## ✅ Completed Tasks
-- **Topography Covariate Pipeline (`03_data_topography/aksdb_cog_pipeline/`):**
-    - Systematically scaled and converted 111 topographic covariates to Int32 COGs.
-    - Verified precision using 35,000-point point samples.
-    - Registered assets in GEE ImageCollection.
-- **VHR GCP Pipeline Integration (`02b_data_reflectance_vhr_gcp/`):**
-    - Flattened core script structure (050-299) and updated orchestration.
-    - Created comprehensive documentation and staged all files.
-- **DINOv3 Canopy Height Model (CHM) Integration:**
-    - **PoC Success:** Verified Meta's DINOv3 (CHMv2) model on L4 GPU using Hugging Face `transformers`.
-    - **Production Script:** Developed `230_predict_chm_dinov3.py` with sliding-window logic, 256px overlap, and robust 5-95% scaling (masking clouds/shadows/saturation).
-    - **FP32 Stability:** Confirmed model stability requires FP32 (FP16 produced NaNs on L4).
-    - **Full-Strip Validation:** Successfully processed `20210719_WV03` strip (~3.8GB output) in 50 minutes.
-    - **GCS Delivery:** Uploaded CHM GeoTIFF, metadata, and logs to `nome_beaver` project folder.
+## Current State (2026-03-21 17:30 UTC)
+The Meta DINOv3 Canopy Height Model (CHM) pipeline is **fully operational and verified**. The infrastructure has been stabilized under the **Verified V5.0 Architecture**, and production is currently scaling across the Navy North Slope study area.
 
-## 🏗️ Active Workflow: DINOv3 CHM Scaling & Workflow Integration
-- **Status:** Research/Validation phase complete. Production script finalized in `meta_dinov3_working/`.
-- **Next Immediate Sub-task:** Design the decoupled GCP Batch orchestration to automate CHM inference after the reflectance pipeline.
+### **Recent Accomplishments**
+- **Infrastructure:** Verified V5.0 Unified Environment (all libraries in `/opt/conda`).
+- **Edge Fix:** Implemented **V3.7 "True Source Masking"** using `src.read_masks()`, eliminating edge garbage and tightening cleanup with 5px erosion.
+- **Security:** Successfully mapped `HF_TOKEN` from Secret Manager to the production workflow.
+- **Behemoth Support:** Increased default disk size to **500GB** and implemented **Standard (non-Spot)** overrides for strips >10GB to ensure robustness.
+- **Validation:** Smallest Navy strip (3.6GB) completed successfully with clean edges.
 
-## 🚀 Resume Prompt
-"Resume session for DINOv3 CHM integration. Full-strip validation on `20210719_WV03` is complete and stored in GCS. The production script `230_predict_chm_dinov3.py` is verified in FP32. Next step is to integrate this as a decoupled stage in the GCP Batch workflow."
+### **Infrastructure Standard (V5.0)**
+- **Image:** `Dockerfile.gpu` (V5.0) - Unifies science libraries in `/opt/conda`. No environment collisions.
+- **I/O:** GCS FUSE mount at `/mnt/disks/akveg`. 
+- **Runner:** `run_chm_job.sh` - Decoupled shim pattern. Pulls scripts from GCS at runtime for instant iteration.
+- **Resiliency:** 500GB default scratch disk; Standard instances for long-running behemoth strips.
+
+### **Production Live Monitor**
+- **Strip 20240710 (3.6 GB):** **SUCCESS** (Finalized with clean edges).
+- **Strip 20220803 (5.8 GB):** **RUNNING** (Job `...112971`, ~35% complete).
+- **Strip 20200714 (21.6 GB):** **RUNNING** (Job `...112973`, ~15% complete).
+
+## **Next Steps**
+1.  **Navy Finalization:** Monitor the remaining two Navy strips to completion.
+2.  **Science Audit:** Review output CHM in GEE using `navy_chm_viz.js`.
+3.  **Nome Beaver Expansion:** Relaunch CHM track for Nome Beaver study area.
+
+## **Resume Prompt**
+> "Resume Navy North Slope CHM production. Check status of Jobs ...112971 and ...112973 using the logging-based protocol (Three-Point Verification). Once Navy is complete, proceed to Nome Beaver expansion."

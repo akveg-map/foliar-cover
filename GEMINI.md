@@ -43,7 +43,27 @@ The Gemini CLI context window is a finite resource. As a session grows, the agen
 3.  **Clear Context:** Type `/clear` to start a fresh, high-performance session.
 4.  **The Resume Prompt:** Paste the provided "Resume Prompt" to "re-load" the agent instantly.
 
-## 2. Project Hygiene & State Persistence
-*   **`workflow_status.md`**: Keep this file in your project root or year folder. It is the "source of truth" for the current session.
-*   **`plans/` folder**: Archive all approved design documents and implementation plans here.
-*   **Audit Artifacts**: Frequently delete or move intermediate images, logs, and temporary test files to reduce noise in file searches.
+## 3. Infrastructure Engineering Standards (GCP Batch, GEE, etc.)
+
+### 📋 Mandatory Documentation Discovery
+Before initiating any new compute workflow, the agent **MUST** perform a recursive search for governing documentation.
+*   **Protocol:** Search parent and current directories for `README.md`, `*BestPractices*.md`, or `*Standards*.md`.
+*   **Priority:** Local project documentation takes absolute precedence over general technical knowledge (e.g., specific Spot retry codes or COG compression settings).
+
+### 🛠️ Incremental Infrastructure Deployment
+Follow a strict **"Connectivity -> Integrity -> Optimization"** path for all distributed compute tasks:
+*   **Step 1 (Connectivity):** Verify basic GCS I/O and hardware access with a minimal "Hello World" run. Use standard, off-the-shelf environments (e.g., Google DLVMs) first. **Do not attempt custom container builds unless standard images are verified as insufficient.**
+*   **Step 2 (Integrity):** Verify functional/mathematical correctness on a limited sample (e.g., `--limit-tiles 10`) before running a full strip.
+*   **Step 3 (Optimization):** Layer on compute-saving features (blending, memmapping, parallelization) only *after* Step 2 is confirmed successful.
+*   **Decoupling:** Favor pulling runner and inference scripts from GCS at runtime rather than baking logic into containers to enable near-instant iteration.
+
+### 🏷️ Descriptive Naming & Tracking
+All distributed jobs (GCP Batch, Cloud Workflows, GEE Tasks) **MUST** utilize descriptive IDs.
+*   **Format:** Include the pipeline name, target site/strip, and a timestamp (e.g., `vhr-refl-navy-010-1774045198`). 
+*   **Restriction:** Generic auto-assigned UUIDs (e.g., `job-bf4d88ff`) are prohibited for production-track runs.
+
+### ⚡ Preemption & Resiliency Standards
+The use of Spot/Preemptible instances is a project standard but requires a **Proactive Resiliency Assessment**:
+*   **Resumability:** Confirm the task is partitioned or checkpointed. Default to Standard instances for initial verification if the task is long and atomic.
+*   **Retry Compliance:** All Spot configurations **MUST** implement the project-standard retry policy (specifically retrying `exitCode 50001`) as documented in `01c_GCP_GEE_BestPractices.md`.
+*   **I/O Robustness:** Favor `gcloud storage` over legacy `gsutil` for all scripted I/O to avoid legacy Python dependency conflicts in specialized environments.

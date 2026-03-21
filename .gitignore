@@ -72,3 +72,4 @@ config_mbi_*.json
 03_data_topography/aksdb_cog_pipeline/reports/*.typ
 03_data_topography/aksdb_cog_pipeline/reports/*.png
 03_data_topography/aksdb_cog_pipeline/reports/appendix/*.png
+.env

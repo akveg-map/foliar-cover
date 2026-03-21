@@ -9,15 +9,21 @@ main:
           - input_dir: ${args.input_dir}
           - output_base: ${args.output_base}
           - dem_path: ${args.dem_path}
+          # Best Practice: Descriptive Job Naming (Fixed: No underscores)
+          - raw_order_id: ${text.split(input_dir, "/")[(len(text.split(input_dir, "/")) - 1)]}
+          - order_id: ${text.replace_all(raw_order_id, "_", "-")}
+          - job_id: ${"vhr-refl-" + order_id + "-" + string(int(sys.now()))}
+          # Default to abr-gee-teck for CCDC
+          - ccdc_ee_project: ${default(map.get(args, "ccdc_ee_project"), "abr-gee-teck")}
           - res_pan: ${default(map.get(args, "res_pan"), 0.5)}
           - res_ms: ${default(map.get(args, "res_ms"), 2.0)}
           - skip_seg: ${default(map.get(args, "skip_seg"), false)}
-          - disk_size_gb: ${default(map.get(args, "disk_size_gb"), 200)}
+          - disk_size_gb: ${default(map.get(args, "disk_size_gb"), 400)}
           - boot_disk_mib: ${int(disk_size_gb * 1024)}
-          - boot_disk_type: ${default(map.get(args, "boot_disk_type"), "pd-balanced")}
-          - cpu_milli: ${default(map.get(args, "cpu_milli"), 8000)}
-          - memory_mib: ${default(map.get(args, "memory_mib"), 32768)}
-          - machine_type: ${default(map.get(args, "machine_type"), "e2-standard-8")}
+          - boot_disk_type: ${default(map.get(args, "boot_disk_type"), "pd-ssd")}
+          - cpu_milli: ${default(map.get(args, "cpu_milli"), 16000)}
+          - memory_mib: ${default(map.get(args, "memory_mib"), 65536)}
+          - machine_type: ${default(map.get(args, "machine_type"), "e2-standard-16")}
           - use_spot: ${default(map.get(args, "use_spot"), false)}
           - spot_map:
               "true": "SPOT"
@@ -29,6 +35,8 @@ main:
         call: http.post
         args:
           url: ${"https://" + batch_api + "/projects/" + project_id + "/locations/" + location + "/jobs"}
+          query:
+            job_id: ${job_id}
           auth:
             type: OAuth2
           body:
@@ -42,12 +50,19 @@ main:
             taskGroups:
               - taskSpec:
                   maxRunDuration: 129600s
+                  maxRetryCount: 3
+                  lifecyclePolicies:
+                    - action: RETRY_TASK
+                      actionCondition:
+                        exitCodes: [50001]
                   environment:
                     variables:
                       GCS_INPUT_PATH: ${input_dir}
                       GCS_OUTPUT_PATH: ${output_base}
                       DEM_PATH: ${dem_path}
                       GOOGLE_CLOUD_PROJECT: ${project_id}
+                      GS_PROJECT_ID: ${project_id}
+                      CCDC_EE_PROJECT: ${ccdc_ee_project}
                       RES_PAN: ${string(res_pan)}
                       RES_MS: ${string(res_ms)}
                       SKIP_SEG: ${string(skip_seg)}

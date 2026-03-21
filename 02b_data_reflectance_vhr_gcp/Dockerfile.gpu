@@ -1,0 +1,26 @@
+FROM pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime
+
+# 1. Minimal System Dependencies
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    git \
+    dos2unix \
+    libgdal-dev \
+    gdal-bin \
+    && rm -rf /var/lib/apt/lists/*
+
+# 2. Unified Python Environment
+# Using the absolute path to pip ensures all libs go to /opt/conda
+RUN /opt/conda/bin/pip install --no-cache-dir \
+    rasterio \
+    "numpy<2" \
+    git+https://github.com/huggingface/transformers.git \
+    scipy \
+    tqdm
+
+WORKDIR /app
+
+# 3. Decoupled Runner
+COPY run_chm_job.sh /app/
+RUN dos2unix /app/run_chm_job.sh && chmod +x /app/run_chm_job.sh
+
+ENTRYPOINT ["/bin/bash", "/app/run_chm_job.sh"]

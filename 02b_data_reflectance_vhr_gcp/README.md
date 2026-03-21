@@ -1,3 +1,30 @@
+## CHM Inference Pipeline (GPU)
+The CHM pipeline uses Meta's DINOv3 architecture to predict canopy height from 0.5m pansharpened reflectance data.
+
+### **1. Triggering a Job**
+Inference is orchestrated via Google Cloud Workflows and runs on NVIDIA L4 GPUs.
+```bash
+gcloud workflows execute chm-pipeline-orchestrator \
+    --location us-central1 \
+    --data='{"input_image": "gs://akveg-data/vhr/.../225_srlite/PS_SRLite_...tif"}'
+```
+
+### **2. Monitoring Progress**
+Jobs emit a heartbeat to GCS every 60 seconds. You can check the real-time tile count without waiting for logs:
+```bash
+gcloud storage cat gs://akveg-data/vhr/.../processing_logs/chm_heartbeat.json
+```
+
+### **3. Pipeline Logic (V3.7 - Production Standard)**
+- **True Source Masking:** Uses `src.read_masks()` to explicitly respect the GeoTIFF `NoData` value (65535), eliminating edge artifacts.
+- **Edge Cleanup:** Applies a 5-pixel binary erosion to the final mask to remove boundary "halos."
+- **Behemoth Support:** Uses `np.memmap` and **Chunked Scaling** (5000 rows at a time) to process 20GB+ strips without OOM crashes.
+- **Robust Hardware:** Default **500GB SSD** scratch disk to accommodate multi-accumulator memmapped buffers.
+- **Output:** Saves as **Integer 16-bit** (Centimeters) with a -9999 nodata value.
+- **Final Product:** Automatically generates a finalized COG in the `250_cog/` directory.
+
+---
+
 # Very High Resolution (VHR) Pipeline Documentation
 
 ## Authentication & Setup

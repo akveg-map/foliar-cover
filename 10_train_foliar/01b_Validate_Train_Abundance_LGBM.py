@@ -8,7 +8,7 @@
 # ---------------------------------------------------------------------------
 
 # Define model targets
-group = 'wetsed'
+group = 'wetforb'
 version_date = '20260212'
 presence_threshold = 3
 predictor_names = ['clim', 'topo', 's1', 's2', 'emb']

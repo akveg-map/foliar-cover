@@ -8,7 +8,7 @@
 # ---------------------------------------------------------------------------
 
 # Define model targets
-group = 'wetsed'
+group = 'bromos'
 version_date = '20260212'
 presence_threshold = 3
 
@@ -282,11 +282,11 @@ foliar_export = foliar_image.unmask(-127).int8()
 # Get a list of all grid codes to iteratively export
 print('Fetching grid codes from grid feature collection...')
 grid_codes = export_grid.aggregate_array('grid_code').getInfo()
-print(f'Found {len(grid_codes)} tiles to process.')
 
 # Filter grid list to a subset of grids (for testing purposes, comment line below for full export)
-target_grids = ['AK050H044V003']
+target_grids = ['AK050H042V002']
 grid_codes = [code for code in grid_codes if code in target_grids]
+print(f'Found {len(grid_codes)} tiles to process.')
 
 # Loop through each grid code to submit a unique task
 for grid_code in grid_codes:

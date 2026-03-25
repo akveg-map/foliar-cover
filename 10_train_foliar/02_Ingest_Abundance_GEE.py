@@ -8,7 +8,7 @@
 # ---------------------------------------------------------------------------
 
 # Define model targets
-group = 'wetsed'
+group = 'wetforb'
 version_date = '20260212'
 
 # Import packages

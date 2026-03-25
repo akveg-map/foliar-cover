@@ -44,8 +44,7 @@ gdal_config = {
     'GDAL_TIFF_OVR_BLOCKSIZE': '512'
 }
 
-# Define cog profile
-# Base COG profile (customized for Google Earth Engine)
+# Define cog profile (customized for Google Earth Engine)
 cog_profile = {
     'driver': 'GTiff',
     'interleave': 'band',

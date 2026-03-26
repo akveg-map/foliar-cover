@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # Create database export
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2026-02-12
+# Last Updated: 2026-03-26
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Create database export" compiles a local copy of a static database export saved as csv tables. The static database copy provides a stable reference and archive version.
 # ---------------------------------------------------------------------------
@@ -17,7 +17,7 @@ from akutils import connect_database_postgresql
 from akutils import query_to_dataframe
 
 # Set version date
-version_date = '20260212'
+version_date = '20260326'
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
@@ -45,12 +45,12 @@ absence_bettre_input = os.path.join(project_folder,
                                     'WesternAlaska_Absences_bettre_3338.shp')
 domain_input = os.path.join(project_folder,
                             'Data/Data_Input/region_data',
-                            'AlaskaYukon_ProjectDomain_v2.0_3338.shp')
+                            'AlaskaYukon_MapDomain_v2p1_3338.shp')
 region_input = os.path.join(project_folder,
                             'Data/Data_Input/region_data',
                             'AlaskaYukon_Regions_v2.0_3338.shp')
 validation_input = os.path.join(project_folder,
-                                'Data/Data_Input/grid_100',
+                                'Data/Data_Input/grid_data',
                                 'AlaskaYukon_100_Tiles_3338.tif')
 coast_input = os.path.join(drive,
                            root_folder,
@@ -248,9 +248,14 @@ site_visit_data['plot_radius_m'] = 0
 site_visit_data['plot_radius_m'] = np.where((site_visit_data['perspective'] == 'aerial')
                                             & (site_visit_data['plot_dimensions_m'] == 'unknown'),
                                             20, site_visit_data['plot_radius_m'])
+site_visit_data['plot_radius_m'] = np.where((site_visit_data['perspective'] == 'aerial')
+                                            & (site_visit_data['plot_dimensions_m'] == '100×100'),
+                                            20, site_visit_data['plot_radius_m'])
 site_visit_data['plot_radius_m'] = np.where((site_visit_data['perspective'] == 'ground')
                                             & (site_visit_data['plot_dimensions_m'] == 'unknown'),
                                             5, site_visit_data['plot_radius_m'])
+site_visit_data['plot_radius_m'] = np.where(site_visit_data['plot_dimensions_m'] == '1×1',
+                                            0.5, site_visit_data['plot_radius_m'])
 site_visit_data['plot_radius_m'] = np.where(site_visit_data['plot_dimensions_m'].isin(
     ['1 radius', '1×7', '1×8', '1×10', '1×12', '2×2', '2×5', '2×7', '2×10', '2×12', '2×20',
      '3×6', '3×7', '3×8', '3×10', '3×12', '3×15', '3×20', '3×25']),

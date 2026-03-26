@@ -2,18 +2,18 @@
 # ---------------------------------------------------------------------------
 # Train and validate LightGBM abundance model
 # Author: Timm Nawrocki, Matt Macander
-# Last Updated: 2026-02-26
+# Last Updated: 2026-03-26
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Train and validate LightGBM abundance model" trains, exports, and validates a random forest classifier and a LightGBM regressor. The model validation accounts for spatial autocorrelation by grouping in 100 km blocks.
 # ---------------------------------------------------------------------------
 
 # Define model targets
-group = 'wetforb'
-version_date = '20260212'
+group = 'erivag'
+version_date = '20260326'
 presence_threshold = 3
 predictor_names = ['clim', 'topo', 's1', 's2', 'emb']
-init_points = 2
-n_iter = 2
+init_points = 30
+n_iter = 70
 
 # Import packages
 import numpy as np

@@ -46,7 +46,8 @@ except ee.EEException:
 
 # Buffer the point feature based on the 'plot_radius_m' column
 print('Buffering points...')
-buffer_feature = point_feature.map(lambda f: f.buffer(f.getNumber('plot_radius_m')))
+valid_points = point_feature.filter(ee.Filter.gt('plot_radius_m', 0))
+buffer_feature = valid_points.map(lambda f: f.buffer(f.getNumber('plot_radius_m'), 0.1))
 
 # Set metadata properties
 buffer_feature = buffer_feature.set({

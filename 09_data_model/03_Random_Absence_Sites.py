@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------
 # Select random absence sites
 # Author: Timm Nawrocki
-# Last Updated: 2026-02-12
+# Last Updated: 2026-03-26
 # Usage: Must be executed in an ArcGIS Pro Python 3.9+ installation.
 # Description: "Select random absence sites" randomly selects a sample of absence sites from polygons with a population field. This script also combines an optional set of manually derived absence sites.
 # ---------------------------------------------------------------------------
@@ -14,7 +14,7 @@ from akutils import *
 import arcpy
 
 # Set version date
-version_date = '20260212'
+version_date = '20260326'
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________

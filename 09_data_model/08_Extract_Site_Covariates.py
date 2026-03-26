@@ -229,6 +229,7 @@ buffer_means = covariate_image.reduceRegions(
 buffer_means = buffer_means.map(lambda f: f.setGeometry(None))
 
 # Export results to cloud storage.
+
 task = ee.batch.Export.table.toCloudStorage(
   collection=buffer_means,
   description='akveg-covariates',

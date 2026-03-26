@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # Parse training data
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2026-02-25
+# Last Updated: 2026-03-26
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Parse training data" parses train-validate-test data for all diagnostic species sets.
 # ---------------------------------------------------------------------------
@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 
 # Set version date
-version_date = '20260212'
+version_date = '20260326'
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
@@ -73,8 +73,8 @@ site_visit_data['exclude'] = 0
 site_visit_data['exclude'] = np.where(site_visit_data['observe_year'] < 2000,
                                       1, site_visit_data['exclude'])
 
-# Exclude site visits that burned after observation
-site_visit_data['exclude'] = np.where(site_visit_data['observe_year'] <= site_visit_data['fire_year'],
+# Exclude site visits made before burn or within 10 years post-burn
+site_visit_data['exclude'] = np.where(site_visit_data['observe_year'] <= (site_visit_data['fire_year'] + 10),
                                       1, site_visit_data['exclude'])
 
 # Exclude site visits where the centroid overlaps persistent water

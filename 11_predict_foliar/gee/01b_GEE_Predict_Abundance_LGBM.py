@@ -8,8 +8,8 @@
 # ---------------------------------------------------------------------------
 
 # Define model targets
-group = 'bromos'
-version_date = '20260212'
+group = 'wetsed'
+version_date = '20260330'
 presence_threshold = 3
 
 # Import packages
@@ -46,7 +46,7 @@ ee.Initialize(project=ee_project)
 asset_path = f'projects/{ee_project}/assets'
 
 # Define export areas
-grid_path = 'projects/akveg-map/assets/regions/AlaskaYukon_050_Tiles_3338'
+grid_path = 'projects/akveg-map/assets/regions/AlaskaYukon_MapTiles_v2p1_3338'
 export_grid = ee.FeatureCollection(grid_path)
 
 # Define covariate paths
@@ -55,7 +55,6 @@ covariate_path_v2p1 = f'{asset_path}/covariates_v20260118/'
 sent1_path = f'{asset_path}/s1_2022_v20230326'
 sent2_seasonal_path = f'{asset_path}/s2_sr_2019_2023_gMedian_v20240713d'
 sent2_backup_path = f'{asset_path}/s2_sr_2019_2023_median_midsummer_v20240724'
-dw_path = f'{asset_path}/dynamic_world_metrics/s2_dw_percentages_56789_v20250414'
 alphaearth_path = 'GOOGLE/SATELLITE_EMBEDDING/V1/ANNUAL'
 
 #### PREPARE STATIC ENVIRONMENTAL COVARIATES
@@ -211,21 +210,15 @@ s2_final = s2_1 \
     .addBands(s2_4) \
     .addBands(s2_5)
 
-#### PREPARE DYNAMIC WORLD COVARIATES
-####____________________________________________________
-
-dynamic_world = ee.ImageCollection(dw_path) \
-    .mosaic() \
-    .select(['pct_nonsnow_water', 'pct_nonsnow_flooded_vegetation', 'pct_nonsnow_bare', 'pct_snow']) \
-    .rename(['dw_water_pct', 'dw_flooded_pct', 'dw_bare_pct', 'dw_snow_pct']) \
-    .int16()
-
 #### PREPARE ALPHAEARTH COVARIATES
 ####____________________________________________________
 
+# Scale embeddings by 10000 and cast to 16-bit signed integer
 embeddings = ee.ImageCollection(alphaearth_path) \
     .filterDate('2023-01-01', '2023-12-31') \
-    .mosaic()
+    .mosaic() \
+    .multiply(10000) \
+    .int16()
 
 #### TRAIN AND EXPORT FOLIAR COVER MAP
 ####____________________________________________________
@@ -234,11 +227,12 @@ embeddings = ee.ImageCollection(alphaearth_path) \
 covariate_image = covariate_image \
     .addBands(s1_final) \
     .addBands(s2_final) \
-    .addBands(embeddings)
+    .addBands(embeddings) \
+    .int16()
 
 # Load the classifier and regressor
-classifier_table = ee.FeatureCollection(f'{asset_path}/models/foliar_cover/{group}_classifier')
-regressor_table = ee.FeatureCollection(f'{asset_path}/models/foliar_cover/{group}_regressor')
+classifier_table = ee.FeatureCollection(f'{asset_path}/models/foliar_cover_v2p1/{group}_classifier')
+regressor_table = ee.FeatureCollection(f'{asset_path}/models/foliar_cover_v2p1/{group}_regressor')
 
 # Decode decision tree strings from the # placeholder into proper multi-line format
 classifier_strings = classifier_table.sort('tree_index').aggregate_array('tree') \
@@ -284,11 +278,11 @@ print('Fetching grid codes from grid feature collection...')
 grid_codes = export_grid.aggregate_array('grid_code').getInfo()
 
 # Filter grid list to a subset of grids (for testing purposes, comment line below for full export)
-target_grids = ['AK050H042V002']
-grid_codes = [code for code in grid_codes if code in target_grids]
-print(f'Found {len(grid_codes)} tiles to process.')
+#target_grids = ['AK050H042V002']
+#grid_codes = [code for code in grid_codes if code in target_grids]
 
 # Loop through each grid code to submit a unique task
+print(f'Found {len(grid_codes)} tiles to process.')
 for grid_code in grid_codes:
     # Filter the feature collection to the specific grid code
     tile_feature = ee.Feature(export_grid.filter(ee.Filter.eq('grid_code', grid_code)).first())
@@ -298,7 +292,7 @@ for grid_code in grid_codes:
 
     # Define unique names for the task and output file
     task_description = f'{group}_{grid_code}'
-    file_name = f'{storage_prefix}/{group}_{grid_code}_10m_3338'
+    file_name = f'{storage_prefix}/rasters_gridded/{group}_{grid_code}_10m_3338'
 
     # Define export parameters and start the task
     export_task = ee.batch.Export.image.toCloudStorage(**{

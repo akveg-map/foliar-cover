@@ -1,14 +1,20 @@
 # -*- coding: utf-8 -*-
 # ---------------------------------------------------------------------------
-# Extract data to sites
+# Predict abundance for Random Forest model
 # Author: Timm Nawrocki, Matt Macander
-# Last Updated: 2026-04-12
+# Last Updated: 2026-02-26
 # Usage: Must be executed in a Python 3.12+ installation with authentication to Google Earth Engine.
-# Description: "Extract data to sites" reduces covariate image assets to buffered points on Google Earth Engine.
+# Description: "Predict abundance for Random Forest model" prepares covariates and initiates a prediction task in Google Earth Engine for classifier and regressor assets trained through Random Forest (scikit-learn).
 # ---------------------------------------------------------------------------
+
+# Define model targets
+group = 'halgra'
+version_date = '20260212'
+presence_threshold = 3
 
 # Import packages
 import ee
+import os
 
 #### SET UP ENVIRONMENT
 ####____________________________________________________
@@ -16,7 +22,20 @@ import ee
 # Define paths
 ee_project = 'akveg-map'
 storage_bucket = 'akveg-data'
-storage_prefix = 'site_data'
+storage_prefix = 'foliar_cover_v2p1'
+
+# Define inputs
+drive = 'C:/'
+root_folder = 'ACCS_Work/Projects/VegetationEcology/AKVEG_Map/Data'
+threshold_input = os.path.join(drive, root_folder,
+                               f'Data_Output/model_results/version_{version_date}/{group}',
+                               f'{group}_threshold_final.txt')
+
+# Read threshold
+threshold_reader = open(threshold_input, "r")
+classifier_threshold = float(threshold_reader.readlines()[0])
+threshold_reader.close()
+print(f'Classifier threshold is: {classifier_threshold}')
 
 # Authenticate with Earth Engine
 print('Requesting information from server...')
@@ -26,8 +45,8 @@ ee.Initialize(project=ee_project)
 # Define asset path
 asset_path = f'projects/{ee_project}/assets'
 
-# Define feature collections
-buffer_feature = ee.FeatureCollection(f'{asset_path}/sites/akveg_site_visit_buffers')
+# Define area of interest
+test_area = ee.Image(f'{asset_path}/navy_arctic/IcyCape_CIR_0p5m_3338')
 
 # Define covariate paths
 covariate_path_v2 = f'{asset_path}/covariates_v20240711/'
@@ -35,6 +54,7 @@ covariate_path_v2p1 = f'{asset_path}/covariates_v20260118/'
 sent1_path = f'{asset_path}/s1_2022_v20230326'
 sent2_seasonal_path = f'{asset_path}/s2_sr_2019_2023_gMedian_v20240713d'
 sent2_backup_path = f'{asset_path}/s2_sr_2019_2023_median_midsummer_v20240724'
+alphaearth_path = 'GOOGLE/SATELLITE_EMBEDDING/V1/ANNUAL'
 
 #### PREPARE STATIC ENVIRONMENTAL COVARIATES
 ####____________________________________________________
@@ -189,34 +209,76 @@ s2_final = s2_1 \
     .addBands(s2_4) \
     .addBands(s2_5)
 
-#### PROCESS DATA EXTRACTION
+#### PREPARE ALPHAEARTH COVARIATES
+####____________________________________________________
+
+# Scale embeddings by 10000 and cast to 16-bit signed integer
+embeddings = ee.ImageCollection(alphaearth_path) \
+    .filterDate('2023-01-01', '2023-12-31') \
+    .mosaic() \
+    .multiply(10000) \
+    .int16()
+
+#### TRAIN AND EXPORT FOLIAR COVER MAP
 ####____________________________________________________
 
 # Create image collection
 covariate_image = covariate_image \
     .addBands(s1_final) \
     .addBands(s2_final) \
+    .addBands(embeddings) \
     .int16()
 
-# Add reducer output to the Features in the collection.
-print('Creating GEE task...')
-buffer_means = covariate_image.reduceRegions(
-    collection=buffer_feature,
-    reducer=ee.Reducer.mean(),
-    crs='EPSG:3338',
-    crsTransform=[10, 0, 5, 0, -10, 5],
-    tileScale=16
-)
-buffer_means = buffer_means.map(lambda f: f.setGeometry(None))
+# Load the classifier and regressor
+classifier_table = ee.FeatureCollection(f'{asset_path}/models/foliar_cover/{group}_classifier')
+regressor_table = ee.FeatureCollection(f'{asset_path}/models/foliar_cover/{group}_regressor')
 
-# Export results to cloud storage.
-task = ee.batch.Export.table.toCloudStorage(
-  collection=buffer_means,
-  description='akveg-covariates',
-  bucket=storage_bucket,
-  fileNamePrefix=f'{storage_prefix}/akveg_site_visit_covariates',
-  fileFormat='CSV'
-)
-task.start()
-print('GEE task sent to server.')
-print('----------')
+# Decode decision tree strings from the # placeholder into proper multi-line format
+classifier_strings = classifier_table.sort('tree_index').aggregate_array('tree') \
+    .map(lambda s: ee.String(s).replace('#', '\n', 'g'))
+
+regressor_strings = regressor_table.sort('tree_index').aggregate_array('tree') \
+    .map(lambda s: ee.String(s).replace('#', '\n', 'g'))
+
+# Initialize the models
+classifier = ee.Classifier.decisionTreeEnsemble(classifier_strings).setOutputMode('REGRESSION')
+regressor = ee.Classifier.decisionTreeEnsemble(regressor_strings).setOutputMode('REGRESSION')
+
+# Predict the outputs
+probability_image = covariate_image.classify(classifier).rename(group)
+foliar_raw = covariate_image.classify(regressor)
+
+# Round the prediction to the nearest integer
+foliar_rounded = foliar_raw.round()
+
+# Set foliar cover to 0 based on thresholds
+foliar_image = foliar_rounded.where(probability_image.lt(classifier_threshold), 0) \
+                         .where(foliar_rounded.lt(presence_threshold), 0) \
+                         .rename(f'{group}_cover')
+print(f'Masked Foliar Image calculated for {group}.')
+
+#### EXPORT TO CLOUD STORAGE
+####____________________________________________________
+
+# Unmask the empty pixels to -127, then cast to a signed 8-bit integer
+foliar_export = foliar_image.unmask(-127).int8()
+
+# Define export parameters and start the task
+export_task = ee.batch.Export.image.toCloudStorage(**{
+    'image': foliar_export,
+    'description': f'IcyCape_{group}',
+    'bucket': storage_bucket,
+    'fileNamePrefix': f'{storage_prefix}/IcyCape_{group}_10m_3338',
+    'region': test_area.geometry(),
+    'scale': 10,
+    'crs': 'EPSG:3338',
+    'maxPixels': 1e13,
+    #'tileScale': 16, UNCOMMENT FOR FULL EXTENT EXPORTS
+    'formatOptions': {
+        'cloudOptimized': True,
+        'noData': -127
+    }
+})
+
+export_task.start()
+print(f'Export task for {group} successfully started! Check your GEE Task Manager or Cloud Storage.')

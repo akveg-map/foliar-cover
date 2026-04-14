@@ -1,20 +1,15 @@
 # -*- coding: utf-8 -*-
 # ---------------------------------------------------------------------------
-# Predict abundance for Random Forest model
-# Author: Timm Nawrocki, Matt Macander
-# Last Updated: 2026-02-26
+# Export covariate rasters
+# Author: Timm Nawrocki
+# Last Updated: 2026-04-12
 # Usage: Must be executed in a Python 3.12+ installation with authentication to Google Earth Engine.
-# Description: "Predict abundance for Random Forest model" prepares covariates and initiates a prediction task in Google Earth Engine for classifier and regressor assets trained through Random Forest (scikit-learn).
+# Description: "Export covariate rasters" compiles covariate rasters and exports them in prediction tile grid for running the prediction step outside of Google Earth Engine.
 # ---------------------------------------------------------------------------
-
-# Define model targets
-group = 'halgra'
-version_date = '20260212'
-presence_threshold = 3
 
 # Import packages
 import ee
-import os
+from google.cloud import storage
 
 #### SET UP ENVIRONMENT
 ####____________________________________________________
@@ -24,29 +19,20 @@ ee_project = 'akveg-map'
 storage_bucket = 'akveg-data'
 storage_prefix = 'foliar_cover_v2p1'
 
-# Define inputs
-drive = 'C:/'
-root_folder = 'ACCS_Work/Projects/VegetationEcology/AKVEG_Map/Data'
-threshold_input = os.path.join(drive, root_folder,
-                               f'Data_Output/model_results/version_{version_date}/{group}',
-                               f'{group}_threshold_final.txt')
-
-# Read threshold
-threshold_reader = open(threshold_input, "r")
-classifier_threshold = float(threshold_reader.readlines()[0])
-threshold_reader.close()
-print(f'Classifier threshold is: {classifier_threshold}')
-
 # Authenticate with Earth Engine
 print('Requesting information from server...')
 ee.Authenticate()
 ee.Initialize(project=ee_project)
 
+# Initialize GCS Client
+storage_client = storage.Client()
+
 # Define asset path
 asset_path = f'projects/{ee_project}/assets'
 
-# Define area of interest
-test_area = ee.Image(f'{asset_path}/navy_arctic/IcyCape_CIR_0p5m_3338')
+# Define export areas
+grid_path = 'projects/akveg-map/assets/regions/AlaskaYukon_MapTiles_v2p1_3338'
+export_grid = ee.FeatureCollection(grid_path)
 
 # Define covariate paths
 covariate_path_v2 = f'{asset_path}/covariates_v20240711/'
@@ -54,8 +40,16 @@ covariate_path_v2p1 = f'{asset_path}/covariates_v20260118/'
 sent1_path = f'{asset_path}/s1_2022_v20230326'
 sent2_seasonal_path = f'{asset_path}/s2_sr_2019_2023_gMedian_v20240713d'
 sent2_backup_path = f'{asset_path}/s2_sr_2019_2023_median_midsummer_v20240724'
-dw_path = f'{asset_path}/dynamic_world_metrics/s2_dw_percentages_56789_v20250414'
-alphaearth_path = 'GOOGLE/SATELLITE_EMBEDDING/V1/ANNUAL'
+
+#### DEFINE FUNCTIONS
+####____________________________________________________
+
+# Define function to check if a file exists in GCS
+def gcs_blob_exists(gcs_uri):
+    bucket_name = gcs_uri.split('/')[2]
+    blob_name = '/'.join(gcs_uri.split('/')[3:])
+    bucket = storage_client.bucket(bucket_name)
+    return bucket.blob(blob_name).exists()
 
 #### PREPARE STATIC ENVIRONMENTAL COVARIATES
 ####____________________________________________________
@@ -210,81 +204,59 @@ s2_final = s2_1 \
     .addBands(s2_4) \
     .addBands(s2_5)
 
-#### PREPARE DYNAMIC WORLD COVARIATES
-####____________________________________________________
-
-dynamic_world = ee.ImageCollection(dw_path) \
-    .mosaic() \
-    .select(['pct_nonsnow_water', 'pct_nonsnow_flooded_vegetation', 'pct_nonsnow_bare', 'pct_snow']) \
-    .rename(['dw_water_pct', 'dw_flooded_pct', 'dw_bare_pct', 'dw_snow_pct']) \
-    .int16()
-
-#### PREPARE ALPHAEARTH COVARIATES
-####____________________________________________________
-
-embeddings = ee.ImageCollection(alphaearth_path) \
-    .filterDate('2023-01-01', '2023-12-31') \
-    .mosaic()
-
-#### TRAIN AND EXPORT FOLIAR COVER MAP
+#### EXPORT COVARIATE RASTERS
 ####____________________________________________________
 
 # Create image collection
 covariate_image = covariate_image \
     .addBands(s1_final) \
     .addBands(s2_final) \
-    .addBands(embeddings)
+    .int16()
 
-# Load the classifier and regressor
-classifier_table = ee.FeatureCollection(f'{asset_path}/models/foliar_cover/{group}_classifier')
-regressor_table = ee.FeatureCollection(f'{asset_path}/models/foliar_cover/{group}_regressor')
+# Get a list of all grid codes to iteratively export
+print('Fetching grid codes from grid feature collection...')
+grid_codes = export_grid.aggregate_array('grid_code').getInfo()
 
-# Decode decision tree strings from the # placeholder into proper multi-line format
-classifier_strings = classifier_table.sort('tree_index').aggregate_array('tree') \
-    .map(lambda s: ee.String(s).replace('#', '\n', 'g'))
+# Filter grid list to a subset of grids (for testing purposes, comment line below for full export)
+#target_grids = ['AK010H209V007']
+#grid_codes = [code for code in grid_codes if code in target_grids]
+grid_codes = grid_codes[0:1000]
 
-regressor_strings = regressor_table.sort('tree_index').aggregate_array('tree') \
-    .map(lambda s: ee.String(s).replace('#', '\n', 'g'))
+# Loop through each grid code to submit a unique task
+print(f'Found {len(grid_codes)} tiles to process.')
+for grid_code in grid_codes:
+    # Filter the feature collection to the specific grid code
+    tile_feature = ee.Feature(export_grid.filter(ee.Filter.eq('grid_code', grid_code)).first())
 
-# Initialize the models
-classifier = ee.Classifier.decisionTreeEnsemble(classifier_strings).setOutputMode('REGRESSION')
-regressor = ee.Classifier.decisionTreeEnsemble(regressor_strings).setOutputMode('REGRESSION')
+    # Buffer the geometry by 20 meters
+    export_geometry = tile_feature.geometry().buffer(20)
 
-# Predict the outputs
-probability_image = covariate_image.classify(classifier).rename(group)
-foliar_raw = covariate_image.classify(regressor)
+    # Define unique names for the task and output file
+    task_description = f'covariates_{grid_code}'
+    file_name = f'{storage_prefix}/rasters_covariates/{grid_code}_10m_3338'
 
-# Round the prediction to the nearest integer
-foliar_rounded = foliar_raw.round()
+    # Export grid if it does not already exist on GCS
+    if not gcs_blob_exists(f'gs://{storage_bucket}/{file_name}'):
+        # Define export parameters and start the task
+        export_task = ee.batch.Export.image.toCloudStorage(**{
+            'image': covariate_image,
+            'description': task_description,
+            'bucket': storage_bucket,
+            'fileNamePrefix': file_name,
+            'region': export_geometry,
+            'scale': 10,
+            'crs': 'EPSG:3338',
+            'maxPixels': 1e13,
+            'formatOptions': {
+                'cloudOptimized': False,
+                'noData': -32768
+            }
+        })
 
-# Set foliar cover to 0 based on thresholds
-foliar_image = foliar_rounded.where(probability_image.lt(classifier_threshold), 0) \
-                         .where(foliar_rounded.lt(presence_threshold), 0) \
-                         .rename(f'{group}_cover')
-print(f'Masked Foliar Image calculated for {group}.')
+        # Initiate task
+        export_task.start()
+        print(f'Submitted task for {grid_code}.')
+    else:
+        print(f'{grid_code} already exists.')
 
-#### EXPORT TO CLOUD STORAGE
-####____________________________________________________
-
-# Unmask the empty pixels to -127, then cast to a signed 8-bit integer
-foliar_export = foliar_image.unmask(-127).int8()
-
-# Define export parameters and start the task
-export_task = ee.batch.Export.image.toCloudStorage(**{
-    'image': foliar_export,
-    'description': f'IcyCape_{group}',
-    'bucket': storage_bucket,
-    'fileNamePrefix': f'{storage_prefix}/IcyCape_{group}_10m_3338',
-    'region': test_area.geometry(),
-    'scale': 10,
-    'crs': 'EPSG:3338',
-    'maxPixels': 1e13,
-    #'tileScale': 16, UNCOMMENT FOR FULL EXTENT EXPORTS
-    'formatOptions': {
-        'cloudOptimized': True,
-        'noData': -127
-    }
-})
-
-export_task.start()
-print(f'Export task for {group} successfully started! Check your GEE Task Manager or Cloud Storage.')
+print('All export tasks have been successfully submitted to Earth Engine.')

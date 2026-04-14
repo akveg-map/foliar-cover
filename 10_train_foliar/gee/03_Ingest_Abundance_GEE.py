@@ -2,14 +2,14 @@
 # ---------------------------------------------------------------------------
 # Ingest tree model to GEE
 # Author: Timm Nawrocki, Matt Macander
-# Last Updated: 2026-02-26
+# Last Updated: 2026-03-26
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Ingest tree model to GEE" parses the tree strings from a text file (exported during the model training process) and initiates a task in GEE to upload the tree strings as a table asset.
 # ---------------------------------------------------------------------------
 
 # Define model targets
-group = 'wetforb'
-version_date = '20260212'
+group = 'wetsed'
+version_date = '20260330'
 
 # Import packages
 import ee
@@ -40,8 +40,8 @@ ee.Authenticate()
 ee.Initialize(project=ee_project)
 
 # Define paths for the model asset
-classifier_asset = f'projects/{ee_project}/assets/models/foliar_cover/{group}_classifier'
-regressor_asset = f'projects/{ee_project}/assets/models/foliar_cover/{group}_regressor'
+classifier_asset = f'projects/{ee_project}/assets/models/foliar_cover_v2p1/{group}_classifier'
+regressor_asset = f'projects/{ee_project}/assets/models/foliar_cover_v2p1/{group}_regressor'
 
 # Delete classifier asset if it already exists
 try:

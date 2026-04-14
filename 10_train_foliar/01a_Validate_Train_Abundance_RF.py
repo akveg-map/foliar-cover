@@ -8,10 +8,10 @@
 # ---------------------------------------------------------------------------
 
 # Define model targets
-group = 'wetforb'
+group = 'rubspe'
 version_date = '20260326'
 presence_threshold = 3
-predictor_names = ['clim', 'topo', 's1', 's2', 'emb']
+predictor_names = ['clim', 'topo', 's1', 's2']
 
 # Import packages
 import numpy as np

@@ -80,7 +80,7 @@ conda activate akveg
 Install the necessary packages for geospatial processing and predictive modeling. In the example below, we install packages to support interactions with Earth Engine and statistical learning with LightGBM and Bayesian Optimization. We also install the "akutils" helper functions.
 
 ```bash
-conda install -c conda-forge numpy openpyxl pandas gdal geopandas rasterio scikit-learn imbalanced-learn lightgbm bayesian-optimization joblib earthengine-api geemap pyarrow fastparquet
+conda install -c conda-forge numpy openpyxl pandas scikit-learn imbalanced-learn lightgbm bayesian-optimization joblib earthengine-api
 python3 -m pip install git+https://github.com/accs-uaa/akutils
 ```
 
@@ -91,25 +91,24 @@ Create the data directories referenced in the script. The example below includes
 ```bash
 mkdir ~/scripts
 mkdir ~/Data_Input
-mkdir ~/Data_Input/extract_data
-mkdir ~/Data_Input/species_data
+mkdir ~/Data_Input/site_data
+mkdir ~/Data_Input/site_data/version_<yyyymmdd>
 mkdir ~/Data_Output
 mkdir ~/Data_Output/model_results
-mkdir ~/Data_Output/model_results/<round_date>
+mkdir ~/Data_Output/model_results/version_<yyyymmdd>
 ```
 
 Use Google Cloud SDK commands from the terminal to download data and scripts for the storage bucket to the vm.
 
 ```
-gcloud storage rsync gs://akveg-data/extract_data ~/Data_Input/extract_data --recursive
-gcloud storage rsync gs://akveg-data/species_data ~/Data_Input/species_data --recursive
-gcloud storage rsync gs://akveg-data/scripts ~/scripts --recursive
+gcloud storage cp gs://akveg-data/site_data/akveg_site_visit_covariates.csv ~/Data_Input/site_data/version_20260326/akveg_site_visit_covariates.csv
+gcloud storage cp -r gs://akveg-data/scripts/foliar_cover/ ~/scripts/
 ```
 
 Use vim to update the scripts as necessary. To begin editing a file once it has been opened in vim, press "i". To save and close a file after editing it in vim, press ":wq".
 
 ```bash
-vim ~/scripts/01b_Validate_Train_Abundance_LGBM.py
+vim ~/scripts/foliar_cover/01b_Validate_Train_Abundance_LGBM.py
 i
 :wq
 ```
@@ -126,10 +125,22 @@ Creating a custom disk image will allow additional vms to be created that are id
 
 Once the image creates successfully, other vm can be created using the custom image, obviating the need to install software and load files for each vm independently.
 
+The following command line can be executed in the Google Cloud SDK to create the new instance from the template:
+
+```bash
+gcloud compute instances create feather-lgbm --source-machine-image=foliar-v2p1 --zone=us-west1-a
+```
+
 ## 3. Run scripts
 To run a script, first make sure the target vm is running and then open terminal in a browser using ssh. Run the script using the python command. Adding "nohup" to the command will prevent ssh interruptions from stopping the script. The script will run as long as the vm is running and store printed statements in a nohup file (otherwise terminal interruptions will stop the script). When running scripts using "nohup", print statements will not appear in the terminal.
 
 ```bash
-nohup python3 ~/scripts/01b_Validate_Train_Abundance_LGBM.py
+conda activate akveg
+
+vim ~/scripts/foliar_cover/01b_Validate_Train_Abundance_LGBM.py
+vim ~/scripts/foliar_cover/03_Ingest_Abundance_GEE.py
+
+nohup python3 ~/scripts/foliar_cover/01b_Validate_Train_Abundance_LGBM.py
+python3 ~/scripts/foliar_cover/03_Ingest_Abundance_GEE.py
 ```
 

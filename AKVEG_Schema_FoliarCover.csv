@@ -443,8 +443,6 @@ FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Veronica serpyll
 FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Veronica serpyllifolia ssp. serpyllifolia
 FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Zannichellia palustris
 FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Zostera marina
-FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Aulacomnium acuminatum
-FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Aulacomnium palustre
 FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Calliergon
 FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Calliergon cordifolium
 FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Calliergon giganteum
@@ -480,8 +478,6 @@ FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Sarmentypnum s
 FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Sarmentypnum trichophyllum
 FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Sarmentypnum tundrae
 FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Scorpidium
-FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Tomentypnum
-FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Tomentypnum nitens
 FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Warnstorfia
 FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Warnstorfia fluitans
 FALSE,TRUE,diagnostic species set,7. bryophytes,bromos,brown moss,Warnstorfia pseudostraminea

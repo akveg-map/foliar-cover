@@ -34,8 +34,8 @@ storage_client = storage.Client()
 gcs_base = 'gs://akveg-data/foliar_cover_v2p1'
 
 # Set root directory
-drive = 'C:/'
-root_folder = 'ACCS_Work/Projects/VegetationEcology/AKVEG_Map/Data'
+drive = '/home'
+root_folder = 'twnawrocki'
 
 # Define folder structure
 covariate_folder = os.path.join(drive, root_folder, 'Data_Input/covariate_data')

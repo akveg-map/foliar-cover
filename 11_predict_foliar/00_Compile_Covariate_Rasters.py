@@ -17,6 +17,7 @@ os.environ['GDAL_GCS_BINARY_READ'] = 'YES'
 # Import packages
 import geopandas as gpd
 import time
+import math
 import numpy as np
 from osgeo import gdal
 import rasterio
@@ -43,6 +44,7 @@ covariate_folder = os.path.join(drive, root_folder, 'Data_Input/covariate_data')
 region_folder = os.path.join(drive, root_folder, 'Data_Input/region_data')
 
 # Define input files
+area_input = os.path.join(region_folder, 'AlaskaYukon_MapDomain_v2p1_10m_3338.tif')
 grid_input = os.path.join(region_folder, 'AlaskaYukon_MapTiles_v2p1_3338.shp')
 
 # Define intermediate files
@@ -212,7 +214,16 @@ single_band_sources = {
     'precip': precip_path.replace('gs://', '/vsigs/')
 }
 
-# Export model predictions for each grid in grid list
+# Define grid alignment from area_input
+print('Defining grid alignment...')
+with rasterio.open(area_input) as area_raster:
+    area_transform = area_raster.transform
+    align_x = area_transform[2]
+    align_y = area_transform[5]
+    res_x = area_transform[0]
+    res_y = abs(area_transform[4])
+
+# Export covariate raster for each grid in grid list
 grid_count = 1
 for index, row in grid_data.iterrows():
     # Define grid code
@@ -229,12 +240,18 @@ for index, row in grid_data.iterrows():
 
         # Define geometry and window
         grid_geom = row['geometry'].buffer(20)
-        left, bottom, right, top = grid_geom.bounds
+        raw_left, raw_bottom, raw_right, raw_top = grid_geom.bounds
 
-        # Define the output profile
-        dst_transform = rasterio.transform.from_origin(left, top, 10, 10)
-        dst_width = int(round((right - left) / 10))
-        dst_height = int(round((top - bottom) / 10))
+        # Snap coordinates to the area_input grid alignment
+        left = align_x + math.floor((raw_left - align_x) / res_x) * res_x
+        bottom = align_y + math.floor((raw_bottom - align_y) / res_y) * res_y
+        right = align_x + math.ceil((raw_right - align_x) / res_x) * res_x
+        top = align_y + math.ceil((raw_top - align_y) / res_y) * res_y
+
+        # Define the output profile based on master resolutions
+        dst_transform = rasterio.transform.from_origin(left, top, res_x, res_y)
+        dst_width = int(round((right - left) / res_x))
+        dst_height = int(round((top - bottom) / res_y))
 
         # Define output profile
         output_profile = {

@@ -60,6 +60,7 @@ Update the system prior to installing software and then install necessary base p
 ```bash
 sudo apt-get update
 sudo apt-get install vim
+sudo apt-get install git
 ```
 
 Install the latest Miniconda release. The version referenced in the example below may need to be updated. The repository version should match the Ubuntu Linux release version.
@@ -73,14 +74,16 @@ rm -rf ~/miniforge/miniforge.sh
 ~/miniforge/bin/conda init bash
 ~/miniforge/bin/conda init zsh
 source ~/.bashrc
-conda create -n akveg -c conda-forge
+conda create -n akveg
 conda activate akveg
+conda config --env --add channels conda-forge
+conda config --env --set channel_priority strict
 ```
 
 Install the necessary packages for geospatial processing and predictive modeling. In the example below, we install packages to support interactions with Earth Engine and statistical learning with LightGBM and Bayesian Optimization. We also install the "akutils" helper functions.
 
 ```bash
-conda install -c conda-forge numpy openpyxl pandas scikit-learn imbalanced-learn lightgbm bayesian-optimization joblib earthengine-api
+conda install -c conda-forge numpy openpyxl pandas scikit-learn imbalanced-learn lightgbm bayesian-optimization joblib gdal geopandas rasterio google-api-python-client earthengine-api
 python3 -m pip install git+https://github.com/accs-uaa/akutils
 ```
 
@@ -91,24 +94,32 @@ Create the data directories referenced in the script. The example below includes
 ```bash
 mkdir ~/scripts
 mkdir ~/Data_Input
+mkdir ~/Data_Input/vrt_data
+mkdir ~/Data_Input/covariate_data
+mkdir ~/Data_Input/region_data
 mkdir ~/Data_Input/site_data
 mkdir ~/Data_Input/site_data/version_<yyyymmdd>
 mkdir ~/Data_Output
 mkdir ~/Data_Output/model_results
 mkdir ~/Data_Output/model_results/version_<yyyymmdd>
+mkdir ~/Data_Output/rasters_gridded
+mkdir ~/Data_Output/rasters_gridded/version_<yyyymmdd>
 ```
 
 Use Google Cloud SDK commands from the terminal to download data and scripts for the storage bucket to the vm.
 
 ```
-gcloud storage cp gs://akveg-data/site_data/akveg_site_visit_covariates.csv ~/Data_Input/site_data/version_20260326/akveg_site_visit_covariates.csv
-gcloud storage cp -r gs://akveg-data/scripts/foliar_cover/ ~/scripts/
+gcloud storage cp gs://akveg-data/site_data/akveg_site_visit_covariates.csv ~/Data_Input/site_data/version_20260415/akveg_site_visit_covariates.csv
+gcloud storage cp -r gs://akveg-data/foliar_cover_v2p1/scripts/* ~/scripts/
+gcloud storage cp -r gs://akveg-data/foliar_cover_v2p1/region_data/* ~/Data_Input/region_data/
 ```
 
 Use vim to update the scripts as necessary. To begin editing a file once it has been opened in vim, press "i". To save and close a file after editing it in vim, press ":wq".
 
 ```bash
-vim ~/scripts/foliar_cover/01b_Validate_Train_Abundance_LGBM.py
+vim ~/scripts/00_Compile_Covariate_Rasters.py
+vim ~/scripts/01b_Validate_Train_Abundance_LGBM.py
+vim ~/scripts/01_Predict_Abundance.py
 i
 :wq
 ```
@@ -137,10 +148,12 @@ To run a script, first make sure the target vm is running and then open terminal
 ```bash
 conda activate akveg
 
-vim ~/scripts/foliar_cover/01b_Validate_Train_Abundance_LGBM.py
-vim ~/scripts/foliar_cover/03_Ingest_Abundance_GEE.py
+vim ~/scripts/00_Compile_Covariate_Rasters.py
+vim ~/scripts/01b_Validate_Train_Abundance_LGBM.py
+vim ~/scripts/01_Predict_Abundance.py
 
-nohup python3 ~/scripts/foliar_cover/01b_Validate_Train_Abundance_LGBM.py
-python3 ~/scripts/foliar_cover/03_Ingest_Abundance_GEE.py
+nohup python3 ~/scripts/00_Compile_Covariate_Rasters.py
+nohup python3 ~/scripts/01b_Validate_Train_Abundance_LGBM.py
+nohup python3 ~/scripts/01_Predict_Abundance.py
 ```
 

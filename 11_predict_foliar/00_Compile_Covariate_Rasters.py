@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------
 # Compile covariate rasters
 # Author: Timm Nawrocki
-# Last Updated: 2026-04-14
+# Last Updated: 2026-04-15
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Compile covariate rasters" creates a prediction grid of covariate rasters to simplify the prediction step.
 # ---------------------------------------------------------------------------

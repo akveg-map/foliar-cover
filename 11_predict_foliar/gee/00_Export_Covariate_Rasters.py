@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------
 # Export covariate rasters
 # Author: Timm Nawrocki
-# Last Updated: 2026-04-12
+# Last Updated: 2026-04-14
 # Usage: Must be executed in a Python 3.12+ installation with authentication to Google Earth Engine.
 # Description: "Export covariate rasters" compiles covariate rasters and exports them in prediction tile grid for running the prediction step outside of Google Earth Engine.
 # ---------------------------------------------------------------------------

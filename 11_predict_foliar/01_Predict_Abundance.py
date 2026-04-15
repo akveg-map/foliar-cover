@@ -2,16 +2,16 @@
 # ---------------------------------------------------------------------------
 # Predict abundance model
 # Author: Timm Nawrocki
-# Last Updated: 2026-04-12
+# Last Updated: 2026-04-14
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Predict abundance model" predicts a classifier and regressor to raster outputs.
 # ---------------------------------------------------------------------------
 
-# Define model targets
-group = 'erivag'
-version_date = '20260326'
+# Set execution parameters
+grid_range = slice(0, 1000, 1)
+group = 'alnus'
+version_date = '20260415'
 presence_threshold = 3
-predictor_names = ['clim', 'topo', 's1', 's2']
 
 # Import packages
 import os
@@ -44,6 +44,10 @@ region_folder = os.path.join(drive, root_folder, 'Data_Input/region_data')
 model_folder = os.path.join(drive, root_folder,
                              f'Data_Output/model_results/version_{version_date}/{group}')
 output_folder = os.path.join(drive, root_folder, f'Data_Output/rasters_gridded/version_{version_date}/{group}')
+
+# Make output directories
+if os.path.exists(model_folder) == 0:
+    os.mkdir(model_folder)
 if os.path.exists(output_folder) == 0:
     os.mkdir(output_folder)
 
@@ -67,21 +71,20 @@ predictor_s2 = [f's2_{i}_{band}' for i in range(1, 6) for band in
 predictor_topo = ['coast', 'stream', 'river', 'wetness',
                   'elevation', 'exposure', 'heatload', 'position',
                   'aspect', 'relief', 'roughness', 'slope']
-predictor_emb = ['A' + str(i).zfill(2) for i in range(64)]
 
 # Dynamically build predictor_all list from input arguments
+predictor_names = ['clim', 'topo', 's1', 's2']
 predictor_map = {
-    'clim': predictor_clim, 's1': predictor_s1, 's2': predictor_s2,
-    'topo': predictor_topo, 'emb': predictor_emb
+    'clim': predictor_clim, 's1': predictor_s1, 's2': predictor_s2, 'topo': predictor_topo
 }
 predictor_all = []
 for name in predictor_names:
     if name in predictor_map:
         predictor_all.extend(predictor_map[name])
     else:
-        print(f"Warning: Predictor set '{name}' not recognized and will be skipped.")
+        print(f'Warning: Predictor set {name} not recognized and will be skipped.')
 if not predictor_all:
-    raise ValueError("No valid predictor sets were provided. Exiting.")
+    raise ValueError('No valid predictor sets were provided. Exiting.')
 
 #### DEFINE FUNCTIONS
 ####____________________________________________________
@@ -120,15 +123,23 @@ if os.path.exists(range_input):
     # Read range data
     range_data = gpd.read_file(range_input)
     # Extract grid data to range
-    grid_data = gpd.clip(grid_data, range_data)
+    grid_subset = gpd.clip(grid_data, range_data)
+else:
+    grid_subset = grid_data
 
 # Define grid list
 grid_list = grid_data['grid_code'].tolist()
 
-# Filter grid list to a subset of grids (for testing purposes, comment line below for full export)
+# Override grid list for test purposes (uncomment lines below)
 #target_grids = ['AK010H208V008']
 #grid_list = [code for code in grid_list if code in target_grids]
-print(f'Predicting {len(grid_list)} grids...')
+
+# Partition grid list for spatially parallel processing
+grid_list = grid_list[grid_range]
+
+# Create final grid data
+grid_data = grid_data[grid_data['grid_code'].isin(grid_list)]
+print(f'Predicting {len(grid_data)} grids...')
 
 #### RUN MODEL PREDICTIONS
 ####____________________________________________________
@@ -152,7 +163,9 @@ regressor = joblib.load(regressor_input)
 
 # Export model predictions for each grid in grid list
 grid_count = 1
-for grid in grid_list:
+for index, row in grid_data.iterrows():
+    grid = row['grid_code']
+    iteration_start = time.time()
     # Define local file paths
     covariate_input = os.path.join(covariate_folder, f'{grid}_10m_3338.tif')
     foliar_output = os.path.join(output_folder, f'{group}_{grid}_10m_3338.tif')
@@ -207,6 +220,9 @@ for grid in grid_list:
 
                     # Reorder columns to match the covariate order
                     X_data = X_data[predictor_all]
+
+                    # Fill null or na values
+                    X_data = X_data.fillna(0)
 
                     # Predict response using the explicitly ordered DataFrame
                     response_probability = np.array(classifier.predict_proba(X_data)[:, 1])

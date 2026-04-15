@@ -2,16 +2,16 @@
 # ---------------------------------------------------------------------------
 # Train and validate LightGBM abundance model
 # Author: Timm Nawrocki, Matt Macander
-# Last Updated: 2026-03-26
+# Last Updated: 2026-04-14
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Train and validate LightGBM abundance model" trains, exports, and validates a random forest classifier and a LightGBM regressor. The model validation accounts for spatial autocorrelation by grouping in 100 km blocks.
 # ---------------------------------------------------------------------------
 
 # Define model targets
-group = 'erivag'
-version_date = '20260326'
+group = 'alnus'
+version_date = '20260415'
 presence_threshold = 3
-predictor_names = ['clim', 'topo', 's1', 's2', 'emb']
+predictor_names = ['clim', 'topo', 's1', 's2']
 init_points = 30
 n_iter = 70
 
@@ -35,8 +35,8 @@ from sklearn.metrics import r2_score
 ####____________________________________________________
 
 # Set root directory
-drive = 'C:/'
-root_folder = 'ACCS_Work/Projects/VegetationEcology/AKVEG_Map/Data'
+drive = '/home'
+root_folder = 'twnawrocki'
 
 # Define folder structure
 site_folder = os.path.join(drive, root_folder,

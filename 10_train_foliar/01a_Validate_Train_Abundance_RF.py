@@ -2,13 +2,13 @@
 # ---------------------------------------------------------------------------
 # Train and validate random forest abundance model
 # Author: Timm Nawrocki, Matt Macander
-# Last Updated: 2026-03-26
+# Last Updated: 2026-04-14
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Train and validate random forest abundance model" trains, exports, and validates a random forest classifier and regressor. The model validation accounts for spatial autocorrelation by grouping in 100 km blocks.
 # ---------------------------------------------------------------------------
 
 # Define model targets
-group = 'rubspe'
+group = 'erivag'
 version_date = '20260326'
 presence_threshold = 3
 predictor_names = ['clim', 'topo', 's1', 's2']

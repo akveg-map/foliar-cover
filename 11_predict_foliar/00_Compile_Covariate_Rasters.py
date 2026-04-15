@@ -85,26 +85,6 @@ band_map = {name: i for i, name in enumerate(predictor_all, start=1)}
 #### DEFINE FUNCTIONS
 ####____________________________________________________
 
-# Define function to check if a file exists in GCS
-def gcs_blob_exists(gcs_uri):
-    bucket_name = gcs_uri.split('/')[2]
-    blob_name = '/'.join(gcs_uri.split('/')[3:])
-    bucket = storage_client.bucket(bucket_name)
-    return bucket.blob(blob_name).exists()
-
-# Define function to upload a file from local storage to GCS
-def upload_to_gcs(local_path, gcs_uri):
-    bucket_name = gcs_uri.split('/')[2]
-    blob_name = '/'.join(gcs_uri.split('/')[3:])
-    bucket = storage_client.bucket(bucket_name)
-    blob = bucket.blob(blob_name)
-    blob.upload_from_filename(local_path)
-
-# Define a function to generate vsigs paths
-def get_vsi_paths(bucket_name, prefix):
-    blobs = storage_client.list_blobs(bucket_name, prefix=prefix)
-    return [f'/vsigs/{bucket_name}/{b.name}' for b in blobs if b.name.endswith('.tif')]
-
 # Define a function to calculate normalized difference indices and scale by 10000
 def calc_normalized_index(b1, b2, nodata=-32768):
     # Convert to float32 for math operations
@@ -234,7 +214,7 @@ for index, row in grid_data.iterrows():
     gcs_output = f'gs://akveg-data/foliar_cover_v2p1/rasters_covariates/{grid}_10m_3338.tif'
 
     # Create output raster if it does not already exist in GCS
-    if not gcs_blob_exists(gcs_output):
+    if not gcs_blob_exists(gcs_output, storage_client):
         print(f'Compiling raster for {grid} ({grid_count} of {len(grid_list)})...')
         iteration_start = time.time()
 
@@ -462,7 +442,7 @@ for index, row in grid_data.iterrows():
 
         # Upload and Clean Up
         print('\tUploading raster dataset to Google Cloud Storage...')
-        upload_to_gcs(covariate_output, gcs_output)
+        upload_to_gcs(covariate_output, gcs_output, storage_client)
         os.remove(covariate_output)
         end_timing(iteration_start)
     else:

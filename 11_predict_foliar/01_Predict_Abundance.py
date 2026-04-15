@@ -86,32 +86,6 @@ for name in predictor_names:
 if not predictor_all:
     raise ValueError('No valid predictor sets were provided. Exiting.')
 
-#### DEFINE FUNCTIONS
-####____________________________________________________
-
-# Define function to check if a file exists in GCS
-def gcs_blob_exists(gcs_uri):
-    bucket_name = gcs_uri.split('/')[2]
-    blob_name = '/'.join(gcs_uri.split('/')[3:])
-    bucket = storage_client.bucket(bucket_name)
-    return bucket.blob(blob_name).exists()
-
-# Define function to download a file from GCS to local storage
-def download_from_gcs(gcs_uri, local_path):
-    bucket_name = gcs_uri.split('/')[2]
-    blob_name = '/'.join(gcs_uri.split('/')[3:])
-    bucket = storage_client.bucket(bucket_name)
-    blob = bucket.blob(blob_name)
-    blob.download_to_filename(local_path)
-
-# Define function to upload a file from local storage to GCS
-def upload_to_gcs(local_path, gcs_uri):
-    bucket_name = gcs_uri.split('/')[2]
-    blob_name = '/'.join(gcs_uri.split('/')[3:])
-    bucket = storage_client.bucket(bucket_name)
-    blob = bucket.blob(blob_name)
-    blob.upload_from_filename(local_path)
-
 #### IDENTIFY PREDICTION GRIDS
 ####____________________________________________________
 
@@ -147,11 +121,11 @@ print(f'Predicting {len(grid_data)} grids...')
 # Download files
 print('Downloading model files...')
 download_from_gcs(f'{gcs_base}/model_results/{group}/{group}_threshold_final.txt',
-                  threshold_input)
+                  threshold_input, storage_client)
 download_from_gcs(f'{gcs_base}/model_results/{group}/{group}_classifier.joblib',
-                  classifier_input)
+                  classifier_input, storage_client)
 download_from_gcs(f'{gcs_base}/model_results/{group}/{group}_regressor.joblib',
-                  regressor_input)
+                  regressor_input, storage_client)
 
 # Read threshold
 with open(threshold_input, "r") as threshold_reader:
@@ -174,13 +148,13 @@ for index, row in grid_data.iterrows():
     final_gcs_output = f'{gcs_base}/rasters_gridded/{group}/{group}_{grid}_10m_3338.tif'
 
     # Create output raster if it does not already exist in GCS
-    if not gcs_blob_exists(final_gcs_output):
+    if not gcs_blob_exists(final_gcs_output, storage_client):
         print(f'Predicting raster for {grid} ({grid_count} of {len(grid_list)})...')
         iteration_start = time.time()
 
         # Download covariate raster from Google Cloud Storage
         download_from_gcs(f'{gcs_base}/rasters_covariates/{grid}_10m_3338.tif',
-                          covariate_input)
+                          covariate_input, storage_client)
 
         # Prepare raster data
         with rasterio.open(covariate_input) as covariate_raster:
@@ -240,7 +214,7 @@ for index, row in grid_data.iterrows():
                     dst.write(response_2d, window=window, indexes=1)
 
         # Upload prediction result to GCS
-        upload_to_gcs(foliar_output, final_gcs_output)
+        upload_to_gcs(foliar_output, final_gcs_output, storage_client)
 
         # Remove processing datasets
         os.remove(covariate_input)

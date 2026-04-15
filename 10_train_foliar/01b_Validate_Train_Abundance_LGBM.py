@@ -11,13 +11,13 @@
 group = 'alnus'
 version_date = '20260415'
 presence_threshold = 3
-predictor_names = ['clim', 'topo', 's1', 's2']
 init_points = 30
 n_iter = 70
 
 # Import packages
 import numpy as np
 import os
+import glob
 import pandas as pd
 import time
 import lightgbm
@@ -30,9 +30,16 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import r2_score
+from google.cloud import storage
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
+
+# Initialize GCS Client
+storage_client = storage.Client()
+
+# Define GCS base name
+gcs_base = 'gs://akveg-data/foliar_cover_v2p1'
 
 # Set root directory
 drive = '/home'
@@ -81,21 +88,20 @@ predictor_s2 = [f's2_{i}_{band}' for i in range(1, 6) for band in
 predictor_topo = ['coast', 'stream', 'river', 'wetness',
                   'elevation', 'exposure', 'heatload', 'position',
                   'aspect', 'relief', 'roughness', 'slope']
-predictor_emb = ['A' + str(i).zfill(2) for i in range(64)]
 
 # Dynamically build predictor_all list from input arguments
+predictor_names = ['clim', 'topo', 's1', 's2']
 predictor_map = {
-    'clim': predictor_clim, 's1': predictor_s1, 's2': predictor_s2,
-    'topo': predictor_topo, 'emb': predictor_emb
+    'clim': predictor_clim, 's1': predictor_s1, 's2': predictor_s2, 'topo': predictor_topo
 }
 predictor_all = []
 for name in predictor_names:
     if name in predictor_map:
         predictor_all.extend(predictor_map[name])
     else:
-        print(f"Warning: Predictor set '{name}' not recognized and will be skipped.")
+        print(f'Warning: Predictor set {name} not recognized and will be skipped.')
 if not predictor_all:
-    raise ValueError("No valid predictor sets were provided. Exiting.")
+    raise ValueError('No valid predictor sets were provided. Exiting.')
 
 # Define other field sets
 obs_pres = ['presence']
@@ -531,3 +537,13 @@ print(f'R-squared: {export_rscore}')
 print(f'RMSE: {export_rmse}')
 print(f'MAE: {export_mae}')
 end_timing(start_time)
+
+# Upload files to GCS
+file_count = 1
+model_files = glob.glob(output_folder + '/*')
+for file in model_files:
+    print(f'Uploading model file {file_count} of {len(model_files)}...')
+    file_name = os.path.split(file)[1]
+    gcs_uri = f'{gcs_base}/model_results/{group}/{file_name}'
+    upload_to_gcs(file, gcs_uri, storage_client)
+    file_count += 1

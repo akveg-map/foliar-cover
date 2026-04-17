@@ -8,7 +8,7 @@
 # ---------------------------------------------------------------------------
 
 # Set execution parameters
-processors = 2
+processors = 3
 processor = 1
 group = 'alnus'
 version_date = '20260415'
@@ -103,7 +103,7 @@ else:
     grid_subset = grid_data
 
 # Define grid list
-grid_list = grid_data['grid_code'].tolist()
+grid_list = grid_subset['grid_code'].tolist()
 
 # Override grid list for test purposes (uncomment lines below)
 #target_grids = ['AK010H199V083', 'AK010H200V083', 'AK010H199V084', 'AK010H200V084']
@@ -232,3 +232,12 @@ for index, row in grid_data.iterrows():
 
     # Increase grid count
     grid_count += 1
+
+# Create finished file
+print('Writing final output message...')
+finished_output = os.path.join(output_folder, f'0{processor}_Finished.txt')
+with open(finished_output, "w") as file:
+    file.write("finished")
+final_gcs_output = f'{gcs_base}/rasters_gridded/{group}/0{processor}_Finished.txt'
+upload_to_gcs(finished_output, final_gcs_output, storage_client)
+print('Processing finished.')

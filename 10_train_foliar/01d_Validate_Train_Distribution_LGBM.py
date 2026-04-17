@@ -8,7 +8,7 @@
 # ---------------------------------------------------------------------------
 
 # Define model targets
-group = 'larlar'
+group = 'abies'
 version_date = '20260415'
 presence_threshold = 3
 init_points = 30

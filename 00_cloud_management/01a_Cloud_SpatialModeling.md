@@ -110,7 +110,11 @@ Use Google Cloud SDK commands from the terminal to download data and scripts for
 
 ```
 gcloud storage cp gs://akveg-data/site_data/akveg_site_visit_covariates.csv ~/Data_Input/site_data/version_20260415/akveg_site_visit_covariates.csv
+
+gcloud storage cp -r gs://akveg-data/foliar_cover_v2p1/range_data/* ~/Data_Input/range_data/processed/
+
 gcloud storage cp -r gs://akveg-data/foliar_cover_v2p1/scripts/* ~/scripts/
+
 gcloud storage cp -r gs://akveg-data/foliar_cover_v2p1/region_data/* ~/Data_Input/region_data/
 ```
 

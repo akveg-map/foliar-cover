@@ -119,7 +119,7 @@ Use vim to update the scripts as necessary. To begin editing a file once it has 
 ```bash
 vim ~/scripts/00_Compile_Covariate_Rasters.py
 vim ~/scripts/01b_Validate_Train_Abundance_LGBM.py
-vim ~/scripts/01_Predict_Abundance.py
+vim ~/scripts/01a_Predict_Abundance.py
 i
 :wq
 ```
@@ -150,10 +150,10 @@ conda activate akveg
 
 vim ~/scripts/00_Compile_Covariate_Rasters.py
 vim ~/scripts/01b_Validate_Train_Abundance_LGBM.py
-vim ~/scripts/01_Predict_Abundance.py
+vim ~/scripts/01a_Predict_Abundance.py
 
 nohup python3 ~/scripts/00_Compile_Covariate_Rasters.py
 nohup python3 ~/scripts/01b_Validate_Train_Abundance_LGBM.py
-nohup python3 ~/scripts/01_Predict_Abundance.py
+nohup python3 ~/scripts/01a_Predict_Abundance.py
 ```
 

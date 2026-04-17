@@ -8,7 +8,8 @@
 # ---------------------------------------------------------------------------
 
 # Set execution parameters
-grid_range = slice(0, 1000, 1)
+processors = 2
+processor = 1
 group = 'alnus'
 version_date = '20260415'
 presence_threshold = 3
@@ -105,10 +106,15 @@ else:
 grid_list = grid_data['grid_code'].tolist()
 
 # Override grid list for test purposes (uncomment lines below)
-#target_grids = ['AK010H208V008']
+#target_grids = ['AK010H199V083', 'AK010H200V083', 'AK010H199V084', 'AK010H200V084']
 #grid_list = [code for code in grid_list if code in target_grids]
 
 # Partition grid list for spatially parallel processing
+total_number = len(grid_list)
+processor_number = int(round((total_number / processors), 0))
+slice_end = processor * processor_number
+slice_start = slice_end - processor_number
+grid_range = slice(slice_start, slice_end, 1)
 grid_list = grid_list[grid_range]
 
 # Create final grid data

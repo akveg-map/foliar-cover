@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 
 # Set version date
-version_date = '20260326'
+version_date = '20260415'
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
@@ -124,7 +124,7 @@ def exclusion_sites(vegetation_data, exclude_taxon):
 
 # Exclude sites with tree observations
 exclude_brotre = exclusion_sites(vegetation_data, 'tree broadleaf')
-exclude_nedtre = exclusion_sites(vegetation_data, 'tree needleleaf')
+exclude_neetre = exclusion_sites(vegetation_data, 'tree needleleaf')
 exclude_betula = exclusion_sites(vegetation_data, 'Betula')
 exclude_picea = exclusion_sites(vegetation_data, 'Picea')
 exclude_populus = exclusion_sites(vegetation_data, 'Populus')
@@ -300,22 +300,30 @@ def parse_training_data(target,
 # Parse needleleaf tree training data
 site_visit_data['neetre'] = parse_training_data(target='neetre')
 site_visit_data['picgla'] = parse_training_data(target='picgla',
-                                                exclusion_list=[exclude_nedtre,
+                                                exclusion_list=[exclude_neetre,
                                                                 exclude_picea,
                                                                 exclude_picgla])
 site_visit_data['picmar'] = parse_training_data(target='picmar',
-                                                exclusion_list=[exclude_nedtre,
+                                                exclusion_list=[exclude_neetre,
                                                                 exclude_picea])
 site_visit_data['picsit'] = parse_training_data(target='picsit',
-                                                exclusion_list=[exclude_nedtre,
+                                                exclusion_list=[exclude_neetre,
                                                                 exclude_picea,
                                                                 exclude_picgla])
 site_visit_data['tsuhet'] = parse_training_data(target='tsuhet',
-                                                exclusion_list=[exclude_nedtre,
+                                                exclusion_list=[exclude_neetre,
                                                                 exclude_tsuga])
 site_visit_data['tsumer'] = parse_training_data(target='tsumer',
-                                                exclusion_list=[exclude_nedtre,
+                                                exclusion_list=[exclude_neetre,
                                                                 exclude_tsuga])
+site_visit_data['pinus'] = parse_training_data(target='pinus',
+                                               exclusion_list=[exclude_neetre])
+site_visit_data['abies'] = parse_training_data(target='abies',
+                                               exclusion_list=[exclude_neetre])
+site_visit_data['calnoo'] = parse_training_data(target='calnoo',
+                                                exclusion_list=[exclude_neetre])
+site_visit_data['larlar'] = parse_training_data(target='larlar',
+                                                exclusion_list=[exclude_neetre])
 
 # Parse broadleaf tree training data
 site_visit_data['brotre'] = parse_training_data(target='brotre')

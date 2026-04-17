@@ -1,4 +1,11 @@
 ﻿top_absence,abundance,type,lifeform,target_abbr,target,constituents
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,abies,Abies trees,Abies
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,abies,Abies trees,Abies amabilis
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,abies,Abies trees,Abies lasiocarpa
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,calnoo,Callitropsis nootkatensis,Callitropsis
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,calnoo,Callitropsis nootkatensis,Callitropsis nootkatensis
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,larlar,Larix laricina,Larix
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,larlar,Larix laricina,Larix laricina
 TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Abies
 TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Abies amabilis
 TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Abies lasiocarpa
@@ -55,7 +62,6 @@ TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alnus shrubs,Alnus alnobetula ss
 TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alnus shrubs,Alnus incana
 TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alnus shrubs,Alnus incana ssp. tenuifolia
 FALSE,TRUE,diagnostic species set,3. shrub,bderishr,broadleaf deciduous ericaceous shrubs,Vaccinium alaskaense
-FALSE,TRUE,diagnostic species set,3. shrub,bderishr,broadleaf deciduous ericaceous shrubs,Vaccinium caespitosum
 FALSE,TRUE,diagnostic species set,3. shrub,bderishr,broadleaf deciduous ericaceous shrubs,Vaccinium membranaceum
 FALSE,TRUE,diagnostic species set,3. shrub,bderishr,broadleaf deciduous ericaceous shrubs,Vaccinium ovalifolium
 FALSE,TRUE,diagnostic species set,3. shrub,bderishr,broadleaf deciduous ericaceous shrubs,Vaccinium parvifolium
@@ -99,7 +105,8 @@ TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron shrubs,Rhododendro
 TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron shrubs,Rhododendron tomentosum
 TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron shrubs,Rhododendron tomentosum ssp. decumbens
 TRUE,TRUE,diagnostic species set,3. shrub,rubspe,Rubus spectabilis,Rubus spectabilis
-TRUE,TRUE,diagnostic species set,3. shrub,vaculi,Vaccinium uliginosum,Vaccinium uliginosum
+TRUE,TRUE,diagnostic species set,3. shrub,vaculi,Vaccinium uliginosum + caespitosum,Vaccinium uliginosum
+TRUE,TRUE,diagnostic species set,3. shrub,vaculi,Vaccinium uliginosum + caespitosum,Vaccinium caespitosum
 TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas shrubs,Dryas
 TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas shrubs,Dryas ajanensis
 TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas shrubs,Dryas ajanensis ssp. beringensis

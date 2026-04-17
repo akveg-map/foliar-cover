@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 # ---------------------------------------------------------------------------
-# Train and validate random forest abundance model
+# Train and validate LightGBM abundance model
 # Author: Timm Nawrocki, Matt Macander
 # Last Updated: 2026-04-14
 # Usage: Must be executed in a Python 3.12+ installation.
-# Description: "Train and validate random forest abundance model" trains, exports, and validates a random forest classifier and regressor. The model validation accounts for spatial autocorrelation by grouping in 100 km blocks.
+# Description: "Train and validate LightGBM abundance model" trains, exports, and validates a random forest classifier and a LightGBM regressor. The model validation accounts for spatial autocorrelation by grouping in 100 km blocks.
 # ---------------------------------------------------------------------------
 
 # Define model targets
 group = 'larlar'
 version_date = '20260415'
 presence_threshold = 3
+init_points = 30
+n_iter = 70
 
 # Import packages
 import numpy as np
@@ -18,12 +20,11 @@ import os
 import glob
 import pandas as pd
 import time
+import lightgbm
 import joblib
 from akutils import *
 from sklearn.utils import shuffle
 from sklearn.model_selection import StratifiedGroupKFold
-from imblearn.ensemble import BalancedRandomForestClassifier
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import mean_squared_error
@@ -41,8 +42,8 @@ storage_client = storage.Client()
 gcs_base = 'gs://akveg-data/foliar_cover_v2p1'
 
 # Set root directory
-drive = 'C:/'
-root_folder = 'ACCS_Work/Projects/VegetationEcology/AKVEG_Map/Data'
+drive = '/home'
+root_folder = 'twnawrocki'
 
 # Define folder structure
 site_folder = os.path.join(drive, root_folder,
@@ -58,9 +59,8 @@ covariate_input = os.path.join(site_folder, 'akveg_site_visit_covariates.csv')
 # Define output files for final model
 threshold_output = os.path.join(output_folder, f'{group}_threshold_final.txt')
 classifier_output = os.path.join(output_folder, f'{group}_classifier.joblib')
-regressor_output = os.path.join(output_folder, f'{group}_regressor.joblib')
+classifier_text_output = os.path.join(output_folder, 'classifier_export.txt')
 classifier_treestring_output = os.path.join(output_folder, f'{group}_classifier_treestring.txt')
-regressor_treestring_output = os.path.join(output_folder, f'{group}_regressor_treestring.txt')
 
 # Define output files for validation results
 results_output = os.path.join(output_folder, f'{group}_results.csv')
@@ -68,9 +68,6 @@ importance_output = os.path.join(output_folder, f'{group}_importances.csv')
 threshold_output_mean = os.path.join(output_folder, f'{group}_threshold_mean.txt')
 auc_output = os.path.join(output_folder, f'{group}_auc.txt')
 acc_output = os.path.join(output_folder, f'{group}_acc.txt')
-rscore_output = os.path.join(output_folder, f'{group}_r2.txt')
-rmse_output = os.path.join(output_folder, f'{group}_rmse.txt')
-mae_output = os.path.join(output_folder, f'{group}_mae.txt')
 
 # Define covariate sets
 validation = ['valid']
@@ -108,43 +105,10 @@ all_variables = retain_variables + predictor_all + obs_pres + obs_cover
 pred_abs = ['pred_abs']
 pred_pres = ['pred_pres']
 pred_bin = ['pred_bin']
-pred_cover = ['pred_cover']
-prediction = ['prediction']
 outer_split = ['outer_split_n']
 inner_split = ['inner_split_n']
 inner_columns = all_variables + pred_abs + pred_pres + inner_split
-outer_columns = all_variables + pred_abs + pred_pres + pred_cover + pred_bin + outer_split
-
-# Create a standardized parameter set for a random forest classifier
-classifier_params = {'n_estimators': 1000,
-                     'criterion': 'gini',
-                     'max_depth': None,
-                     'min_samples_split': 4,
-                     'min_samples_leaf': 2,
-                     'min_weight_fraction_leaf': 0,
-                     'max_features': 'sqrt',
-                     'bootstrap': True,
-                     'oob_score': False,
-                     'sampling_strategy': 'all',
-                     'replacement': True,
-                     'warm_start': False,
-                     'class_weight': None,
-                     'n_jobs': 2,
-                     'random_state': 314}
-
-# Create a standardized parameter set for a random forest classifier
-regressor_params = {'n_estimators': 1000,
-                    'criterion': 'poisson',
-                    'max_depth': None,
-                    'min_samples_split': 4,
-                    'min_samples_leaf': 2,
-                    'min_weight_fraction_leaf': 0,
-                    'max_features': 'sqrt',
-                    'bootstrap': True,
-                    'oob_score': False,
-                    'warm_start': True,
-                    'n_jobs': 2,
-                    'random_state': 314}
+outer_columns = all_variables + pred_abs + pred_pres + pred_bin + outer_split
 
 # Define cross validation methods
 outer_cv_splits = StratifiedGroupKFold(n_splits=10)
@@ -179,12 +143,31 @@ print('\n' + '=' * 50)
 print('PART 1: TRAINING FINAL MODEL')
 print('=' * 50)
 
+#### OPTIMIZE FINAL MODEL HYPERPARAMETERS
+####____________________________________________________
+print('Optimizing final model hyperparameters on full dataset...')
+start_time = time.time()
+
+# Optimize final classifier parameters
+classifier_params = optimize_lgbmclassifier(
+    init_points=init_points, n_iter=n_iter, data=shuffled_data,
+    all_variables=all_variables, predictor_all=predictor_all,
+    target_field=obs_pres, stratify_field=obs_pres, group_field=validation
+)
+
+# Sanitize classifier parameters to ensure correct types
+classifier_params['n_estimators'] = int(classifier_params['n_estimators'])
+classifier_params['num_leaves'] = int(classifier_params['num_leaves'])
+classifier_params['max_depth'] = int(classifier_params['max_depth'])
+classifier_params['min_child_samples'] = int(classifier_params['min_child_samples'])
+end_timing(start_time)
+
 #### DETERMINE FINAL CLASSIFICATION THRESHOLD
 ####____________________________________________________
 print('Calculating optimal classification threshold...')
 start_time = time.time()
 
-# Create empty data frames to store results
+# Create empty data frames
 inner_results_final = pd.DataFrame()
 
 # Conduct model training in inner cross validation splits
@@ -203,11 +186,16 @@ for train_index, test_index in inner_cv_splits.split(
     X_test = test[predictor_all].astype(float)
 
     # Train inner classifier
-    inner_classifier = BalancedRandomForestClassifier(**classifier_params)
+    inner_classifier = lightgbm.LGBMClassifier(**classifier_params,
+                                               boosting_type='gbdt',
+                                               objective='binary',
+                                               class_weight='balanced',
+                                               n_jobs=2,
+                                               importance_type='gain',
+                                               verbosity=-1)
     inner_classifier.fit(X_train, y_class)
-
-    # Predict and store results
     probability = inner_classifier.predict_proba(X_test)
+
     test = test.assign(pred_abs=probability[:, 0], pred_pres=probability[:, 1])
     inner_results_final = pd.concat([inner_results_final, test], ignore_index=True)
     count += 1
@@ -227,17 +215,17 @@ start_time = time.time()
 # Prepare full dataset for training
 X_train = shuffled_data[predictor_all].astype(float)
 y_class = shuffled_data[obs_pres[0]].astype('int32')
-y_regress = shuffled_data[obs_cover[0]].astype(float)
 
 # Train final classifier
 print('\tTraining final classifier...')
-final_classifier = BalancedRandomForestClassifier(**classifier_params)
+final_classifier = lightgbm.LGBMClassifier(**classifier_params,
+                                           boosting_type='gbdt',
+                                           objective='binary',
+                                           class_weight='balanced',
+                                           n_jobs=2,
+                                           importance_type='gain',
+                                           verbosity=-1)
 final_classifier.fit(X_train, y_class)
-
-# Train final regressor
-print('\tTraining final regressor...')
-final_regressor = RandomForestRegressor(**regressor_params)
-final_regressor.fit(X_train, y_regress)
 
 # Export final models and threshold
 print('\tExporting trained model results...')
@@ -245,19 +233,19 @@ export_threshold = round(final_threshold, 5)
 with open(threshold_output, 'w') as file:
     file.write(str(export_threshold))
 joblib.dump(final_classifier, classifier_output)
-joblib.dump(final_regressor, regressor_output)
 
 # Process classifier tree strings
-classifier_trees = rf_to_gee_strings(final_classifier, predictor_all, model_type='classifier')
+classifier_trees = []
+final_classifier.booster_.save_model(classifier_text_output)
+classifier_booster = lightgbm.Booster(model_file=classifier_text_output)
+classifier_tree_df = lgbm_booster_to_tree_df(classifier_booster)
+for tree in classifier_tree_df.tree_index.unique():
+    treedf = classifier_tree_df[classifier_tree_df.tree_index == tree].reset_index(drop=True)
+    tree_str = treedf_to_string(treedf)
+    classifier_trees.append(tree_str)
 print(f'\tExporting {len(classifier_trees)} classifier trees to text file...')
 with open(classifier_treestring_output, "w") as text_file:
     text_file.writelines(classifier_trees)
-
-# Process regressor tree strings
-regressor_trees = rf_to_gee_strings(final_regressor, predictor_all, model_type='regressor')
-print(f'\tExporting {len(regressor_trees)} regressor trees to text file...')
-with open(regressor_treestring_output, "w") as text_file:
-    text_file.writelines(regressor_trees)
 
 # Report progress
 print(f'Optimal Threshold: {export_threshold}')
@@ -269,9 +257,9 @@ end_timing(start_time)
 # --------------------------------------------------------------------------- #
 # --------------------------------------------------------------------------- #
 
-print('\n' + '='*50)
+print('\n' + '=' * 50)
 print('PART 2: PERFORMING SPATIAL CROSS-VALIDATION')
-print('='*50)
+print('=' * 50)
 
 #### SETUP CROSS-VALIDATION DATA
 ####____________________________________________________
@@ -317,6 +305,20 @@ for outer_cv_i in range(1, outer_cv_length + 1):
     # Create empty data frames to store results
     inner_results = pd.DataFrame()
 
+    # Optimize classifier parameters for this specific outer fold
+    print('Optimizing final model hyperparameters on this iteration...')
+    classifier_params = optimize_lgbmclassifier(
+        init_points=init_points, n_iter=n_iter, data=outer_train_iter,
+        all_variables=all_variables, predictor_all=predictor_all,
+        target_field=obs_pres, stratify_field=obs_pres, group_field=validation
+    )
+
+    # Sanitize classifier parameters to ensure correct types
+    classifier_params['n_estimators'] = int(classifier_params['n_estimators'])
+    classifier_params['num_leaves'] = int(classifier_params['num_leaves'])
+    classifier_params['max_depth'] = int(classifier_params['max_depth'])
+    classifier_params['min_child_samples'] = int(classifier_params['min_child_samples'])
+
     # Conduct inner cross validation
     count = 1
     for train_index, test_index in inner_cv_splits.split(
@@ -333,7 +335,13 @@ for outer_cv_i in range(1, outer_cv_length + 1):
         X_test = test[predictor_all].astype(float)
 
         # Train inner classifier
-        inner_classifier = BalancedRandomForestClassifier(**classifier_params)
+        inner_classifier = lightgbm.LGBMClassifier(**classifier_params,
+                                                   boosting_type='gbdt',
+                                                   objective='binary',
+                                                   class_weight='balanced',
+                                                   n_jobs=2,
+                                                   importance_type='gain',
+                                                   verbosity=-1)
         inner_classifier.fit(X_train, y_class)
 
         # Predict and store results
@@ -353,17 +361,17 @@ for outer_cv_i in range(1, outer_cv_length + 1):
     # Identify X and y outer train splits
     X_train = outer_train_iter[predictor_all]
     y_class = outer_train_iter[obs_pres[0]]
-    y_regress = outer_train_iter[obs_cover[0]]
-    
+
     # Train outer classifier
     print('\tTraining outer classifier...')
-    outer_classifier = BalancedRandomForestClassifier(**classifier_params)
+    outer_classifier = lightgbm.LGBMClassifier(**classifier_params,
+                                               boosting_type='gbdt',
+                                               objective='binary',
+                                               class_weight='balanced',
+                                               n_jobs=2,
+                                               importance_type='gain',
+                                               verbosity=-1)
     outer_classifier.fit(X_train, y_class)
-    
-    # Train outer regressor
-    print('\tTraining outer regressor...')
-    outer_regressor = RandomForestRegressor(**regressor_params)
-    outer_regressor.fit(X_train, y_regress)
 
     # Harvest feature importances
     classifier_imp = pd.DataFrame({
@@ -371,26 +379,18 @@ for outer_cv_i in range(1, outer_cv_length + 1):
         'importance': outer_classifier.feature_importances_,
         'component': 'classifier'
     })
-    regressor_imp = pd.DataFrame({
-        'covariate': X_train.columns,
-        'importance': outer_regressor.feature_importances_,
-        'component': 'regressor'
-    })
-    importance_data = (pd.concat([classifier_imp, regressor_imp], ignore_index=True)
-                       .assign(outer_cv_i=outer_cv_i))
+    importance_data = classifier_imp.assign(outer_cv_i=outer_cv_i)
     importance_results = pd.concat([importance_results, importance_data], ignore_index=True)
 
     # Predict outer test
     print('\tPredicting outer test data...')
     X_test = outer_test_iter[predictor_all].astype(float)
     probability_outer = outer_classifier.predict_proba(X_test)
-    cover_outer = outer_regressor.predict(X_test)
 
     # Assign predicted values to outer test data frame
     outer_test_iter = outer_test_iter.assign(
         pred_abs=probability_outer[:, 0],
         pred_pres=probability_outer[:, 1],
-        pred_cover=cover_outer,
         pred_bin=(probability_outer[:, 1] >= threshold).astype(int)
     )
     outer_results = pd.concat([outer_results, outer_test_iter], ignore_index=True)
@@ -401,23 +401,10 @@ for outer_cv_i in range(1, outer_cv_length + 1):
 print('Calculating performance metrics and storing validation results...')
 start_time = time.time()
 
-# Create a composite prediction
-outer_results[prediction[0]] = np.where(
-    (outer_results[pred_bin[0]] == 1) & (outer_results[pred_cover[0]] >= presence_threshold),
-    outer_results[pred_cover[0]], 0
-)
-outer_results['distribution'] = ((outer_results[pred_bin[0]] == 1)
-                                 & (outer_results[pred_cover[0]] >= presence_threshold)).astype(int)
-
-# Clean and restrict results
-outer_results[prediction[0]] = np.clip(outer_results[prediction[0]], 0, 100)
-
 # Partition observed vs predicted for metrics
 y_classify_observed = outer_results[obs_pres[0]].astype('int32')
-y_classify_predicted = outer_results['distribution'].astype('int32')
+y_classify_predicted = outer_results[pred_bin[0]].astype('int32')
 y_classify_probability = outer_results[pred_pres[0]].astype(float)
-y_regress_observed = outer_results[obs_cover[0]].astype(float)
-y_regress_predicted = outer_results[prediction[0]].astype(float)
 
 # Calculate metrics
 true_negative, false_positive, false_negative, true_positive = confusion_matrix(
@@ -426,25 +413,18 @@ true_negative, false_positive, false_negative, true_positive = confusion_matrix(
 validation_auc = roc_auc_score(y_classify_observed, y_classify_probability)
 validation_accuracy = ((true_negative + true_positive) /
                        (true_negative + false_positive + false_negative + true_positive))
-r_score = r2_score(y_regress_observed, y_regress_predicted)
-mae = mean_absolute_error(y_regress_observed, y_regress_predicted)
-rmse = np.sqrt(mean_squared_error(y_regress_observed, y_regress_predicted))
 
 # Format metrics for export
 export_auc = round(validation_auc, 3)
 export_accuracy = round(validation_accuracy * 100, 1)
 export_threshold_mean = round(np.mean(threshold_list), 5)
-export_rscore = round(r_score, 3)
-export_rmse = round(rmse, 1)
-export_mae = round(mae, 1)
 
 # Store output results
 outer_results.to_csv(results_output, header=True, index=False, sep=',', encoding='utf-8')
 importance_results.to_csv(importance_output, header=True, index=False, sep=',', encoding='utf-8')
 metric_map = {
     auc_output: export_auc, acc_output: export_accuracy,
-    threshold_output_mean: export_threshold_mean, rscore_output: export_rscore,
-    rmse_output: export_rmse, mae_output: export_mae
+    threshold_output_mean: export_threshold_mean
 }
 for file_path, metric in metric_map.items():
     with open(file_path, 'w') as f:
@@ -455,9 +435,6 @@ print('\n--- Final Validation Metrics ---')
 print(f'AUC: {export_auc}')
 print(f'Accuracy: {export_accuracy}%')
 print(f'Mean CV Threshold: {export_threshold_mean}')
-print(f'R-squared: {export_rscore}')
-print(f'RMSE: {export_rmse}')
-print(f'MAE: {export_mae}')
 end_timing(start_time)
 
 # Upload files to GCS

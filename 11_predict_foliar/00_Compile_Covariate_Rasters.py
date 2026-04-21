@@ -153,9 +153,9 @@ precip_path = 'gs://akveg-data/covariates_v20260118/Precipitation_2006_2015_10m_
 
 # Get paths to S1 and S2 tiles
 print('Compiling network paths for Sentinel-1 and -2 tiles...')
-s1_paths = get_vsi_paths('akveg-data', 's1_2022_v20230326/')
-s2_seasonal_paths = get_vsi_paths('akveg-data', 's2_sr_2019_2023_gMedian_v20240713d/')
-s2_median_paths = get_vsi_paths('akveg-data', 's2_sr_2019_2023_median_v20240724/')
+s1_paths = get_vsi_paths('akveg-data', 's1_2022_v20230326/', storage_client)
+s2_seasonal_paths = get_vsi_paths('akveg-data', 's2_sr_2019_2023_gMedian_v20240713d/', storage_client)
+s2_median_paths = get_vsi_paths('akveg-data', 's2_sr_2019_2023_median_v20240724/', storage_client)
 
 # Create virtual raster for S1 covariates
 if not os.path.exists(s1_seasonal_vrt):

@@ -154,10 +154,14 @@ conda activate akveg
 
 vim ~/scripts/00_Compile_Covariate_Rasters.py
 vim ~/scripts/01b_Validate_Train_Abundance_LGBM.py
+vim ~/scripts/01d_Validate_Train_Distribution_LGBM.py
 vim ~/scripts/01a_Predict_Abundance.py
+vim ~/scripts/01b_Predict_Distribution.py
 
 nohup python3 ~/scripts/00_Compile_Covariate_Rasters.py
 nohup python3 ~/scripts/01b_Validate_Train_Abundance_LGBM.py
+nohup python3 ~/scripts/01d_Validate_Train_Distribution_LGBM.py
 nohup python3 ~/scripts/01a_Predict_Abundance.py
+nohup python3 ~/scripts/01b_Predict_Distribution.py
 ```
 

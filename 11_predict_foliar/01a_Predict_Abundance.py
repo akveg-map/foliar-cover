@@ -182,8 +182,8 @@ for index, row in grid_data.iterrows():
                 'compress': 'lzw',
                 'bigtiff': 'YES',
                 'tiled': True,
-                'blockxsize': 256,
-                'blockysize': 256
+                'blockxsize': 512,
+                'blockysize': 512
             })
 
             # Predict foliar cover raster

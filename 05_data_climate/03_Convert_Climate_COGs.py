@@ -36,7 +36,6 @@ for input_file in input_files:
 #### PROCESS CLOUD-OPTIMIZED GEOTIFFS
 ####____________________________________________________
 
-
 # Define GDAL configuration for COG creation
 gdal_config = {
     'GDAL_NUM_THREADS': 'ALL_CPUS',

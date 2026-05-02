@@ -2,14 +2,14 @@
 # ---------------------------------------------------------------------------
 # Ingest tree model to GEE
 # Author: Timm Nawrocki, Matt Macander
-# Last Updated: 2026-03-26
+# Last Updated: 2026-04-23
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Ingest tree model to GEE" parses the tree strings from a text file (exported during the model training process) and initiates a task in GEE to upload the tree strings as a table asset.
 # ---------------------------------------------------------------------------
 
 # Define model targets
-group = 'wetsed'
-version_date = '20260330'
+group = 'alnus'
+version_date = '20260415'
 
 # Import packages
 import ee

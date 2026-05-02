@@ -83,7 +83,6 @@ conda config --env --set channel_priority strict
 Install the necessary packages for geospatial processing and predictive modeling. In the example below, we install packages to support interactions with Earth Engine and statistical learning with LightGBM and Bayesian Optimization. We also install the "akutils" helper functions.
 
 ```bash
-conda install -c conda-forge numpy openpyxl pandas scikit-learn imbalanced-learn lightgbm bayesian-optimization joblib gdal geopandas rasterio google-api-python-client earthengine-api
 python3 -m pip install git+https://github.com/accs-uaa/akutils
 ```
 
@@ -118,12 +117,10 @@ gcloud storage cp -r gs://akveg-data/foliar_cover_v2p1/scripts/* ~/scripts/
 gcloud storage cp -r gs://akveg-data/foliar_cover_v2p1/region_data/* ~/Data_Input/region_data/
 ```
 
-Use vim to update the scripts as necessary. To begin editing a file once it has been opened in vim, press "i". To save and close a file after editing it in vim, press ":wq".
+Use vim to update the scripts as necessary. To begin editing a file once it has been opened in vim, press "i". To save and close a file after editing it in vim, press ":wq". See the example commands below:
 
 ```bash
 vim ~/scripts/00_Compile_Covariate_Rasters.py
-vim ~/scripts/01b_Validate_Train_Abundance_LGBM.py
-vim ~/scripts/01a_Predict_Abundance.py
 i
 :wq
 ```

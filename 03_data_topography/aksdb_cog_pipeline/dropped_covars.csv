@@ -1,7 +1,0 @@
-raw_id,scaled_id,prefix,neighborhood,title,category,scale,data_type,match_type,res,reason
-ca_10000,ca_10000_1,ca,10000,Catchment Area (Area: 10000),Hydrology,1,Float32,Direct,10m,Identical to ca_10
-diffopen_2,diffopen_2_100k,diffopen,2,Topographic Openness (Difference) (Window: 2),Lighting/Visibility,100000,Int16,Direct,10m,Linear redundancy with po_2 (Window 2)
-no_2,no_2_10k,no,2,Topographic Openness (Negative) (Window: 2),Lighting/Visibility,10000,Int16,Direct,10m,Symmetric redundancy with po_2 (Window 2)
-relmeanelev_16,relmeanelev_16_100,relmeanelev,16,Relative Mean Elevation (Window: 16),Focal Statistics,100,Int16,Semantic,10m,Identical to diffmeanelev_16
-relmeanelev_32,relmeanelev_32_100,relmeanelev,32,Relative Mean Elevation (Window: 32),Focal Statistics,100,Int16,Semantic,10m,Identical to diffmeanelev_32
-relmeanelev_4,relmeanelev_4_100,relmeanelev,4,Relative Mean Elevation (Window: 4),Focal Statistics,100,Int16,Semantic,10m,Identical to diffmeanelev_4

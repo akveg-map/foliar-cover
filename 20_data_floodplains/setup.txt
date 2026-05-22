@@ -1,5 +1,0 @@
-# Setup env
-
-conda create -n akveg_riparian python=3.10 -y
-conda activate akveg_riparian
-conda install -c conda-forge geopandas rasterio fiona numpy

@@ -32,7 +32,7 @@ document_folder = os.path.join(drive, root_folder,
 repository_folder = os.path.join(drive, root_folder,
                                  'Repositories/akveg-map')
 plot_folder = os.path.join(document_folder, 'appendix_s1/figures')
-text_folder = os.path.join(repository_folder, '13_foliar_tables_figures/text')
+text_folder = os.path.join(repository_folder, '12_summary_tables_figures/text')
 
 # Define input files
 template_input = os.path.join(document_folder, 'appendix_s1/Appendix_S1_template.docx')

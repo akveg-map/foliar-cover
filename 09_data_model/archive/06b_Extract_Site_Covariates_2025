@@ -1,7 +1,0 @@
-// v20250930 applied imputation for missing s1 and s2 values, calculated indices before aggregation
-//           add satellite embeddings, extract for each year
-// v20251003 added crs (EPSG:3338) and crsTransform to reduceRegions for stability of 10m extractions
-
-
-code editor script path: https://code.earthengine.google.com/?scriptPath=users%2Fmmacander%2Fakveg_map%3A09_data_sites%2F04_Extract_Site_Covariates_2025
-script link (2025-10-03): https://code.earthengine.google.com/1c5828d1f77b621c8a922b8090ab17a1

@@ -26,53 +26,86 @@ These instructions will enable you to run scripts to map continuous foliar cover
 
 ### Prerequisites
 
-To execute the code successfully, you will need the following standard and third-party libraries for Python and R computing environments. This workflow requires a valid user account and project within Google Earth Engine. We recommend a setting up a Python geospatial processing environment in a [MiniForge installation](https://github.com/conda-forge/miniforge). While we prioritized open source software to improve reproducibility, a subset of the covariate processing scripts to generate hydrographic flowlines depend on proprietary ArcGIS Pro software, which will require a license through ESRI.
+To execute the code successfully, you will need the following standard and third-party libraries for Python and R computing environments. This workflow requires a valid user account and project within Google Earth Engine. We recommend a setting up a Python geospatial processing environment in a [MiniForge installation](https://github.com/conda-forge/miniforge). While we prioritized open source software to improve reproducibility, a subset of the covariate processing scripts to calculate topographic and hydrographic covariates depend on proprietary ArcGIS Pro software, which will require a license through ESRI. Software versions provided are the minimum tested version for this workflow, but we suggest updating to the most recent available versions.
 
-#### Python 3.12+
+#### Python 3.12
 
-##### Standard Packages
-* `os`
-* `random`
-* `json`
-* `glob`
+##### Data Management and Manipulation Packages
 
-##### Third-Party Data Science & Geospatial Packages (Latest stable versions):
-
-* `numpy` (v2.0.0+) — *For foundational array and matrix manipulation.*
-* `scikit-learn` — *Used for evaluating map performance.*
-* `lightgbm` — *Used for gradient boosting statistical models.*
-* `pandas` (v2.2.0+) — *Used for tabular data manipulation and generating summary statistics.*
-* `geopandas` (v1.0.0+) — *For vector data processing and coordinate reference system management.*
-* `rasterio` (v1.3.10+) — *Used for raster manipulation, masking, and feature extraction.*
-* `rio-cogeo` (v5.3.0+) — *For Cloud Optimized GeoTIFF (COG) creation and translation.*
-* `shapely` (v2.0.4+) — *For geometric operations, defining spatial rules, and creating spatial objects.*
-* `pyproj` (v3.6.0+) — *For cartographic projections and coordinate transformations.*
-* `rasterstats` (v0.19.0+) — *For summarizing geospatial raster datasets based on vector geometries.*
-* `dbf` (v0.99.0+) — *For reading and writing DBF files.*
-* `plotly` (v5.20.0+) — *For interactive graphing and visualizations.*
-* `kaleido` (v0.2.1+) — *For static image export of Plotly visualizations.*
-* `earthengine-api` (v0.1.400+) — *For Google Earth Engine integration and remote sensing workflows.*
-* `google-cloud-api` / `google-api-core` (v2.18.0+) — *For interacting with Google Cloud Storage and services.*
+* `numpy` (v2.3.5) — *Foundational array and matrix manipulation.*
+* `pandas` (v2.3.3) — *Tabular data manipulation and generating summary statistics.*
+* `google-api-python-client` (v2.187.0) — *Python interface to Google Cloud for data management and transfers.*
 * `akutils` (v1.2.4) — *Utilities to simplify processing scripts.*
+
+##### Geospatial Data Packages
+
+* `geopandas` (v1.1.1) — *Vector data processing and coordinate reference system management.*
+* `gdal` (v3.10.3) — *Raster data processing in C++ with streaming to and from disk.*
+* `rasterio` (v1.4.4) — *Raster manipulation, masking, and post-processing.*
+* `rasterstats` (v0.20.0) — *Summarizing geospatial raster datasets based on vector geometries.*
+* `rio-cogeo` (v5.3.0) — *For Cloud Optimized GeoTIFF (COG) creation and translation.*
+* `shapely` (v2.1.2) — *Geometric operations, defining spatial rules, and creating spatial objects.*
+* `pyproj` (v3.6.0) — *For cartographic projections and coordinate transformations.*
+* `earthengine-api` (v1.7.4) — *Python interface to Google Earth Engine to conduct covariate processing and extraction.*
+* `akgeomorph` (v1.0) — *Topographic and hydrographic calculations using arcpy.*
+
+##### ArcGIS Pro Package for Hydrologic Computations
+
+- `arcpy` (v3.6.0) — *Calculate topographic and hydrographic covariates.*
+
+##### Statistical Modeling and Visualization Packages
+
+* `scikit-learn` (v1.8.0) — *Statistical modeling framework and calculating map performance.*
+* `imbalanced-learn` (v0.14.0) — *Rapid prototyping and testing for imbalanced classification tasks.*
+* `lightgbm` (v4.6.0) — *Gradient boosting implementation for statistical learning models.*
+* `bayesian-optimization` (v3.1.0) — Hyperparameter tuning using Gaussian Process.
+* `joblib` (v1.5.3) — *Model export and permanence.*
+* `plotly` (v6.5.0) — *For interactive graphing and visualizations.*
+* `kaleido` (v1.0.0) — *For static image export of Plotly visualizations.*
 
 #### R 4.5.2+
 
-* `sf` (v1.1-1) — *For reading, writing, and handling spatial vector features.*
-* `terra` (v1.9-25) — *For efficient handling and processing of spatial raster layers.*
-* `tidyterra` (v1.1.0) — *For tidyverse integration and plotting of terra raster objects.*
-* `dplyr` (v1.2.1) — *For attribute data manipulation and piping workflows.*
-* `ggplot2` (v4.0.3) — *For advanced map composition and plotting.*
-* `ggpubr` (v0.6.3) — *For creating publication-ready plot arrangements.*
-* `cowplot` (v1.2.0) — *For arranging multiple plots and maps into a single grid.*
-* `ggspatial` (v1.1.10) — *For spatial data visualization annotations (e.g., scale bars, north arrows).*
-* `fs` (v2.1.0) — *For robust, cross-platform file system operations.*
+**Data Management and Manipulation Libraries**
 
-* `dplyr`
-* `raster`
-* `rgdal`
-* `sp`
-* `stringr`
-* `tidyr`
+* `fs` (v2.1.0) — *Robust, cross-platform file system operations.*
+* `dplyr` (v1.2.1) — *Attribute data manipulation and piping workflows.*
+* `tidyverse` (v2.0.0) — *Suite of interoperable libraries for tabular data manipulation.*
+* `writexl` (v1.5.4) — *Write excel format output tables.*
+* `dbplyr` (v2.5.1) — *PostgreSQL database connection.*
+* `RPostgres` (v1.4.8) — *PostgreSQL database connection.*
+* `janitor` (v2.2.1) — *Tabular data manipulations.*
+* `flextable` (v0.9.10) — *Generating tabular outputs for automated process reporting.*
+* `ftExtra` (v0.6.4) — *Generating tabular outputs for automated process reporting.*
+* `spsurvey` (v5.6.0) — *Spatially balanced sample generation.*
+
+##### Geospatial Data Libraries
+
+* `sf` (v1.1-23) — *Reading, writing, and handling spatial vector features.*
+* `terra` (v1.8-86) — *Raster data manipulations.*
+* `tidyterra` (v1.1.0) — *Tidyverse integration and plotting of terra raster objects.*
+* `exactextractr` (v0.10.1) — *Extraction of raster values.*
+* `gdalUtilities` (v1.2.5) — *Utilities to aid geospatial data access and processing.*
+* `mapview` (v2.11.4) — *Interactive viewing of geospatial data.*
+* `solrad` (v1.0.0) — *Imagery calibrations and solar corrections.*
+
+##### Statistics and Visualization Libraries
+
+* `cluster` (v2.1.8.1) — *Clustering statistical analyses.*
+* `vegclust` (v2.0.3) — *Clustering statistical analyses.*
+* `mgcv` (v1.9-4) — *Generalized additive models.*
+* `ranger` (v0.17.0) — *Implementation of Random Forests.*
+* `vegan` (v2.7-2) — *Statistical analyses for ecological community data, including non-metric multidimensional scaling (NMDS).*
+* `ggplot2` (v4.0.3) — *Advanced map composition for plotting.*
+* `ggpattern` (v1.2.3.) — *Plot styling.*
+* `ggrepel` (v0.9.6) — *Plot styling.*
+* `ggtext` (v0.1.2) — *Plot styling.*
+* `magick` (v2.9.0) — *Plot styling.*
+* `metR` (v0.18.3) — *Plot styling.*
+* `RColorBrewer` (v1.1-3) — *Plot styling.*
+* `viridis` (v0.6.5) — *Plot styling.*
+* `ggpubr` (v0.6.3) — *Creation of publication-ready plot arrangements.*
+* `cowplot` (v1.2.0) — *Arranging multiple plots and maps into a grid.*
+* `ggspatial` (v1.1.10) — *Spatial data visualization annotations (e.g., scale bars, north arrows).*
 
 ## Usage
 
@@ -84,23 +117,183 @@ The files in this folder provide detailed instructions to set up cloud and local
 
 ### 1. Data Grids
 
-These scripts prepare data grids to facilitate mapping. Grids include those used for covariate development (e.g., hydrographic processing units), cross-validation, and statistical model predictions.
+These scripts prepare data regular spatial grids across the map domain to facilitate geospatial data processing and map validation. Grids include those used for covariate development (e.g., hydrographic processing units), cross-validation, and statistical model predictions.
+
+- **Covariate Development**: We organized covariate development by 50 km grid to enable spatial parallelization of data processing. For the processing of flow accumulation and flow lines, we additionally buffered the 50 km grids to mitigate edge effects from one grid to the next.
+- **Cross-validation**: We used 100 km grids as the spatial units for a gridded cross-validation wherein all sample site visits within the same grid were simultaneously left out. This mitigated optimistic bias in the performance assessments caused by spatial autocorrelation.
+- **Model Predictions**: We used 10 km grids as the spatial units for model predictions to reduce memory and storage requirements for cloud-based model predictions.
 
 ### 2. Data Reflectance
 
-Compile Sentinel-1 and -2 reflectance composites through Google Earth Engine
+We processed radiometric data using Google Earth Engine (GEE; Gorelick et al. 2017) with interfaces in Javascript, R 4.5.2 (R Core Team 2025), and Python 3.12. The scripts in this folder produce multi-seasonal composites from Sentinel-1 synthetic aperture radar data and Sentinel-2 surface reflectance data.
+
+- **Sentinel-2 Spectral Covariates:** We developed 16 spectral covariates for each of five seasonal windows within the snow-free season, defined using per pixel statistics, for a total of 80 spectral covariates across all seasons. For AKVEG Map v2.1, we calculated all spectral covariates from geometric median composites using available acquisitions from 2019–2023. Phenological timing varies drastically across the AKVEG Map domain. We therefore defined seasonal windows for the snow-free season (except in areas of perennial snow and glacier) based on per pixel central dates calculated from the distribution of snow-free observations in the Sentinel-2 record. First, we excluded dates when the sun angle at solar noon was lower than 40° (in spring) or 25° (in fall). These solar angle thresholds eliminated data with poor illumination properties in early April or November, although the exact threshold dates varied according to geographic position. We then extracted the day-of-year for remaining observations flagged as 'cloud-free, cloud-shadow-free, and snow-free' based on image metadata. From this distribution of image dates in each pixel, we selected the 5th percentile day-of-year to define the center of the 'Green-up' window and the 95th percentile to define the center of the 'Senescence' window. The numerical identifiers and spatially variable seasons that we defined were as follows:
+  1. Green-up: Geometric median composite of all quality-screened observations within +/- 7 days of central day-of-year, defined per pixel as the 5th percentile day-of-year.
+  2. Early Summer: Geometric median composite of all quality-screened observations within +/- 10 days of central day-of-year, defined per pixel as the date 25% of the way between Green-up and Midsummer.
+  3. Midsummer: Geometric median composite of all quality-screened observations within +/- 14 days of July 31 (i.e., no spatial variation).
+  4. Late Summer: Geometric median composite of all quality-screened observations within +/- 14 days of central day-of-year, defined per pixel as the date 50% of the way between Midsummer and Senescence.
+  5. Senescence: Geometric median composite of all quality-screened observations within +/- 14 days of central day-of-year, defined per pixel as the 95th percentile day-of-year.
+- **Sentinel-1 Textural Covariates:** We developed four textural covariates represented by different polarity combinations from synthetic aperture radar returns for each of three seasonal windows across the entire year for a total of 12 textural covariates across all seasons. For AKVEG Map v2.1, the Sentinel-1 data represent the years 2022 and 2023. The numerical identifier and seasons that we used were as follows:
+  1. Growing Season consisting of July and August (2022)
+  2. Early Winter season consisting of November and December (2022)
+  3. Mid-winter season consisting of January and February (2023)
+
+Differences in the length of the temporal windows for each Sentinel-2 season accounted for phenological differences (e.g., green-up tends to occur more rapidly than senescence) and weather variability (e.g., the proportion of cloud-obscured observations increases later in the snow-free season). To help account for fire-related disturbances that occurred from 2019–2023, we omitted images collected prior to the disturbance. Thus, the composite images represent conditions for circa 2023 except after disturbances (i.e., because no alternate data was available to mask out 2023 fires). For pixels with fewer than three filtered contributing images, we repeated the analysis without filtering. This helped fill missing data regions for perennial snow and recent fires. 
+
+Finally, we also developed a Sentinel-2 median composite representing May-September 2019–2023 with cloud masking using cloud probability score but no additional filtering. The resulting Sentinel-2 growing season composite enabled us to fill missing data in the Sentinel-2 individual seasonal composites, primarily in unvegetated areas. In addition to the bands collected by the Sentinel-2 platform, we calculated six normalized difference metrics for each of the five seasonal windows. Table 1 provides the calculation and methodological reference for each metric.
+
+Table 1. Normalized Difference (Norm. Diff.) metrics, equations, and methodological references.
+
+| **Norm. Diff.  Metric**              | **Calculation**                 | **Reference**        |
+| ------------------------------------ | ------------------------------- | -------------------- |
+| Norm. Burn  Ration (NBR)             | (NIR −  SWIR2)/(NIR + SWIR2)    | Key and  Benson 1999 |
+| Norm.  Green Red Diff. Index (NGRDI) | (Green -  Red)/(Green + Red)    | Hunt et  al. 2005    |
+| Norm. Diff. Moisture Index (NDMI)    | (NIR − SWIR1)/(NIR + SWIR1)     | Gao 1996             |
+| Norm. Diff. Snow Index (NDSI)        | (Green − SWIR1)/(Green + SWIR1) | Hall et al. 1995     |
+| Norm. Diff. Vegetation Index  (NDVI) | (NIR − Red)/(NIR + Red)         | Tucker 1979          |
+| Norm. Diff. Water Index (NDWI)       | (Green − NIR)/(Green + NIR)     | McFeeters 1996       |
 
 ### 3. Data Topography
 
-Download topographic data Process topographic covariates
+We processed an initial elevation composite raster using GDAL (Rouault et al. 2025) and rasterio (Gillies et al. 2025) in Python 3.12. We relied on ArcGIS Pro 3.5 (ESRI 2025) with Python 3.11 to process topographic covariate data from the initial elevation composite raster. The scripts in this folder generated eight topographic covariates. The topographic and hydrographic data derived from a combination of two source datasets to cover Alaska and adjacent Canada:
+
+- **Alaska InSAR 5 m Digital Terrain Model:** The Alaska InSAR 5 m DTM developed through the USGS 3-D Elevation Program provided comprehensive coverage of Alaska. We include scripts to download these data from the Alaska Department of Natural Resources Division of Geological & Geophysical Surveys. We resampled these data to 10 m resolution to match the target resolution of the AKVEG Map.
+- **ESA/Copernicus GLO-30 Digital Surface Model:** The ESA GLO-30 (30 m) DSM developed by European Space Agency provides comprehensive global coverage and was the best publicly available elevation data covering adjacent Canada, where the coverage of the Alaska InSAR 5 m DTM lapsed. We include scripts to download these data from the European Union Copernicus Program. We resampled these data to 10 m resolution using bilinear interpolation to match the target resolution of the AKVEG Map.
+
+We did not attempt to reconcile the differences between the two elevation datasets at their boundary, nor did we reconcile differences related to terrain versus surface elevation models. We calculated a suite of topographic covariates from the AKVEG elevation composite following the equations provided by Evans et al. (2014). We list additional notes and calculation references for specific topographic covariates below:
+
+- **Aspect:** Used a quadratic interpretation (ESRI 2025).
+- **Slope:** Used a quadratic interpretation (ESRI 2025).
+- **Heatload:** Calculated following McCune and Keon (2002). The heat load index calculation is calibrated for latitudes 0–60°N latitudes. Much of the AKVEG Map domain extends north of 60°N, where the heat load index is not suitable for linear interpretations. We include the heat load index, however, because our models make no assumptions of linear relationships between the covariates and response variables.
+- **Position:** Calculated within a 10 × 10 km moving window. Topographic position represents the difference between the local (i.e., pixel) elevation and the average elevation of the moving window.
+- **Relief:** Calculated within a 5 × 5 cell moving window.
+- **Roughness:** Calculated within a 5 × 5 cell moving window as the square of the standard deviation in elevation (Riley et al. 1999).
 
 ### 4. Data Hydrography
 
-Compute flow accumulation and flow lines and create hydrographic covariates.
+We relied on ArcGIS Pro 3.5 (ESRI 2025) with Python 3.11 to process flow accumulation and flow lines and create hydrographic covariates. The scripts in this folder generated four hydrographic covariates. All hydrographic covariates except distance to coast derived from a flow network and flow accumulation calculated using the “Derive Continuous Flow” (ESRI 2025) algorithm with multi-directional flow implemented in ArcGIS Pro. We converted the flow network to approximate representations of streams and rivers by applying flow accumulation thresholds of 10,000 and 1,000,000, respectively. We selected the flow accumulation thresholds by comparing results to the Alaska High Resolution Imagery 2020 composite (© Vantor) to ensure that the streams corresponded to visible linear waterways in the imagery and rivers corresponded to visible linear waterways with clearly developed floodplains in the imagery. We calculated the topographic wetness index based on Gessler et al. (1995; see compound topographic index) with additional weighting to reduce the values for high-gradient streams and drainages. Finally, we also calculated distance to coast based on a 1:63,000 scale map of the landmass of northwestern North America.
 
 ### 5. Data Climate
 
-Download climate data from [Scenarios Network for Alaska and Arctic Planning](https://uaf-snap.org/) and create climate covariates
+Scripts in this folder download historical climate data from [Scenarios Network for Alaska and Arctic Planning](https://uaf-snap.org/) (SNAP) and process three covariates: total annual precipitation (mm), summer warmth index (°C), and minimum January temperature (°C) using SNAP CRU TS 4.8 and 4.0 historical data (SNAP 2025). These covariates represented the period from 2006 to 2015, approximately one decade prior to the target date of the AKVEG Map v2.1 (circa 2023). We included data one decade prior to the map timeframe to account for the lagged responses of vegetation to climate and based on the availability of historical climate data. We calculated total annual precipitation and minimum January temperature as per pixel averages of raster values representing each year. To calculate summer warmth index, we first summed mean temperature rasters for May through September for each year and then calculated the per pixel average of the sum raster values. The historical climate data had an original resolution of 2 km for the majority of our map domain. Additionally, we relied on SNAP data with 15 km resolution to cover the included portion of Northwest Territories, which did not overlap the 2 km resolution SNAP data. To avoid resolution artifacts in the foliar cover maps, we resampled the climate data to a 10 m resolution using bilinear interpolation.
+
+### 7. 
+
+## Covariates
+
+This section provides a list of the abbreviations and full names of the remotely sensed covariates used to develop the continuous foliar cover maps (Table 2). See the "Usage" section above for descriptions of how these covariates were calculated and the source datasets used.
+
+Table 2. Covariate types, abbreviations (Abbr.), and names. Covariate abbreviations are also the variable names in modeling scripts and plot outputs (e.g., covariate importance plots)
+
+| **Covariate Type** | **Abbr.**   | **Covariate Name**                                 |
+| ------------------ | ----------- | -------------------------------------------------- |
+| Climate            | summer      | Summer warmth index                                |
+| Climate            | january     | January minimum air temperature                    |
+| Climate            | precip      | Total annual precipitation                         |
+| Topography         | elevation   | Elevation (AKVEG elevation  composite)             |
+| Topography         | exposure    | Slope-weighted solar exposure                      |
+| Topography         | heatload    | Heat load index                                    |
+| Topography         | position    | Topographic position                               |
+| Topography         | aspect      | Aspect                                             |
+| Topography         | relief      | Surface relief ration                              |
+| Topography         | roughness   | Roughness                                          |
+| Topography         | slope       | Slope                                              |
+| Hydrography        | coast       | Distance to marine coast                           |
+| Hydrography        | stream      | Distance to stream or river                        |
+| Hydrography        | river       | Distance to river                                  |
+| Hydrography        | wetness     | Slope-adjusted topographic wetness  index          |
+| Radiometry         | s1_1_vha    | Growing season SAR  vertical-horizontal ascending  |
+| Radiometry         | s1_1_vhd    | Growing season SAR  vertical-horizontal descending |
+| Radiometry         | s1_1_vva    | Growing season SAR  vertical-vertical ascending    |
+| Radiometry         | s1_1_vvd    | Growing season SAR  vertical-vertical descending   |
+| Radiometry         | s1_2_vha    | Autumn SAR vertical-horizontal  ascending          |
+| Radiometry         | s1_2_vhd    | Autumn SAR vertical-horizontal  descending         |
+| Radiometry         | s1_2_vva    | Autumn SAR vertical-vertical  ascending            |
+| Radiometry         | s1_2_vvd    | Autumn SAR vertical-vertical  descending           |
+| Radiometry         | s1_3_vha    | Winter SAR vertical-horizontal  ascending          |
+| Radiometry         | s1_3_vhd    | Winter SAR vertical-horizontal  descending         |
+| Radiometry         | s1_3_vva    | Winter SAR vertical-vertical  ascending            |
+| Radiometry         | s1_3_vvd    | Autumn SAR vertical-vertical  descending           |
+| Radiometry         | s2_1_blue   | Green-up multispectral blue                        |
+| Radiometry         | s2_1_green  | Green-up multispectral green                       |
+| Radiometry         | s2_1_red    | Green-up multispectral red                         |
+| Radiometry         | s2_1_redge1 | Green-up multispectral red edge 1                  |
+| Radiometry         | s2_1_redge2 | Green-up multispectral red edge 2                  |
+| Radiometry         | s2_1_redge3 | Green-up multispectral red edge 3                  |
+| Radiometry         | s2_1_nir    | Green-up multispectral NIR                         |
+| Radiometry         | s2_1_redge4 | Green-up multispectral red edge 4                  |
+| Radiometry         | s2_1_swir1  | Green-up multispectral SWIR 1                      |
+| Radiometry         | s2_1_swir2  | Green-up multispectral SWIR 2                      |
+| Radiometry         | s2_1_nbr    | Green-up NBR                                       |
+| Radiometry         | s2_1_ngrdi  | Green-up NGRDI                                     |
+| Radiometry         | s2_1_ndmi   | Green-up NDMI                                      |
+| Radiometry         | s2_1_ndsi   | Green-up NDSI                                      |
+| Radiometry         | s2_1_ndvi   | Green-up NDVI                                      |
+| Radiometry         | s2_1_ndwi   | Green-up NDWI                                      |
+| Radiometry         | s2_2_blue   | Early summer multispectral blue                    |
+| Radiometry         | s2_2_green  | Early summer multispectral green                   |
+| Radiometry         | s2_2_red    | Early summer multispectral red                     |
+| Radiometry         | s2_2_redge1 | Early summer multispectral red  edge 1             |
+| Radiometry         | s2_2_redge2 | Early summer multispectral red  edge 2             |
+| Radiometry         | s2_2_redge3 | Early summer multispectral red  edge 3             |
+| Radiometry         | s2_2_nir    | Early summer multispectral NIR                     |
+| Radiometry         | s2_2_redge4 | Early summer multispectral red  edge 4             |
+| Radiometry         | s2_2_swir1  | Early summer multispectral SWIR 1                  |
+| Radiometry         | s2_2_swir2  | Early summer multispectral SWIR 2                  |
+| Radiometry         | s2_2_nbr    | Early summer NBR                                   |
+| Radiometry         | s2_2_ngrdi  | Early summer NGRDI                                 |
+| Radiometry         | s2_2_ndmi   | Early summer NDMI                                  |
+| Radiometry         | s2_2_ndsi   | Early summer NDSI                                  |
+| Radiometry         | s2_2_ndvi   | Early summer NDVI                                  |
+| Radiometry         | s2_2_ndwi   | Early summer NDWI                                  |
+| Radiometry         | s2_3_blue   | Midsummer multispectral blue                       |
+| Radiometry         | s2_3_green  | Midsummer multispectral green                      |
+| Radiometry         | s2_3_red    | Midsummer multispectral red                        |
+| Radiometry         | s2_3_redge1 | Midsummer multispectral red edge 1                 |
+| Radiometry         | s2_3_redge2 | Midsummer multispectral red edge 2                 |
+| Radiometry         | s2_3_redge3 | Midsummer multispectral red edge 3                 |
+| Radiometry         | s2_3_nir    | Midsummer multispectral NIR                        |
+| Radiometry         | s2_3_redge4 | Midsummer multispectral red edge 4                 |
+| Radiometry         | s2_3_swir1  | Midsummer multispectral SWIR 1                     |
+| Radiometry         | s2_3_swir2  | Midsummer multispectral SWIR 2                     |
+| Radiometry         | s2_3_nbr    | Midsummer NBR                                      |
+| Radiometry         | s2_3_ngrdi  | Midsummer NGRDI                                    |
+| Radiometry         | s2_3_ndmi   | Midsummer NDMI                                     |
+| Radiometry         | s2_3_ndsi   | Midsummer NDSI                                     |
+| Radiometry         | s2_3_ndvi   | Midsummer NDVI                                     |
+| Radiometry         | s2_3_ndwi   | Midsummer NDWI                                     |
+| Radiometry         | s2_4_blue   | Late summer multispectral blue                     |
+| Radiometry         | s2_4_green  | Late summer multispectral green                    |
+| Radiometry         | s2_4_red    | Late summer multispectral red                      |
+| Radiometry         | s2_4_redge1 | Late summer multispectral red edge  1              |
+| Radiometry         | s2_4_redge2 | Late summer multispectral red edge  2              |
+| Radiometry         | s2_4_redge3 | Late summer multispectral red edge  3              |
+| Radiometry         | s2_4_nir    | Late summer multispectral NIR                      |
+| Radiometry         | s2_4_redge4 | Late summer multispectral red edge  4              |
+| Radiometry         | s2_4_swir1  | Late summer multispectral SWIR 1                   |
+| Radiometry         | s2_4_swir2  | Late summer multispectral SWIR 2                   |
+| Radiometry         | s2_4_nbr    | Late summer NBR                                    |
+| Radiometry         | s2_4_ngrdi  | Late summer NGRDI                                  |
+| Radiometry         | s2_4_ndmi   | Late summer NDMI                                   |
+| Radiometry         | s2_4_ndsi   | Late summer NDSI                                   |
+| Radiometry         | s2_4_ndvi   | Late summer NDVI                                   |
+| Radiometry         | s2_4_ndwi   | Late summer NDWI                                   |
+| Radiometry         | s2_5_blue   | Senescence multispectral blue                      |
+| Radiometry         | s2_5_green  | Senescence multispectral green                     |
+| Radiometry         | s2_5_red    | Senescence multispectral red                       |
+| Radiometry         | s2_5_redge1 | Senescence multispectral red edge  1               |
+| Radiometry         | s2_5_redge2 | Senescence multispectral red edge  2               |
+| Radiometry         | s2_5_redge3 | Senescence multispectral red edge  3               |
+| Radiometry         | s2_5_nir    | Senescence multispectral NIR                       |
+| Radiometry         | s2_5_redge4 | Senescence multispectral red edge  4               |
+| Radiometry         | s2_5_swir1  | Senescence multispectral SWIR 1                    |
+| Radiometry         | s2_5_swir2  | Senescence multispectral SWIR 2                    |
+| Radiometry         | s2_5_nbr    | Senescence NBR                                     |
+| Radiometry         | s2_5_ngrdi  | Senescence NGRDI                                   |
+| Radiometry         | s2_5_ndmi   | Senescence NDMI                                    |
+| Radiometry         | s2_5_ndsi   | Senescence NDSI                                    |
+| Radiometry         | s2_5_ndvi   | Senescence NDVI                                    |
+| Radiometry         | s2_5_ndwi   | Senescence NDWI                                    |
 
 ## Credits
 If you use this repository, the algorithms, or the associated foliar cover maps in your work, please cite the corresponding manuscript:
@@ -114,4 +307,112 @@ Funding support to complete this work was provided by the U.S. Fish and Wildlife
 ### License
 
 This project is provided under the GNU General Public License v3.0. It is free to use and modify in part or in whole.
+
+### References
+
+We provide the following references to software and packages that we used to develop the AKVEG Map continuous foliar cover maps. Please refer to the "Prerequisites" section for a complete list of software and versions.
+
+Appelhans, T., F. Detsch, C. Reudenbach, and S. Woellauer. 2025. mapview: Interactive Viewing of Spatial Data in R. R package. Available: https://github.com/r-spatial/mapview
+
+Baston, D. 2024. exactextractr: Fast Extraction from Raster Datasets using Polygons. R package. Available: https://isciences.gitlab.io/exactextractr/
+
+Campitelli, E. 2021. metR: Tools for Easier Analysis of Meteorological Fields. R package. Available: https://eliocamp.github.io/metR/
+
+De Cáceres, M., and P. Legendre. 2009. Associations between species and groups of sites: indices and statistical inference. Ecology. 90:3566–3574.
+
+De Cáceres, M., X. Font, and F. Oliva. 2010. The management of vegetation classifications with fuzzy clustering. Journal of Vegetation Science. 21:1138–1151.
+
+den Bossche, J.V., K. Jordahl, M. Fleischmann, M. Richards, J. McBride, J. Wasserman, A.G. Badaracco, A.D. Snow, P. Roggemans, B. Ward, et al. 2025. geopandas. Python package. Available: https://doi.org/10.5281/zenodo.2585848
+
+Dumelle, M., T. Kincaid, A.R. Olsen, and M. Weber. 2023. spsurvey: Spatial Sampling Design and Analysis in R. Journal of Statistical Software. 105:1–29.
+
+Dunnington, D. 2025. ggspatial: Spatial Data Framework for ggplot2. R package. Available: https://paleolimbot.github.io/ggspatial/
+
+ESRI. 2025. ArcGIS Pro (Version 3.x). Computer Software. ESRI. Redlands, CA.
+
+FC, M., and T.L. Davis. 2025. ggpattern: 'ggplot2' Pattern Geoms. R package. Available: https://github.com/trevorld/ggpattern
+
+Firke, S. 2024. janitor: Simple Tools for Examining and Cleaning Dirty Data. R package. Available: https://sfirke.github.io/janitor/
+
+Garnier, S., N. Ross, R. Rudis, A.P. Camargo, M. Sciaini, and C. Scherer. 2024. viridis(Lite) - Colorblind-Friendly Color Maps for R. R package. Available: https://sjmgarnier.github.io/viridis/
+
+Gillies, S., C. van der Well, J.V. den Bossche, M.W. Taves, J. Arnott, B.C. Ward, et al. 2025. shapely: Manipulation and analysis of geometric objects in the Cartesian plane. Python package. Available: https://doi.org/10.5281/zenodo.5597138
+
+Gillies, S., et al. 2025. rasterio: geospatial raster I/O for Python programmers. Python package. Available: https://github.com/rasterio/rasterio
+
+Gohel, D., and P. Skintzos. 2025. flextable: Functions for Tabular Reporting. R package. Available: https://github.com/davidgohel/flextable
+
+Google. 2026. Google API Client Library for Python (Version 2.x). Python package. Available: https://github.com/googleapis/google-api-python-client
+
+Gorelick, N., M. Hancher, M. Dixon, S. Ilyushchenko, D. Thau, and R. Moore. 2017. Google earth engine: planetary-scale geospatial analysis for everyone. Remote Sensing of Environment 202:18–27.
+
+Harris, C.R., K.J. Millman, S.J. van der Walt, R. Gommers, P. Virtanen, D. Cournapeau, E. Wieser, J. Taylor, S. Berg, N.J. Smith, et al. 2020. Array programming with NumPy. Nature. 585:357–362.
+
+Hernangómez, D. 2023. Using the tidyverse with terra objects: the tidyterra package. Journal of Open Source Software. 8:5751.
+
+Hijmans, R. 2025. terra: Spatial Data Analysis. R package. Available: https://github.com/rspatial/terra
+
+Joblib contributors. 2025. joblib. Python package. Available: https://doi.org/10.5281/zenodo.14915601
+
+Kassambara, A. 2025. ggpubr: 'ggplot2' Based Publication Ready Plots. R package. Available: https://rpkgs.datanovia.com/ggpubr/
+
+Ke, G., Q. Meng, T. Finley, T. Wang, W. Chen, W. Ma, Q. Ye, T. Liu. 2017. LightGBM: a highly efficient gradient boosting decision tree. NIPS’17: Proceedings of the 31st International Conference on Neural Information Processing Systems. 3149–3157.
+
+Kruchten, N., A. Seier, and C. Parmer. 2025. plotly.py: an interactive, open-source, and browser-based graphing library for Python. Python package. Plotly Technologies, Inc. Available: https://github.com/plotly/plotly.py
+
+Lemaître, G., F. Nogueira, and C.K. Aridas. 2017. Imbalanced-learn: A Python Toolbox to Tackle the Curse of Imbalanced Datasets in Machine Learning. Journal of Machine Learning Research. 18:1–5.
+
+Maechler, M., P. Rousseeuw, A. Struyf, M. Hubert, and K. Hornik. 2025. cluster: Cluster Analysis Basics and Extensions. R package. Available: https://CRAN.R-project.org/package=cluster
+
+Maechler, M., P. Rousseeuw, A. Struyf, M. Hubert, and K. Hornik. 2025. cluster: Cluster Analysis Basics and Extensions. R package. Available: https://CRAN.R-project.org/package=cluster
+
+McKinney, W. 2010. Data Structures for Statistical Computing in Python. Proceedings of the 9th Python in Science Conference. 56–61.
+
+Nawrocki, T.W. 2026a. akutils. Python package. Available: https://github.com/accs-uaa/akutils
+
+Nawrocki, T.W. 2026b. akgeomorph. Python package. Available: https://github.com/accs-uaa/akgeomorph
+
+Neuwirth, E. 2022. RColorBrewer: ColorBrewer Palettes. R package. Available: https://CRAN.R-project.org/package=RColorBrewer
+
+Nogueira, F., et al. 2025. Bayesian Optimization: open source constrained global optimization tool for Python. Python package. Available: https://github.com/bayesian-optimization/BayesianOptimization
+
+O'Brien, J. 2023. gdalUtilities: Wrappers for 'GDAL' Utilities Executables. R package. Available: https://github.com/joshobrien/gdalutilities
+
+Oksanen, J., G.L. Simpson, F.G. Blanchet, R. Kindt, P. Legendre, P.R. Minchin, R.B. O'Hara, P. Solymos, M.H. Stevens, E. Szoecs, et al. 2025. vegan: Community Ecology Package. R package. Available: https://vegandevs.github.io/vegan/
+
+Ooms, J. 2025. magick: Advanced Graphics and Image-Processing in R. R package. Available: https://github.com/ropensci/magick
+
+Ooms, J., and B. Denney. 2025. writexl: Export Data Frames to Excel 'xlsx' Format. R package. Available: https://ropensci.r-universe.dev/writexl
+
+Pebesma, E. 2018. Simple Features for R: Standardized Support for Spatial Vector Data. The R Journal. 10:439–446.
+
+Pedregosa, F., G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel, M. Blondel, P. Prettenhofer, R. Weiss, V. Duborg, et al. 2011. Scikit-learn: machine learning in python. Journal of Machine Learning Research. 12:2825–2830.
+
+Perry, M., et al. 2025. rasterstats: summary statistics of geospatial raster datasets based on vector geometries. Python package. Available: https://github.com/perrygeo/python-rasterstats
+
+Plotly. 2025. Kaleido: the Next Generation of Static Image Export for Web-Based Visualization Libraries. Python package. Plotly Technologies, Inc. Available: https://github.com/plotly/Kaleido
+
+R Core Team. 2025. R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. Available: https://www.R-project.org/
+
+Rouault, E., F. Warmerdam, K. Schwehr, A. Kiselev, H. Butler, M. Łoskot, T. Szekeres, E. Tourigny, M. Landa, I. Miara, et al. 2025. Geospatial Data Abstraction Library. Python package. Open Source Geospatial Foundation. Available: https://doi.org/10.5281/zenodo.5884351
+
+Seyednasrollah, B., M. Kumar, and T.E. Link. 2013. On the role of vegetation density on net snow cover radiation at the forest floor. Journal of Geophysical Research: Atmospheres. 118:8359–8374.
+
+Slowikowski, K. 2024. ggrepel: Automatically Position Non-Overlapping Text Labels with 'ggplot2'. R package. Available: https://ggrepel.slowkow.com/
+
+Wickham, H. 2016. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag. New York, New York. 213 pp.
+
+Wickham, H., J. Ooms, and K. Müller. 2025b. RPostgres: C++ Interface to PostgreSQL. R package. Available: https://rpostgres.r-dbi.org
+
+Wickham, H., M. Averick, J. Bryan, W. Chang, L. D’Agostino McGowan, R. François, G. Grolemund, A. Hayes, L. Henry, J. Hester, et al. 2019. Welcome to the Tidyverse. Journal of Open Source Software. 4:1686.
+
+Wickham, H., M. Girlich, and E. Ruiz. 2025a. dbplyr: A 'dplyr' Back End for Databases. R package. Available: https://dbplyr.tidyverse.org
+
+Wilke, C., and B. Wiernik. 2022. ggtext: Improved Text Rendering Support for 'ggplot2'. R package. Available: https://github.com/wilkelab/ggtext
+
+Wood, S.N. 2017. Generalized Additive Models: An Introduction with R. 2nd Edition. Chapman and Hall/CRC. New York, New York. 496 pp.
+
+Wright, M.N., and A. Ziegler. 2017. ranger: A Fast Implementation of Random Forests for High Dimensional Data in C++ and R. Journal of Statistical Software. 77:1–17.
+
+Yasumoto, A. 2025. ftExtra: Extensions for Flextable. R package. Available: https://github.com/atusy/ftExtra
 

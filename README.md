@@ -113,11 +113,11 @@ This repository houses the code necessary to recreate the remotely sensed indica
 
 ### 0. Cloud Management
 
-The files in this folder provide detailed instructions to set up cloud and local Python computing environments to conduct geospatial processing and statistical modeling. These instructions assume a valid Google Cloud Compute project and billing account. Alternatively, the described environments could be set up in another system, but the user would need to adapt the instructions outside of Google Cloud.
+Scripts in this folder provide detailed instructions to set up cloud and local Python computing environments to conduct geospatial processing and statistical modeling. These instructions assume a valid Google Cloud Compute project and billing account. Alternatively, the described environments could be set up in another system, but the user would need to adapt the instructions outside of Google Cloud.
 
 ### 1. Data Grids
 
-These scripts prepare data regular spatial grids across the map domain to facilitate geospatial data processing and map validation. Grids include those used for covariate development (e.g., hydrographic processing units), cross-validation, and statistical model predictions.
+Scripts in this folder prepare data regular spatial grids across the map domain to facilitate geospatial data processing and map validation. Grids include those used for covariate development (e.g., hydrographic processing units), cross-validation, and statistical model predictions.
 
 - **Covariate Development**: We organized covariate development by 50 km grid to enable spatial parallelization of data processing. For the processing of flow accumulation and flow lines, we additionally buffered the 50 km grids to mitigate edge effects from one grid to the next.
 - **Cross-validation**: We used 100 km grids as the spatial units for a gridded cross-validation wherein all sample site visits within the same grid were simultaneously left out. This mitigated optimistic bias in the performance assessments caused by spatial autocorrelation.
@@ -125,7 +125,7 @@ These scripts prepare data regular spatial grids across the map domain to facili
 
 ### 2. Data Reflectance
 
-We processed radiometric data using Google Earth Engine (GEE; Gorelick et al. 2017) with interfaces in Javascript, R 4.5.2 (R Core Team 2025), and Python 3.12. The scripts in this folder produce multi-seasonal composites from Sentinel-1 synthetic aperture radar data and Sentinel-2 surface reflectance data.
+Scripts in this folder produce multi-seasonal composites from Sentinel-1 synthetic aperture radar data and Sentinel-2 surface reflectance data. We processed radiometric data using Google Earth Engine (GEE; Gorelick et al. 2017) with interfaces in Javascript, R 4.5.2 (R Core Team 2025), and Python 3.12.
 
 - **Sentinel-2 Spectral Covariates:** We developed 16 spectral covariates for each of five seasonal windows within the snow-free season, defined using per pixel statistics, for a total of 80 spectral covariates across all seasons. For AKVEG Map v2.1, we calculated all spectral covariates from geometric median composites using available acquisitions from 2019–2023. Phenological timing varies drastically across the AKVEG Map domain. We therefore defined seasonal windows for the snow-free season (except in areas of perennial snow and glacier) based on per pixel central dates calculated from the distribution of snow-free observations in the Sentinel-2 record. First, we excluded dates when the sun angle at solar noon was lower than 40° (in spring) or 25° (in fall). These solar angle thresholds eliminated data with poor illumination properties in early April or November, although the exact threshold dates varied according to geographic position. We then extracted the day-of-year for remaining observations flagged as 'cloud-free, cloud-shadow-free, and snow-free' based on image metadata. From this distribution of image dates in each pixel, we selected the 5th percentile day-of-year to define the center of the 'Green-up' window and the 95th percentile to define the center of the 'Senescence' window. The numerical identifiers and spatially variable seasons that we defined were as follows:
   1. Green-up: Geometric median composite of all quality-screened observations within +/- 7 days of central day-of-year, defined per pixel as the 5th percentile day-of-year.
@@ -155,7 +155,7 @@ Table 1. Normalized Difference (Norm. Diff.) metrics, equations, and methodologi
 
 ### 3. Data Topography
 
-We processed an initial elevation composite raster using GDAL (Rouault et al. 2025) and rasterio (Gillies et al. 2025) in Python 3.12. We relied on ArcGIS Pro 3.5 (ESRI 2025) with Python 3.11 to process topographic covariate data from the initial elevation composite raster. The scripts in this folder generated eight topographic covariates. The topographic and hydrographic data derived from a combination of two source datasets to cover Alaska and adjacent Canada:
+Scripts in this folder generated eight topographic covariates. We processed an initial elevation composite raster using GDAL (Rouault et al. 2025) and rasterio (Gillies et al. 2025) in Python 3.12. We relied on ArcGIS Pro 3.5 (ESRI 2025) with Python 3.11 to process topographic covariate data from the initial elevation composite raster. The topographic and hydrographic data derived from a combination of two source datasets to cover Alaska and adjacent Canada:
 
 - **Alaska InSAR 5 m Digital Terrain Model:** The Alaska InSAR 5 m DTM developed through the USGS 3-D Elevation Program provided comprehensive coverage of Alaska. We include scripts to download these data from the Alaska Department of Natural Resources Division of Geological & Geophysical Surveys. We resampled these data to 10 m resolution to match the target resolution of the AKVEG Map.
 - **ESA/Copernicus GLO-30 Digital Surface Model:** The ESA GLO-30 (30 m) DSM developed by European Space Agency provides comprehensive global coverage and was the best publicly available elevation data covering adjacent Canada, where the coverage of the Alaska InSAR 5 m DTM lapsed. We include scripts to download these data from the European Union Copernicus Program. We resampled these data to 10 m resolution using bilinear interpolation to match the target resolution of the AKVEG Map.
@@ -171,13 +171,50 @@ We did not attempt to reconcile the differences between the two elevation datase
 
 ### 4. Data Hydrography
 
-We relied on ArcGIS Pro 3.5 (ESRI 2025) with Python 3.11 to process flow accumulation and flow lines and create hydrographic covariates. The scripts in this folder generated four hydrographic covariates. All hydrographic covariates except distance to coast derived from a flow network and flow accumulation calculated using the “Derive Continuous Flow” (ESRI 2025) algorithm with multi-directional flow implemented in ArcGIS Pro. We converted the flow network to approximate representations of streams and rivers by applying flow accumulation thresholds of 10,000 and 1,000,000, respectively. We selected the flow accumulation thresholds by comparing results to the Alaska High Resolution Imagery 2020 composite (© Vantor) to ensure that the streams corresponded to visible linear waterways in the imagery and rivers corresponded to visible linear waterways with clearly developed floodplains in the imagery. We calculated the topographic wetness index based on Gessler et al. (1995; see compound topographic index) with additional weighting to reduce the values for high-gradient streams and drainages. Finally, we also calculated distance to coast based on a 1:63,000 scale map of the landmass of northwestern North America.
+Scripts in this folder generated four hydrographic covariates. We relied on ArcGIS Pro 3.5 (ESRI 2025) with Python 3.11 to process flow accumulation and flow lines and create hydrographic covariates. All hydrographic covariates except distance to coast derived from a flow network and flow accumulation calculated using the “Derive Continuous Flow” (ESRI 2025) algorithm with multi-directional flow implemented in ArcGIS Pro. We converted the flow network to approximate representations of streams and rivers by applying flow accumulation thresholds of 10,000 and 1,000,000, respectively. We selected the flow accumulation thresholds by comparing results to the Alaska High Resolution Imagery 2020 composite (© Vantor) to ensure that the streams corresponded to visible linear waterways in the imagery and rivers corresponded to visible linear waterways with clearly developed floodplains in the imagery. We calculated the topographic wetness index based on Gessler et al. (1995; see compound topographic index) with additional weighting to reduce the values for high-gradient streams and drainages. Finally, we also calculated distance to coast based on a 1:63,000 scale map of the landmass of northwestern North America.
 
 ### 5. Data Climate
 
-Scripts in this folder download historical climate data from [Scenarios Network for Alaska and Arctic Planning](https://uaf-snap.org/) (SNAP) and process three covariates: total annual precipitation (mm), summer warmth index (°C), and minimum January temperature (°C) using SNAP CRU TS 4.8 and 4.0 historical data (SNAP 2025). These covariates represented the period from 2006 to 2015, approximately one decade prior to the target date of the AKVEG Map v2.1 (circa 2023). We included data one decade prior to the map timeframe to account for the lagged responses of vegetation to climate and based on the availability of historical climate data. We calculated total annual precipitation and minimum January temperature as per pixel averages of raster values representing each year. To calculate summer warmth index, we first summed mean temperature rasters for May through September for each year and then calculated the per pixel average of the sum raster values. The historical climate data had an original resolution of 2 km for the majority of our map domain. Additionally, we relied on SNAP data with 15 km resolution to cover the included portion of Northwest Territories, which did not overlap the 2 km resolution SNAP data. To avoid resolution artifacts in the foliar cover maps, we resampled the climate data to a 10 m resolution using bilinear interpolation.
+Scripts in this folder downloaded historical climate data from [Scenarios Network for Alaska and Arctic Planning](https://uaf-snap.org/) (SNAP) and processed three climate covariates: total annual precipitation (mm), summer warmth index (°C), and minimum January temperature (°C) using SNAP CRU TS 4.8 and 4.0 historical data (SNAP 2025). These covariates represented the period from 2006 to 2015, approximately one decade prior to the target date of the AKVEG Map v2.1 (circa 2023). We included data one decade prior to the map timeframe to account for the lagged responses of vegetation to climate and based on the availability of historical climate data. We calculated total annual precipitation and minimum January temperature as per pixel averages of raster values representing each year. To calculate summer warmth index, we first summed mean temperature rasters for May through September for each year and then calculated the per pixel average of the sum raster values. The historical climate data had an original resolution of 2 km for the majority of our map domain. Additionally, we relied on SNAP data with 15 km resolution to cover the included portion of Northwest Territories, which did not overlap the 2 km resolution SNAP data. To avoid resolution artifacts in the foliar cover maps, we resampled the climate data to a 10 m resolution using bilinear interpolation.
 
-### 7. 
+### 7. Data Ingestion
+
+Scripts in this folder converted the topographic, hydrographic, and climate covariate rasters to cloud-optimized geotiffs and ingested them into Google Earth Engine to support model development, specifically extraction of area-weighted means to geometries representing site visits. The radiometric covariates were initially developed within Google Earth Engine and therefore did not need to be separately ingested.
+
+### 8. Data Model
+
+Scripts in this folder queried field data from the AKVEG Database, combined the field data with randomly generated absences, prepared these combined data for modeling, and extracted area-weighted covariate means to geometries representing site visits. Two ancillary datasets were required for the filtering steps in the field data preparation workflow:
+
+- **ESA World Cover v2.0:** This 10 m resolution land cover map developed by European Space Agency enabled us to filter site centroids that occurred within predicted water. This step was necessary because some centroids were within large aerial polygons that included apparent surface water at a 10 m resolution. We also used these data in post-processing of the foliar cover maps to enforce water, barrens, and snow/ice for particular diagnostic species sets.
+- **Burn Year**: These data were assembled from fire history polygons and rasters for Alaska and adjacent Canada to represent the most recent year (yyyy) of recently burned areas. We used these data to filter out site visits that were observed prior to burning or within 10 years of burning.
+
+The result of the scripts in this folder is a csv table containing all available data in the AKVEG Database with summarized diagnostic species foliar cover values and extracted covariate values. Not all site visits provide valid data for all diagnostic species sets. Where the value of a particular diagnostic species foliar cover is coded as -1, the site visit must be omitted from the train-validate-test data.
+
+### 9. Train Foliar Cover Models
+
+Scripts in this folder train and test foliar cover models as hurdle models combining a classifier predicting presence-absence with a regressor predicting percentage foliar cover. Not all diagnostic species sets are suitable for foliar cover modeling (e.g., diagnostic species that typically occur at low abundances). We therefore also provide a version of this script that trains only the presence-absence component model. We include several variations of the script:
+
+- **01a_Validate_Train_Abundance_RF.py:** This script uses Random Forest models in place of the Bayesian-optimized gradient boosting models. Random Forests are much faster and less computationally intensive to train. This script provides a rapid approach to prototype development and testing. We avoided using this script for production mapping for two related reasons: 1) gradient boosting is unanimously more accurate, and 2) Random Forest models tend to more strongly emphasize the central values in the statistical distribution of percentage foliar cover.
+- **01b_Validate_Train_Abundance_LGBM.py:** This script provides the production modeling workflow using Bayesian-optimized gradient boosting models. The Bayesian optimization of hyperparameters using Gaussian Processes is slow and computationally intensive with this script taking many hours to complete.
+- **01d_Validate_Train_Distribution_LGBM.py:** This script provides the production modeling workflow for diagnostic species sets that do not warrant an abundance component (or for which not enough data exist to accurately map the abundance component).
+
+We provide a subfolder that contains a script to ingest trained component models into Google Earth Engine to enable generating rapid test predictions.
+
+We conducted statistical modeling and individual performance tests for the development of foliar cover maps in Python 3.12 based on the modeling framework provided through scikit-learn (Pedregosa et al. 2011). The prototype models in our workflow included balanced Random Forest classifiers in imbalanced-learn (Lemaître et al. 2017) and Random Forest regressors in scikit-learn (Pedregosa et al. 2011). The production models in our workflow were gradient boosting classifiers and regressors implemented in LightGBM (Ke et al. 2017). Because gradient boosting models are highly sensitive to hyperparameters, we tuned our gradient boosting models using Gaussian process models in bayesian-optimization (Nogueira et al. 2025). We converted model outputs to tree text strings to test model predictions in GEE (Gorelick et al. 2017). Finally, we post-processed cloud-optimized geotiffs using GDAL and rasterio.
+
+### 10. Predict Foliar Cover
+
+Scripts in this folder create output continuous foliar cover maps as cloud-optimized geotiff single band 8 bit signed rasters with nodata values of -128. To optimize the prediction step for speed, cost, and memory-efficiency, we first pre-process the covariate rasters into 10 km tiles with one band per covariate. The tiled covariate rasters allow efficient streaming of predictions to and from cloud storage. The prediction scripts include download of the covariate rasters and upload of the predicted raster without storing results locally.
+
+To produce the final maps, the predicted rasters are assembled into one contiguous raster. If the diagnostic species set is associated with a valid range, then predictions beyond that range are set to 0. Similarly, particular diagnostic species sets have water, barrens, and snow/ice enforced based on the ESA World Cover v2.0 dataset.
+
+### 11. Combined Performance
+
+Scripts in this folder conduct the combined performance assessment for the stack of foliar cover maps. Combined performance is assessed relative to the compositional variation represented by subregional vegetation clusters, which represent an alliance level of ecological detail in the U.S. National Vegetation Classification. R 4.5.2 (R Core Team 2025) and and tidyverse (Wickham et al. 2019) supported compilation of tabular benchmark datasets for the combined performance assessments. We conducted ordination analyses using vegan (Oksanen et al. 2025), fuzzy noise clustering using vegclust (De Cáceres et al. 2010), and hard-c medoid clustering using cluster (Maechler et al. 2025). We ran generalized additive models in mgcv (Wood 2017).
+
+### 12. Summary Tables and Figures
+
+Scripts in this folder produce summary tables, figures, and text files for an associated manuscript and data repository. We developed chart and plot figures using Plotly (Krutchen et al. 2025) in Python 3.12. We developed map figures using R 4.5.2 (R Core Team 2025) with ggplot2 (Wickham 2016) and ggspatial (Dunnington 2025).
 
 ## Covariates
 
@@ -298,7 +335,7 @@ Table 2. Covariate types, abbreviations (Abbr.), and names. Covariate abbreviati
 ## Credits
 If you use this repository, the algorithms, or the associated foliar cover maps in your work, please cite the corresponding manuscript:
 
-> Nawrocki, T.W., M.J. Macander, A.F. Wells, A. Droghini, G.V. Frost, L.A. Flagstad, M.L. Carlson, H.A. Gravley, M. Hannam, A.E. Miller, C. Roland, C.B. Heslop, T.V. Boucher, K.C. Baer, B.T. Spellman, M. Patz, L.B. Saperstein, D. Gordon, C. Willier, and E.M. Powers. 2026. Plant foliar cover maps predict the variation that drives community classification across four bioclimatic zones. Ecosphere.
+> Nawrocki, T.W., M.J. Macander, A.F. Wells, A. Droghini, G.V. Frost, L.A. Flagstad, M.L. Carlson, H.A. Gravley, M. Hannam, A.E. Miller, C. Roland, C.B. Heslop, T.V. Boucher, K.C. Baer, B.T. Spellman, M. Patz, L.B. Saperstein, D. Gordon, C. Willier, and E.M. Powers. 2026. Continuous foliar cover maps of diagnostic species sets for Alaska and adjacent Yukon circa 2023. Version 2.1. Code Repository. Available: [DOI]
 
 ### Acknowledgements
 
@@ -308,9 +345,9 @@ Funding support to complete this work was provided by the U.S. Fish and Wildlife
 
 This project is provided under the GNU General Public License v3.0. It is free to use and modify in part or in whole.
 
-### References
+### Software References
 
-We provide the following references to software and packages that we used to develop the AKVEG Map continuous foliar cover maps. Please refer to the "Prerequisites" section for a complete list of software and versions.
+**We provide the following references to software and packages that we used to develop the AKVEG Map continuous foliar cover maps. Please refer to the "Prerequisites" section for a complete list of software and versions.**
 
 Appelhans, T., F. Detsch, C. Reudenbach, and S. Woellauer. 2025. mapview: Interactive Viewing of Spatial Data in R. R package. Available: https://github.com/r-spatial/mapview
 
@@ -415,4 +452,36 @@ Wood, S.N. 2017. Generalized Additive Models: An Introduction with R. 2nd Editio
 Wright, M.N., and A. Ziegler. 2017. ranger: A Fast Implementation of Random Forests for High Dimensional Data in C++ and R. Journal of Statistical Software. 77:1–17.
 
 Yasumoto, A. 2025. ftExtra: Extensions for Flextable. R package. Available: https://github.com/atusy/ftExtra
+
+## Covariate References
+
+**We provide the following references to the covariate development methods and data sources that we used to develop the AKVEG Map continuous foliar cover maps. Please refer to the "Usage" section for descriptions of covariate processing and data sources.**
+
+ESRI. 2025. ArcGIS Pro (Version 3.x). Computer Software. ESRI. Redlands, CA.
+
+Evans, J.S., J. Oakleaf, and S.A. Cushman. 2014. An ArcGIS Toolbox for Surface Gradient and Geomorphometric Modeling, version 2.0-0. Available: https://github.com/jeffreyevans/GradientMetrics
+
+Gao, B. 1996. NDWI—a normalized difference water index for remote sensing of vegetation liquid water from space. Remote Sensing of the Environment. 58: 257–266.
+
+Gessler, P.E., I.D. Moore, N.J. McKenzie, and P.J. Ryan. 1995. Soil-landscape modeling and spatial prediction of soil attributes. International Journal of GIS. 9. 421–432.
+
+Gorelick, N., M. Hancher, M. Dixon, S. Ilyushchenko, D. Thau, and R. Moore. 2017. Google earth engine: planetary-scale geospatial analysis for everyone. Remote Sensing of Environment 202:18–27.
+
+Hall, D.K., G.A. Riggs, and V.V. Salomonson. 1995. Development of methods for mapping global snow cover using moderate resolution imaging spectroradiometer data. Remote Sensing of Environment. 54:127–140.
+
+Hunt, E.R., M. Cavigelli, C.S.T. Daughtry, J.E. Mcmurtrey, and C.L. Walthall. 2005. Evaluation of Digital Photography from Model Aircraft for Remote Sensing of Crop Biomass and Nitrogen Status. Precision Agriculture. 6:359–378.
+
+Key, C.H., and N.C. Benson. 1999. The normalized burn ratio (NBR): a Landsat TM radiometric measure of burn severity. Northern Rocky Mountain Science Center, U.S. Geological Survey, U.S. Department of the Interior. Bozeman, Montana.
+
+McCune, B., and D. Keon. 2002. Equations for potential annual direct incident radiation and heat load index. Journal of Vegetation Science. 13. 603–606.
+
+McFeeters, S.K. 1996. The use of the Normalized Difference Water Index (NDWI) in the delineation of open water features. Remote Sensing Letters. 17:1425–1432.
+
+Nawrocki, T.W., M.L. Carlson, J.L.D. Osnas, E.J. Trammell, and F.D.W. Witmer. 2020. Regional mapping of species-level continuous foliar cover: beyond categorical vegetation mapping. Ecological Applications. 30:e02081.
+
+Riley, S.J., S.D. DeGloria, and R. Elliot. 1999. A terrain ruggedness index that quantifies topographic heterogeneity. Intermountain Journal of Sciences. 5:23–27.
+
+SNAP. 2025. SNAP Data. Scenarios Network for Alaska and Arctic Planning, University of Alaska Fairbanks. Fairbanks, Alaska. Available: https://uaf-snap.org
+
+Tucker, C.J. 1979. Red and photographic infrared linear combinations for monitoring vegetation. Remote Sensing of Environment. 8:127–150.
 

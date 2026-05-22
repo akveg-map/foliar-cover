@@ -54,7 +54,7 @@ for input_file in input_files[:]:
         gdal.Translate(output_file,
                        input_file,
                        format='COG',
-                       creationOptions=['BLOCKSIZE=256',
+                       creationOptions=['BLOCKSIZE=512',
                                         'COMPRESS=DEFLATE',
                                         'LEVEL=9',
                                         'PREDICTOR=STANDARD',

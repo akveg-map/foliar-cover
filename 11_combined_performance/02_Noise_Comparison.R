@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------
 # Noise cluster comparison
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2025-12-16
+# Last Updated: 2026-05-26
 # Usage: Must be executed in a R 4.4.3+ installation.
 # Description: "Noise cluster comparison" creates comparison tables by subregions and focal units for performance metrics from fuzzy noise clustering results with different numbers of clusters.
 # ---------------------------------------------------------------------------
@@ -33,7 +33,7 @@ library(mgcv)
 set.seed(314)
 
 # Set round date
-round_date = 'round_20241124'
+round_date = 'version_20260415'
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
@@ -44,15 +44,17 @@ root_folder = 'ACCS_Work'
 
 # Define input folders (modify to your folder structure)
 project_folder = path(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map/Data')
-input_folder = path(project_folder, 'Data_Input/ordination_data')
+database_folder = path(project_folder, 'Data_Input/database_archive', round_date)
+input_folder = path(project_folder, 'Data_Input/ordination_data', round_date)
 
 # Define input files
-taxa_input = path(input_folder, '00_taxonomy.csv')
-site_visit_input = path(input_folder, '03_site_visit.csv')
-vegetation_input = path(input_folder, '05_vegetation.csv')
+taxonomy_input = path(database_folder, '00_taxonomy.csv')
+site_visit_input = path(input_folder, 'site_visit_data.csv')
+vegetation_input = path(input_folder, 'vegetation_data.csv')
 
 # Source function for noise cluster comparison (fuzzy_nc_compare)
-function_script = path(drive, root_folder, 'Repositories/akveg-map/10_analyze_foliar_results/00_Function_Noise_Cluster_Compare.R')
+function_script = path(drive, root_folder,
+                       'Repositories/foliar-cover/11_combined_performance/00_Function_Noise_Cluster_Compare.R')
 source(function_script)
 
 # Identify group number
@@ -64,6 +66,7 @@ group_number = max(site_data$group_id)
 
 count = 1
 while (count <= group_number) {
+  print(paste('Processing group ', count, ' of ', group_number, '...'))
   
   # Define output file
   if (count < 10) {
@@ -108,17 +111,13 @@ while (count <= group_number) {
     initial_normalized = decostand(initial_matrix, method='normalize')
     
     # Compare noise clustering with different cluster numbers
-    maximum_value = round(sqrt(nrow(site_data)), 0) + 1
-    if (maximum_value > 20) {
-      maximum_value = 20
-    }
-    noise_results = fuzzy_nc_compare(initial_normalized, 5, maximum_value)
+    noise_results = fuzzy_nc_compare(initial_normalized, 4, 12)
     
     # Format cluster results
-    cluster_variance = cluster_results %>%
+    cluster_variance = noise_results %>%
       select(cluster, variance, cluster_n) %>%
       pivot_wider(names_from = cluster, values_from = variance)
-    nc_comparison = cluster_results %>%
+    nc_comparison = noise_results %>%
       filter(cluster != 'N') %>%
       group_by(cluster_n) %>%
       summarize(mean_variance = mean(variance),

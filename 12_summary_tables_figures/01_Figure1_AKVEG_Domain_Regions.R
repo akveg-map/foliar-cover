@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # ---------------------------------------------------------------------------
-# Figure 2. AKVEG domain and regions
+# Figure 1. AKVEG domain and regions
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2025-12-16
+# Last Updated: 2026-05-26
 # Usage: Must be executed in a R 4.4.3+ installation.
-# Description: "Figure 2. AKVEG domain and regions" creates a map figure for publication that shows the AKVEG map domain overlaying the regions and biomes.
+# Description: "Figure 1. AKVEG domain and regions" creates a map figure for publication that shows the AKVEG map domain overlaying the regions and biomes.
 # ---------------------------------------------------------------------------
 
 # Import required libraries
@@ -34,11 +34,11 @@ ocean_input = path(base_folder, 'Basemap_Ocean_3338.shp')
 russia_input = path(region_folder, 'Russia_Coastline_3571.shp')
 na_input = path(region_folder, 'NorthAmerica_Coastline_4269.shp')
 river_input = path(base_folder, 'NaturalEarth_10m_Rivers_Centerlines.shp')
-domain_input = path(region_folder, 'AlaskaYukon_MapDomain_v2.0_3338.shp')
+domain_input = path(region_folder, 'AlaskaYukon_MapDomain_v2p1_3338.shp')
 region_input = path(region_folder, 'AlaskaYukon_Regions_v2.0_3338.shp')
 
 # Define output files
-figure_output = path(output_folder, 'Figure2_AKVEG_Domain_Region.jpg')
+figure_output = path(output_folder, 'Figure1_AKVEG_Domain_Region.jpg')
 
 #### CREATE MAP PLOT
 ####____________________________________________________

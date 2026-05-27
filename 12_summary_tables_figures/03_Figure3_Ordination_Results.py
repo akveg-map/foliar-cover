@@ -1,9 +1,9 @@
 # ---------------------------------------------------------------------------
-# Plot results of ordination performance assessment
+# Figure 3. Combined performance
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2025-12-16
+# Last Updated: 2026-05-26
 # Usage: Must be executed in a Python 3.12+ installation.
-# Description: "Plot results of ordination performance assessment" plots bar charts comparing the performance of three vegetation maps relative to the information preserved in clusters from 3-axis NMDS ordinations.
+# Description: "Figure 3. Combined performance" plots bar charts comparing the combined performance of three vegetation maps relative to the compositional variation partitioned among preliminary alliances.
 # ---------------------------------------------------------------------------
 
 # Import libraries
@@ -18,7 +18,7 @@ import kaleido
 kaleido.get_chrome_sync()
 
 # Set round date
-round_date = 'round_20241124'
+version_date = '20260415'
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
@@ -28,25 +28,25 @@ drive = 'C:/'
 root_folder = 'ACCS_Work/Projects/VegetationEcology/AKVEG_Map'
 
 # Define folder structure
-ordination_folder = os.path.join(drive, root_folder, 'Data/Data_Output/ordination_results', round_date)
+ordination_folder = os.path.join(drive, root_folder, f'Data/Data_Output/ordination_results/version_{version_date}')
 output_folder = os.path.join(drive, root_folder, 'Documents/Manuscript_FoliarCover_FloristicGradients/figures')
 
 # Define input file
 ordination_input = os.path.join(ordination_folder, '00_Subregion_Performance.xlsx')
 
 # Define output files
-html_output = os.path.join(output_folder, 'Figure8_Ordination_Results.html')
-plot_output = os.path.join(output_folder, 'Figure8_Ordination_Results.png')
+html_output = os.path.join(output_folder, 'Figure3_Combined_Performance.html')
+plot_output = os.path.join(output_folder, 'Figure3_Combined_Performance.png')
 
 # Assign treeless and treed systems
 treeless_list = ['Arctic Coastal Plain', 'Arctic Foothills & Mountains',
                  'Seward Peninsula', 'Alaska Peninsula Mountains', 'Kodiak Southwest',
                  'Southwest Mountains', 'Bristol Bay', 'Eastern Interior', 'Denali North',
-                 'Alaska Pacific Western']
+                 'Alaska Pacific']
 tree_list = ['Bristol Bay', 'Alaska Western', 'Alaska-Yukon Northwest',
              'Yukon Flats', 'Eastern Interior', 'Wrangell-Tetlin',
              'Denali North', 'Wrangell-St. Elias', 'Denali South',
-             'Nelchina Uplands', 'Susitna Valley', 'Alaska Pacific Western']
+             'Nelchina Uplands', 'Susitna Valley', 'Alaska Pacific']
 
 #### CREATE PLOT
 ####____________________________________________________

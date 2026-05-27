@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # Parse training data
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2026-03-26
+# Last Updated: 2026-05-26
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Parse training data" parses train-validate-test data for all diagnostic species sets.
 # ---------------------------------------------------------------------------
@@ -108,6 +108,46 @@ explicit_absences = vegetation_data[vegetation_data['cover_percent'] == -999].co
 explicit_absences['cover_percent'] = 0
 vegetation_data = vegetation_data[vegetation_data['cover_percent'] >= 0].copy()
 
+#### SUMMARIZE COVER TYPE
+####____________________________________________________
+
+# Summarize cover type by site visit
+cover_type_data = vegetation_data[['site_visit_code', 'cover_type']].drop_duplicates().reset_index(drop=True)
+
+# Count the number of cover types per site visit
+cover_type_counts = cover_type_data['site_visit_code'].value_counts()
+
+# If count exceeds 1 for any site visit, exit the process with a message
+if cover_type_counts.max() > 1:
+    print('ERROR: More than one cover type exists for some site visits.')
+    quit()
+
+# Join cover type to site visit data
+site_visit_data = pd.merge(left=site_visit_data,
+                           right=cover_type_data,
+                           on='site_visit_code',
+                           how='left')
+
+# Fill missing cover type
+site_visit_data.loc[site_visit_data['project_code'] == 'akveg_absences', 'cover_type'] = 'absolute foliar cover'
+site_visit_data.loc[
+    (site_visit_data['cover_type'].isna()) & (site_visit_data['project_code'] == 'harvard_alder_2023'),
+    'cover_type'] = 'absolute foliar cover'
+site_visit_data.loc[
+    (site_visit_data['cover_type'].isna()) & (site_visit_data['project_code'] == 'fws_pribilof_2022'),
+    'cover_type'] = 'absolute canopy cover'
+site_visit_data.loc[
+    (site_visit_data['cover_type'].isna()) & (site_visit_data['project_code'] == 'yukon_biophysical_2020'),
+    'cover_type'] = 'absolute canopy cover'
+site_visit_data.loc[
+    (site_visit_data['cover_type'].isna()) & (site_visit_data['project_code'] == 'usfs_cordova_2022'),
+    'cover_type'] = 'top canopy cover'
+site_visit_data.loc[
+    (site_visit_data['cover_type'].isna()) & (site_visit_data['project_code'] == 'accs_chenega_2022'),
+    'cover_type'] = 'absolute foliar cover'
+site_visit_data.loc[
+    (site_visit_data['cover_type'].isna()) & (site_visit_data['project_code'] == 'nps_arcn_2014'),
+    'cover_type'] = 'absolute foliar cover'
 
 #### IDENTIFY EXCLUSION SITES
 ####____________________________________________________

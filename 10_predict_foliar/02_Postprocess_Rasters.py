@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------
 # Convert raster grids to cloud-optimized geotiff
 # Author: Timm Nawrocki
-# Last Updated: 2026-04-28
+# Last Updated: 2026-05-27
 # Usage: Must be executed in a Python 3.11+ installation with GDAL 3.9+.
 # Description: 'Convert raster grids to cloud-optimized geotiff' compiles raster grids and creates a cloud-optimized geotiff version.
 # ---------------------------------------------------------------------------
@@ -10,7 +10,7 @@
 # Define model targets
 group = 'alnus'
 destination = 'rasters_final'
-nodata_value = -127
+nodata_value = -128
 
 # Import packages
 import glob
@@ -116,7 +116,7 @@ options = gdal.RasterizeOptions(
     xRes=10,
     yRes=10,
     attribute='range_id',
-    noData=nodata_value,
+    noData= nodata_value,
     allTouched=False
 )
 
@@ -159,6 +159,18 @@ for raster_uri in raster_tiles:
     raster_file = os.path.join(input_folder, file_name)
     # Download raster tile
     download_from_gcs(raster_uri, raster_file, storage_client)
+    # Check and update nodata value if it does not match the specified nodata value
+    with rasterio.open(raster_file, 'r+') as src:
+        current_nodata = src.nodata
+        if current_nodata != nodata_value:
+            # Read the pixel array
+            data = src.read(1)
+            # Replace erroneous nodata values
+            data = np.where(data == current_nodata, nodata_value, data)
+            # Write the updated array back to disk
+            src.write(data, 1)
+            # Update the file's internal metadata
+            src.nodata = nodata_value
     # Increase count
     tile_count += 1
 

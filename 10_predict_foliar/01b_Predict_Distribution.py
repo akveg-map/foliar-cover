@@ -165,7 +165,7 @@ for index, row in grid_data.iterrows():
             output_profile = covariate_raster.profile.copy()
             output_profile.update({
                 'count': 1,
-                'nodata': -127,
+                'nodata': -128,
                 'dtype': 'int8',
                 'compress': 'lzw',
                 'bigtiff': 'YES',

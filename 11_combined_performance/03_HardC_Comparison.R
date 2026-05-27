@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------
 # Hard-c medoids comparison
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2025-12-16
+# Last Updated: 2026-05-27
 # Usage: Must be executed in a R 4.4.3+ installation.
 # Description: "Hard-c medoids cluster comparison" creates comparison tables by subregions and focal units for performance metrics from hard-c medoid clustering results with different numbers of clusters. This script also identifies outlier plots from a selected cluster number from fuzzy noise clustering.
 # ---------------------------------------------------------------------------
@@ -34,7 +34,7 @@ library(mgcv)
 set.seed(314)
 
 # Set round date
-round_date = 'round_20241124'
+round_date = 'version_20260415'
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
@@ -45,20 +45,22 @@ root_folder = 'ACCS_Work'
 
 # Define input folders (modify to your folder structure)
 project_folder = path(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map/Data')
-input_folder = path(project_folder, 'Data_Input/ordination_data')
+database_folder = path(project_folder, 'Data_Input/database_archive', round_date)
+input_folder = path(project_folder, 'Data_Input/ordination_data', round_date)
+results_folder = path(project_folder, 'Data_Output/ordination_results', round_date)
 
 # Define input files
-taxa_input = path(input_folder, '00_taxonomy.csv')
-site_visit_input = path(input_folder, '03_site_visit.csv')
-vegetation_input = path(input_folder, '05_vegetation.csv')
-centers_input = path(project_folder, 'Data_Output/ordination_results', round_date, '00_Cluster_Centers.xlsx')
+taxonomy_input = path(database_folder, '00_taxonomy.csv')
+site_visit_input = path(input_folder, 'site_visit_data.csv')
+vegetation_input = path(input_folder, 'vegetation_data.csv')
 
-# Source function for noise cluster comparison (fuzzy_nc_compare)
-function_script = path(drive, root_folder, 'Repositories/akveg-map/10_analyze_foliar_results/00_Function_HardC_Cluster_Compare.R')
+# Source function for hard-c cluster comparison
+function_script = path(drive, root_folder,
+                       'Repositories/foliar-cover/11_combined_performance/00_Function_HardC_Cluster_Compare.R')
 source(function_script)
 
 # Read cluster centers
-cluster_centers = read_xlsx(centers_input, sheet = 'noise') # Centers should be set manually be evaluating cluster comparisons
+#cluster_centers = read_xlsx(centers_input, sheet = 'noise') # Centers should be set manually be evaluating cluster comparisons
 
 # Identify group number
 site_data = read_csv(site_visit_input)
@@ -72,21 +74,34 @@ while (count <= group_number) {
   
   # Define input and output files
   if (count < 10) {
-    noise_output = path(project_folder, 'Data_Output/ordination_results', round_date,
-                        paste('0', toString(count), '_noise_membership.xlsx', sep = ''))
-    hardc_output = path(project_folder, 'Data_Output/ordination_results', round_date,
-                         paste('0', toString(count), '_hardc_clusters.xlsx', sep = ''))
+    noise_input = path(results_folder, paste('0', toString(count), '_noise_clusters.xlsx', sep = ''))
+    noise_output = path(results_folder, paste('0', toString(count), '_noise_membership.xlsx', sep = ''))
+    hardc_output = path(results_folder, paste('0', toString(count), '_hardc_clusters.xlsx', sep = ''))
   } else {
-    noise_output = path(project_folder, 'Data_Output/ordination_results', round_date,
-                        paste(toString(count), '_noise_membership.xlsx', sep = ''))
-    hardc_output = path(project_folder, 'Data_Output/ordination_results', round_date,
-                       paste(toString(count), '_hardc_clusters.xlsx', sep = ''))
+    noise_input = path(results_folder, paste(toString(count), '_noise_clusters.xlsx', sep = ''))
+    noise_output = path(results_folder, paste(toString(count), '_noise_membership.xlsx', sep = ''))
+    hardc_output = path(results_folder, paste(toString(count), '_hardc_clusters.xlsx', sep = ''))
   }
   
   if (!file.exists(hardc_output)) {
     
     #### CONDUCT CLUSTERING
     ####____________________________________________________
+    
+    # Identify noise cluster number
+    noise_cluster_n = read_excel(noise_input, sheet = 'noise') %>%
+      select(cluster_n, mean_sil, mean_variance) %>%
+      mutate(
+        sil_rank = min_rank(desc(mean_sil)), # Descending ordinal ranks for silhouette width
+        var_rank = min_rank(mean_variance), # Ascending ordinal ranks for within-cluster variance
+        combined_rank = sil_rank + var_rank # Combine the ordinal ranks
+      ) %>%
+      # Sort by lowest combined rank with ties broken by smaller cluster number
+      arrange(combined_rank, cluster_n) %>% 
+      # Keep only the top performing row
+      slice(1) %>%                               
+      # Extract just the numerical value of the best cluster
+      pull(cluster_n)
     
     # Read site visit data
     site_data = read_csv(site_visit_input) %>%
@@ -117,15 +132,11 @@ while (count <= group_number) {
     # Normalize vegetation matrix
     initial_normalized = decostand(initial_matrix, method='normalize')
     
-    # Identify the manually determined cluster number
-    cluster_number = cluster_centers %>%
-      filter(group_id == count) %>%
-      pull(cluster_n)
-    
     # Conduct clustering with n clusters
+    print(paste('Noise cluster number for group ', toString(count), ': ', toString(noise_cluster_n)))
     print(paste('Conducting noise clustering for group ', toString(count), '...', sep = ''))
     nc_results = vegclust(x = initial_normalized,
-                          mobileCenters = cluster_number, 
+                          mobileCenters = noise_cluster_n, 
                           method = 'NC',
                           m = 1.2,
                           dnoise = 0.8,
@@ -142,7 +153,7 @@ while (count <= group_number) {
       cbind(., tibble(nc_membership)) %>%
       select('site_visit_code', 'N')
     outlier_data = noise_data %>%
-      filter(N >= 0.8)
+      filter(N >= 0.85)
     
     # Bind clusters and membership to site data
     ordination_data = site_data %>%
@@ -167,10 +178,10 @@ while (count <= group_number) {
     # Normalize vegetation matrix
     revised_normalized = decostand(revised_matrix, method='normalize')
     
-    # Compare noise clustering with different cluster numbers
+    # Compare hard-c clustering with different cluster numbers
     maximum_value = round(sqrt(nrow(ordination_data)), 0) * 2
-    if (maximum_value > 52) {
-      maximum_value = 52
+    if (maximum_value > 30) {
+      maximum_value = 30
     }
     cluster_results = hardc_compare(revised_normalized, 10, maximum_value)
     

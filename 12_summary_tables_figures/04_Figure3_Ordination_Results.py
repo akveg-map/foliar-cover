@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # Figure 3. Combined performance
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2026-05-26
+# Last Updated: 2026-05-28
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Figure 3. Combined performance" plots bar charts comparing the combined performance of three vegetation maps relative to the compositional variation partitioned among preliminary alliances.
 # ---------------------------------------------------------------------------
@@ -25,46 +25,48 @@ version_date = '20260415'
 
 # Set root directory
 drive = 'C:/'
-root_folder = 'ACCS_Work/Projects/VegetationEcology/AKVEG_Map'
+root_folder = 'ACCS_Work'
 
 # Define folder structure
-ordination_folder = os.path.join(drive, root_folder, f'Data/Data_Output/ordination_results/version_{version_date}')
-output_folder = os.path.join(drive, root_folder, 'Documents/Manuscript_FoliarCover_FloristicGradients/figures')
+project_folder = os.path.join(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map/Data')
+output_folder = os.path.join(project_folder, f'Data_Output/summary_results/version_{version_date}')
 
 # Define input file
-ordination_input = os.path.join(ordination_folder, '00_Subregion_Performance.xlsx')
+performance_input = os.path.join(output_folder, 'Table2_Clustering_Performance.xlsx')
 
 # Define output files
 html_output = os.path.join(output_folder, 'Figure3_Combined_Performance.html')
 plot_output = os.path.join(output_folder, 'Figure3_Combined_Performance.png')
 
 # Assign treeless and treed systems
-treeless_list = ['Arctic Coastal Plain', 'Arctic Foothills & Mountains',
-                 'Seward Peninsula', 'Alaska Peninsula Mountains', 'Kodiak Southwest',
-                 'Southwest Mountains', 'Bristol Bay', 'Eastern Interior', 'Denali North',
-                 'Alaska Pacific']
-tree_list = ['Bristol Bay', 'Alaska Western', 'Alaska-Yukon Northwest',
-             'Yukon Flats', 'Eastern Interior', 'Wrangell-Tetlin',
-             'Denali North', 'Wrangell-St. Elias', 'Denali South',
-             'Nelchina Uplands', 'Susitna Valley', 'Alaska Pacific']
+treeless_list = ['Arctic Coastal Plain', 'Arctic Foothills & Mountains', 'Seward Peninsula',
+                 'Bering Sea Islands', 'Alaska Peninsula', 'Kodiak Southwest', 'Southwest Mountains',
+                 'Bristol Bay Non-forest', 'Alaska Western Non-forest', 'Yukon Flats Non-forest',
+                 'Eastern Interior Non-forest', 'Denali North Non-forest', 'Wrangell-Copper Non-forest',
+                 'Nelchina Uplands', 'Denali South Non-Forest', 'Kodiak Northeast Non-Forest',
+                 'Pacific Mainland Non-forest']
+tree_list = ['Bristol Bay Forest', 'Alaska Western Forest', 'Alaska-Yukon Northwest', 'Yukon Flats Forest',
+             'Eastern Interior Forest', 'Central Interior', 'Denali North Forest', 'Wrangell-Tetlin',
+             'Wrangell-Copper Forest', 'Denali South Forest', 'Cook Inlet', 'Kodiak Northeast Forest',
+             'Pacific Mainland Forest']
 
 #### CREATE PLOT
 ####____________________________________________________
 
 # Read ordination results
-ordination_data = pd.read_excel(ordination_input, sheet_name='summary')
-ordination_data['map1'] = ordination_data['scaled_ind'] * 100
-ordination_data['map2'] = ordination_data['scaled_akvwc'] * 100
-ordination_data['map3'] = ordination_data['scaled_lf'] * 100
+performance_data = pd.read_excel(performance_input, sheet_name='summary')
+performance_data['map1'] = performance_data['scaled_ind'] * 100
+performance_data['map2'] = performance_data['scaled_akvwc'] * 100
+performance_data['map3'] = performance_data['scaled_lf'] * 100
 
 # Select columns
-ordination_data = ordination_data[['subregion', 'focal_unit', 'map1', 'map2', 'map3']]
+performance_data = performance_data[['unit_name', 'map1', 'map2', 'map3']]
 
 # Add a row id column
-ordination_data = ordination_data.reset_index().rename(columns={'index': 'id'})
+performance_data = performance_data.reset_index().rename(columns={'index': 'id'})
 
 # Pivot data to long form
-ordination_long = pd.wide_to_long(ordination_data,
+performance_long = pd.wide_to_long(performance_data,
                                   ['map'],
                                   i='id',
                                   j='value',
@@ -83,19 +85,17 @@ def assign_map(value):
     return map_name
 
 # Apply function to create new column
-ordination_long['map_name'] = ordination_long['value'].apply(assign_map)
+performance_long['map_name'] = performance_long['value'].apply(assign_map)
 
 # Rename performance value
-ordination_long = ordination_long.rename(columns={'map': 'performance'})
+performance_long = performance_long.rename(columns={'map': 'performance'})
 
 # Round performance to nearest percentage
-ordination_long['performance'] = ordination_long['performance'].round(0).astype(int)
+performance_long['performance'] = performance_long['performance'].round(0).astype(int)
 
 # Split data into treeless and treed groups
-treeless_data = ordination_long[(ordination_long['subregion'].isin(treeless_list)) &
-                                (ordination_long['focal_unit'].isin(['all', 'non-forest']))]
-tree_data = ordination_long[(ordination_long['subregion'].isin(tree_list)) &
-                            (ordination_long['focal_unit'].isin(['all', 'forest']))]
+treeless_data = performance_long[(performance_long['unit_name'].isin(treeless_list))]
+tree_data = performance_long[(performance_long['unit_name'].isin(tree_list))]
 
 # Define custom fill
 map_colors = {
@@ -111,12 +111,12 @@ map_patterns = {
 
 # Create treeless plot
 treeless_plot = px.bar(treeless_data,
-                       x='subregion',
+                       x='unit_name',
                        y='performance',
                        color='map_name',
                        color_discrete_map=map_colors,
                        text='performance',
-                       category_orders={'subregion': treeless_list})
+                       category_orders={'unit_name': treeless_list})
 
 # Replace colors with patterns
 for trace in treeless_plot.data:
@@ -134,12 +134,12 @@ for trace in treeless_plot.data:
 
 # Create tree plot
 tree_plot = px.bar(tree_data,
-                   x='subregion',
+                   x='unit_name',
                    y='performance',
                    color='map_name',
                    color_discrete_map=map_colors,
                    text='performance',
-                   category_orders={'subregion': tree_list})
+                   category_orders={'unit_name': tree_list})
 
 # Replace colors with patterns
 for trace in tree_plot.data:
@@ -157,8 +157,8 @@ for trace in tree_plot.data:
 
 # Create combined plot
 combined_plot = make_subplots(rows=2, cols=1,
-                              subplot_titles=('a. Treeless subregions and/or focal units',
-                                              'b. Treed subregions and/or focal units'),
+                              subplot_titles=('a. Non-forest subregions and/or focal units',
+                                              'b. Forest subregions and/or focal units'),
                               horizontal_spacing=0.1,
                               shared_yaxes=False)
 for trace in treeless_plot.data:

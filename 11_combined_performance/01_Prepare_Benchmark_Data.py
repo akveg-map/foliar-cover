@@ -359,14 +359,6 @@ site_visit_data['subregion'] = np.where((site_visit_data['region'] == 'Alaska-Yu
 site_visit_data['subregion'] = np.where((site_visit_data['zone'] == 'Denali North'),
                                         'Denali North', site_visit_data['subregion'])
 
-# Assign Wrangell-Tetlin
-site_visit_data['subregion'] = np.where((site_visit_data['region'] == 'Alaska-Yukon Central')
-                                        & (site_visit_data['zone'].isin
-                                           (['Wrangell-Tetlin',
-                                             'Wrangell-St. Elias',
-                                             'Copper River Basin'])),
-                                        'Wrangell-Tetlin', site_visit_data['subregion'])
-
 # Assign Wrangell-Copper
 site_visit_data['subregion'] = np.where((site_visit_data['region'] == 'Alaska-Yukon Southern')
                                         & (site_visit_data['zone'].isin
@@ -456,17 +448,16 @@ subregion_dictionary = {
     ('Central Interior', 'all'): 17,
     ('Denali North', 'forest'): 18,
     ('Denali North', 'non-forest'): 19,
-    ('Wrangell-Tetlin', 'all'): 20,
-    ('Wrangell-Copper', 'forest'): 21,
-    ('Wrangell-Copper', 'non-forest'): 22,
-    ('Nelchina Uplands', 'all'): 23,
-    ('Denali South', 'forest'): 24,
-    ('Denali South', 'non-forest'): 25,
-    ('Cook Inlet', 'all'): 26,
-    ('Kodiak Northeast', 'forest'): 27,
-    ('Kodiak Northeast', 'non-forest'): 28,
-    ('Pacific Mainland', 'forest'): 29,
-    ('Pacific Mainland', 'non-forest'): 30
+    ('Wrangell-Copper', 'forest'): 20,
+    ('Wrangell-Copper', 'non-forest'): 21,
+    ('Nelchina Uplands', 'all'): 22,
+    ('Denali South', 'forest'): 23,
+    ('Denali South', 'non-forest'): 24,
+    ('Cook Inlet', 'all'): 25,
+    ('Kodiak Northeast', 'forest'): 26,
+    ('Kodiak Northeast', 'non-forest'): 27,
+    ('Pacific Mainland', 'forest'): 28,
+    ('Pacific Mainland', 'non-forest'): 29
 }
 
 # Map the dictionary to the dataframe using a list comprehension for speed and readability

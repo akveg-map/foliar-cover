@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # Plot regional summary
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2025-12-16
+# Last Updated: 2026-05-28
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Plot regional summary" plots the mean composition for each region.
 # ---------------------------------------------------------------------------
@@ -31,22 +31,23 @@ kaleido.get_chrome_sync()
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
 
-# Set round date
-round_date = 'round_20241124'
+# Set version date
+version_date = '20260415'
 
-# Define indicators
-indicators = ['picsit', 'tsumer', 'picgla', 'picmar', 'bettre', 'populbt', 'poptre',
-              'alnus', 'ndsalix', 'betshr', 'rubspe', 'rhoshr', 'vaculi', 'vacvit', 'nerishr', 'empnig',
-              'dsalix', 'dryas', 'erivag', 'mwcalama', 'wetsed', 'sphagn']
+# Define diagnostic_sets
+diagnostic_sets = ['picsit', 'tsumer', 'picgla', 'picmar', 'bettre', 'populbt', 'poptre',
+                   'alnus', 'ndsalix', 'betshr', 'rubspe', 'bderishr', 'vaculi', 'nerishr', 'empnig',
+                   'dsalix', 'dryas', 'erivag', 'mwcalama', 'wetsed', 'sphagn', 'lichen']
 
 # Set root directory
 drive = 'C:/'
-root_folder = 'ACCS_Work/Projects/VegetationEcology/AKVEG_Map'
+root_folder = 'ACCS_Work'
 
 # Define folder structure
-raster_folder = os.path.join(drive, root_folder, 'Data/Data_Output/data_package/version_2.0_20250103')
-region_folder = os.path.join(drive, root_folder, 'Data/Data_Input/region_data')
-output_folder = os.path.join(drive, root_folder, 'Documents/Manuscript_FoliarCover_FloristicGradients/figures')
+project_folder = os.path.join(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map/Data')
+raster_folder = os.path.join(project_folder, 'Data_Output/data_package/version_2.0_20250103')
+region_folder = os.path.join(project_folder, 'Data_Input/region_data')
+output_folder = os.path.join(project_folder, f'Data_Output/summary_results/version_{version_date}')
 
 # Define input file
 region_input = os.path.join(region_folder, 'AlaskaYukon_Regions_v2.0_3338.shp')
@@ -61,7 +62,7 @@ plot_output = os.path.join(output_folder, 'Figure5_Regional_Summary.png')
 ####____________________________________________________
 
 # Create regional summary table if it does not already exist
-if os.path.exists(zonal_output) == 0:
+if not os.path.exists(zonal_output):
     print('Creating regional summary table...')
 
     # Open region shapefile
@@ -73,47 +74,48 @@ if os.path.exists(zonal_output) == 0:
     # Create null array to store results
     count_data = None
 
-    # For each indicator, calculate the zonal statistics
-    for indicator in indicators:
-        print(f'\tCalculating zonal statistics for {indicator}...')
+    # For each diagnostic_set, calculate the zonal statistics
+    for diagnostic_set in diagnostic_sets:
+        print(f'\tCalculating zonal statistics for {diagnostic_set}...')
 
         # Define raster input
-        raster_input = os.path.join(raster_folder, indicator, f'{indicator}_10m_3338.tif')
+        raster_input = os.path.join(raster_folder, diagnostic_set, f'{diagnostic_set}_10m_3338.tif')
 
         # Define raster output
-        raster_output = os.path.join(output_folder, 'data', f'{indicator}_100m_3338.tif')
+        raster_output = os.path.join(output_folder, 'data', f'{diagnostic_set}_100m_3338.tif')
 
         # Reproject data
         area_bounds = raster_bounds(raster_input)
-        raster_warp = gdal.Warp(raster_output,
-                                raster_input,
-                                srcSRS='EPSG:3338',
-                                dstSRS='EPSG:3338',
-                                outputType=GDT_Byte,
-                                workingType=GDT_Byte,
-                                xRes=100,
-                                yRes=-100,
-                                srcNodata=255,
-                                dstNodata=255,
-                                outputBounds=area_bounds,
-                                resampleAlg='bilinear',
-                                targetAlignedPixels=False,
-                                creationOptions=['COMPRESS=LZW', 'BIGTIFF=YES'])
-        raster_warp = None
+
+        # Note: gdal.Warp directly executes; no need to assign it to raster_warp unless keeping in memory
+        gdal.Warp(raster_output,
+                  raster_input,
+                  srcSRS='EPSG:3338',
+                  dstSRS='EPSG:3338',
+                  outputType=GDT_Byte,
+                  workingType=GDT_Byte,
+                  xRes=100,
+                  yRes=-100,
+                  srcNodata=-128,
+                  dstNodata=-128,
+                  outputBounds=area_bounds,
+                  resampleAlg='average',
+                  targetAlignedPixels=False,
+                  creationOptions=['COMPRESS=LZW', 'BIGTIFF=YES'])
 
         # Read raster data
         with rasterio.open(raster_output) as raster_open:
             ndval = raster_open.nodatavals[0]
             raster_data = raster_open.read(1).astype('float64')
-            raster_data[raster_data == 255] = np.nan
+            raster_data[raster_data == -128] = np.nan
             affine_transform = raster_open.transform
             export_profile = raster_open.profile
 
-        # Add raster arrays
-        if isinstance(count_data, np.ndarray) == False:
-            count_data = raster_data
+        # Safely add raster arrays without propagating NaNs
+        if count_data is None:
+            count_data = np.nan_to_num(raster_data, nan=0.0)
         else:
-            count_data = count_data + raster_data
+            count_data += np.nan_to_num(raster_data, nan=0.0)
 
         # Calculate zonal statistics
         zonal_results = zonal_stats(region_data,
@@ -124,12 +126,10 @@ if os.path.exists(zonal_output) == 0:
                                     all_touched=True,
                                     geojson_out=False)
 
-        # Join zonal results to data frame
-        zonal_data = pd.DataFrame(zonal_results)
-        region_data = pd.concat([region_data, zonal_data], axis=1).rename(columns={'sum': indicator})
+        # Directly assign the 'sum' list to a new column (much faster than pd.concat inside a loop)
+        region_data[diagnostic_set] = [feature['sum'] for feature in zonal_results]
 
     # Convert count data to vegetated presence-absence
-    count_data[np.isnan(count_data)] = 0
     count_data = np.where(count_data > 0, 1, 0)
 
     # Calculate the sum of vegetated grid cells
@@ -137,7 +137,7 @@ if os.path.exists(zonal_output) == 0:
                                 count_data,
                                 affine=affine_transform,
                                 stats=['sum'],
-                                nodata=255,
+                                nodata=255,  # Ensure this nodata logic aligns with your binary array
                                 all_touched=True,
                                 geojson_out=False)
 
@@ -157,13 +157,12 @@ if os.path.exists(zonal_output) == 0:
     ) as dst:
         dst.write(count_data, 1)
 
-    # Join count results to data frame
+    # Join count results to data frame using direct assignment
     print('Exporting regional summary to excel...')
-    count_sum = pd.DataFrame(count_results)
-    region_data = pd.concat([region_data, count_sum], axis=1)
+    region_data['sum'] = [feature['sum'] for feature in count_results]
 
-    # Standardize indicator cover sums to region count sum
-    region_data[indicators] = region_data[indicators].div(region_data['sum'], axis=0)
+    # Standardize diagnostic_set cover sums to region count sum
+    region_data[diagnostic_sets] = region_data[diagnostic_sets].div(region_data['sum'], axis=0)
 
     # Export zonal summary
     (region_data
@@ -178,7 +177,7 @@ print('Creating plot...')
 summary_data = (pd.read_excel(zonal_output, sheet_name='summary')
                 .drop(columns=['biome', 'wetland']))
 
-# Replace indicator abbreviations with full names
+# Replace diagnostic_set abbreviations with full names
 summary_data = summary_data.rename(columns={'picsit': 'Sitka spruce',
                                             'tsumer': 'mountain hemlock',
                                             'picgla': 'white spruce',
@@ -187,20 +186,20 @@ summary_data = summary_data.rename(columns={'picsit': 'Sitka spruce',
                                             'populbt': 'poplar/cottonwood',
                                             'poptre': 'aspen',
                                             'alnus': 'alder shrubs',
-                                            'ndsalix': 'willow non-dwarf shrubs',
+                                            'ndsalix': 'willow shrubs',
                                             'betshr': 'birch shrubs',
                                             'rubspe': 'salmonberry',
-                                            'rhoshr': 'Rhododendron shrubs',
+                                            'bderishr': 'tall blueberries',
                                             'vaculi': 'bog blueberry',
-                                            'vacvit': 'lingonberry',
-                                            'nerishr': 'needleleaf ericaceous shrubs',
+                                            'nerishr': 'needleleaf ericaceous',
                                             'empnig': 'crowberry',
                                             'dsalix': 'willow dwarf shrubs',
                                             'dryas': 'Dryas shrubs',
                                             'erivag': 'tussock cottongrass',
                                             'mwcalama': 'mesic-wet Calamagrostis',
                                             'wetsed': 'wetland sedges',
-                                            'sphagn': 'Sphagnum mosses'})
+                                            'sphagn': 'Sphagnum mosses',
+                                            'lichen': 'lichens'})
 
 # Define the custom order for regions
 custom_order = ['Arctic Northern',
@@ -213,10 +212,10 @@ custom_order = ['Arctic Northern',
                 'Alaska-Yukon Southern',
                 'Alaska Pacific']
 
-# Convert the 'Day' column to Categorical with the custom order
+# Convert the 'region' column to Categorical with the custom order
 summary_data['region'] = pd.Categorical(summary_data['region'], categories=custom_order, ordered=True)
 
-# Sort the DataFrame by the 'Day' column
+# Sort the DataFrame by the 'region' column
 summary_data = (summary_data
                 .sort_values(by='region')
                 .set_index('region')

@@ -30,7 +30,7 @@ from akutils import *
 gdal.UseExceptions()
 
 # Define diagnostic species lists
-barren_retain = ['beach', 'dryas', 'dsalix', 'empnig', 'forb', 'gramin', 'halgra', 'lichen', 'nerishr']
+barren_retain = ['beach', 'dryas', 'dsalix', 'empnig', 'forb', 'gramin', 'halgra', 'lichen', 'nerishr', 'vacvit']
 water_retain = ['beach', 'bromos', 'halgra', 'mwcalama', 'sphagn', 'wetforb', 'wetgram', 'wetsed']
 dist_list = ['abies', 'bromos', 'calnoo', 'larlar', 'pinus', 'wetgram']
 

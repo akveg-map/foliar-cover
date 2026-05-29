@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------
 # Performance comparison
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2025-12-16
+# Last Updated: 2026-05-28
 # Usage: Must be executed in a R 4.4.3+ installation.
 # Description: "Performance comparison" creates a 3-axis NMDS ordination of plant community composition data and models the deviance explained across the three ordination axes relative to the results of a selected set of clusters. The deviance explained by the clusters then provides a baseline to compare the deviance predicted by the AKVEG foliar cover maps, the Alaska Vegetation and Wetland Composite, and the Landfire 2023 EVT.
 # ---------------------------------------------------------------------------
@@ -34,7 +34,7 @@ library(mgcv)
 set.seed(314)
 
 # Set round date
-round_date = 'round_20241124'
+round_date = 'version_20260415'
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
@@ -45,16 +45,14 @@ root_folder = 'ACCS_Work'
 
 # Define input folders (modify to your folder structure)
 project_folder = path(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map/Data')
-input_folder = path(project_folder, 'Data_Input/ordination_data')
+database_folder = path(project_folder, 'Data_Input/database_archive', round_date)
+input_folder = path(project_folder, 'Data_Input/ordination_data', round_date)
+results_folder = path(project_folder, 'Data_Output/ordination_results', round_date)
 
 # Define input files
-taxa_input = path(input_folder, '00_taxonomy.csv')
-site_visit_input = path(input_folder, '03_site_visit.csv')
-vegetation_input = path(input_folder, '05_vegetation.csv')
-centers_input = path(project_folder, 'Data_Output/ordination_results', round_date, '00_Cluster_Centers.xlsx')
-
-# Read cluster centers
-cluster_centers = read_xlsx(centers_input, sheet = 'hardc') # Centers should be set manually be evaluating cluster comparisons
+taxonomy_input = path(database_folder, '00_taxonomy.csv')
+site_visit_input = path(input_folder, 'site_visit_data.csv')
+vegetation_input = path(input_folder, 'vegetation_data.csv')
 
 # Identify group number
 site_data = read_csv(site_visit_input)
@@ -68,23 +66,15 @@ while (count <= group_number) {
   
   # Define input and output files
   if (count < 10) {
-    noise_input = path(project_folder, 'Data_Output/ordination_results', round_date,
-                       paste('0', toString(count), '_noise_membership.xlsx', sep = ''))
-    hardc_input = path(project_folder, 'Data_Output/ordination_results', round_date,
-                       paste('0', toString(count), '_hardc_clusters.xlsx', sep = ''))
-    performance_output = path(project_folder, 'Data_Output/ordination_results', round_date,
-                             paste('0', toString(count), '_performance.xlsx', sep = ''))
-    stress_output = path(project_folder, 'Data_Output/ordination_results', round_date,
-                         paste('0', toString(count), '_stress.jpg', sep = ''))
+    noise_input = path(results_folder, paste('0', toString(count), '_noise_membership.xlsx', sep = ''))
+    hardc_input = path(results_folder, paste('0', toString(count), '_hardc_clusters.xlsx', sep = ''))
+    performance_output = path(results_folder, paste('0', toString(count), '_performance.xlsx', sep = ''))
+    stress_output = path(results_folder, paste('0', toString(count), '_stress.jpg', sep = ''))
   } else {
-    noise_input = path(project_folder, 'Data_Output/ordination_results', round_date,
-                       paste(toString(count), '_noise_membership.xlsx', sep = ''))
-    hardc_input = path(project_folder, 'Data_Output/ordination_results', round_date,
-                       paste(toString(count), '_hardc_clusters.xlsx', sep = ''))
-    performance_output = path(project_folder, 'Data_Output/ordination_results', round_date,
-                             paste(toString(count), '_performance.xlsx', sep = ''))
-    stress_output = path(project_folder, 'Data_Output/ordination_results', round_date,
-                         paste(toString(count), '_stress.jpg', sep = ''))
+    noise_input = path(results_folder, paste(toString(count), '_noise_membership.xlsx', sep = ''))
+    hardc_input = path(results_folder, paste(toString(count), '_hardc_clusters.xlsx', sep = ''))
+    performance_output = path(results_folder, paste(toString(count), '_performance.xlsx', sep = ''))
+    stress_output = path(results_folder, paste(toString(count), '_stress.jpg', sep = ''))
   }
   
   if (!file.exists(performance_output)) {
@@ -93,12 +83,35 @@ while (count <= group_number) {
     #### CONDUCT CLUSTERING
     ####____________________________________________________
     
+    # Identify noise cluster number
+    hardc_cluster_n = read_excel(hardc_input, sheet = 'hardc') %>%
+      # Select summary columns
+      select(cluster_n, mean_sil, mean_variance) %>%
+      # Retain only the largest 50% of silhouette widths to avoid indistinct clusters
+      slice_max(order_by = mean_sil, prop = 0.66) %>%
+      # Retain silhouette widths that are greater than 75% of the maximum silhouette width
+      filter(mean_sil >= (max(mean_sil, na.rm = TRUE) * 0.75)) %>%
+      # Retain silhoette widths larger than 0.11
+      filter(mean_sil >= 0.11) %>%
+      # Assign ordinal ranks
+      mutate(
+        sil_rank = min_rank(desc(mean_sil)), # Descending ordinal ranks for silhouette width
+        var_rank = min_rank(mean_variance), # Ascending ordinal ranks for within-cluster variance
+        combined_rank = sil_rank + var_rank # Combine the ordinal ranks
+      ) %>%
+      # Sort by lowest combined rank with ties broken by smaller cluster number
+      arrange(combined_rank, cluster_n) %>% 
+      # Keep only the top performing row
+      slice(1) %>%                               
+      # Extract just the numerical value of the best cluster
+      pull(cluster_n)
+    
     # Read cluster comparison
     hardc_comparison = read_xlsx(hardc_input, sheet = 'hardc')
     
     # Select outlier sites
     outlier_data = read_xlsx(noise_input, sheet = 'noise') %>%
-      filter(N >= 0.8)
+      filter(N >= 0.85)
     
     # Read site visit data
     site_data = read_csv(site_visit_input) %>%
@@ -130,15 +143,11 @@ while (count <= group_number) {
     # Normalize vegetation matrix
     revised_normalized = decostand(revised_matrix, method='normalize')
     
-    # Identify the manually determined cluster number
-    cluster_number = cluster_centers %>%
-      filter(group_id == count) %>%
-      pull(cluster_n)
-    
     # Conduct clustering with n clusters
+    print(paste('Hard c-medoid cluster number for group ', toString(count), ': ', toString(hardc_cluster_n)))
     print(paste('Conducting hard c-medoid clustering for group ', toString(count), '...', sep = ''))
     hardc_results = vegclust(x = revised_normalized,
-                          mobileCenters = cluster_number, 
+                          mobileCenters = hardc_cluster_n, 
                           method = 'KMdd',
                           m = 1.2,
                           nstart = 50)
@@ -189,7 +198,7 @@ while (count <= group_number) {
     cluster_data = cbind(analysis_data, one_hot_data)
     
     # Create equation for clusters
-    cluster_names = tail(names(cluster_data), cluster_number)
+    cluster_names = tail(names(cluster_data), hardc_cluster_n)
     cluster_equation = ''
     for (cluster in cluster_names) {
       cluster_equation = paste(cluster_equation, cluster, ' + ', sep = '')
@@ -208,17 +217,21 @@ while (count <= group_number) {
     #### ASSESS FOLIAR COVER PERFORMANCE RELATIVE TO ORDINATION
     ####____________________________________________________
 
-    # Calculate foliar cover predictions > 3%
+    # Calculate number of presences by diagnostic species group
     print(paste('Calculating foliar cover performance for group ', toString(count), '...', sep = ''))
     prediction_numbers = analysis_data %>%
-      select(site_visit_code, alnus, betshr, bettre, brotre, dryas, dsalix, empnig, erivag, mwcalama,
-             ndsalix, nerishr, picgla, picmar, picsit, poptre, populbt, rhoshr, rubspe,
-             sphagn, tsumer, vaculi, vacvit, wetsed) %>%
+      # Select foliar cover prediction columns
+      select(site_visit_code, alnus, bderishr, beach, betshr, bettre, brotre, dryas, dsalix, empnig, erivag,
+             forb, gramin, halgra, lichen, mwcalama, ndsalix, neetre, nerishr, picgla, picmar, picsit,
+             poptre, populbt, rhoshr, rubspe, sphagn, tsuhet, tsumer, vaculi, vacvit, wetforb, wetsed) %>%
+      # Reformat data to rows
       pivot_longer(!site_visit_code, names_to = 'indicator', values_to = 'prediction') %>%
+      # Summarize number of presences
       mutate(presence = case_when(prediction >= 3 ~ 1,
                                   TRUE ~ 0)) %>%
       group_by(indicator) %>%
       summarize(number = sum(presence)) %>%
+      # Identify smoothed diagnostic species sets
       mutate(smooth = case_when(number >= sqrt(nrow(analysis_data)) ~ 1,
                                 TRUE ~ 0)) %>%
       mutate(smooth = case_when(number < 20 ~ 0,
@@ -325,16 +338,16 @@ while (count <= group_number) {
     
     # Extract information
     mean_variance = hardc_comparison %>%
-      filter(cluster_n == cluster_number) %>%
+      filter(cluster_n == hardc_cluster_n) %>%
       pull(mean_variance)
     mean_silhouette = hardc_comparison %>%
-      filter(cluster_n == cluster_number) %>%
+      filter(cluster_n == hardc_cluster_n) %>%
       pull(mean_sil)
     
     # Prepare summary data for export
     export_data = tibble(group_id = count,
                          selected_n = nrow(analysis_data),
-                         cluster_n = cluster_number,
+                         cluster_n = hardc_cluster_n,
                          mean_var = round(mean_variance, 3),
                          mean_sil = round(mean_silhouette, 3),
                          nmds_stress = round(nmds_normalized$stress, 3),

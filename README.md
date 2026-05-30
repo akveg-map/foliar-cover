@@ -7,7 +7,7 @@
 Continuous foliar cover maps of diagnostic species sets for Alaska and adjacent Yukon circa 2023
 
 *Author*: Timm W. Nawrocki, Alaska Center for Conservation Science, University of Alaska Anchorage
-              Matthew J. Macander, ABR, Inc.—Environmental Research & Services
+          Matthew J. Macander, ABR, Inc.—Environmental Research & Services
 
 *Created On*: 2019-10-22
 

@@ -87,10 +87,10 @@ while (count <= group_number) {
     hardc_cluster_n = read_excel(hardc_input, sheet = 'hardc') %>%
       # Select summary columns
       select(cluster_n, mean_sil, mean_variance) %>%
-      # Retain only the largest 50% of silhouette widths to avoid indistinct clusters
+      # Retain only the largest 66% of silhouette widths to avoid indistinct clusters
       slice_max(order_by = mean_sil, prop = 0.66) %>%
-      # Retain silhouette widths that are greater than 75% of the maximum silhouette width
-      filter(mean_sil >= (max(mean_sil, na.rm = TRUE) * 0.75)) %>%
+      # Retain silhouette widths that are greater than 66% of the maximum to avoid major quality drops
+      filter(mean_sil >= (max(mean_sil, na.rm = TRUE) * 0.66)) %>%
       # Retain silhoette widths larger than 0.11
       filter(mean_sil >= 0.11) %>%
       # Assign ordinal ranks
@@ -221,7 +221,7 @@ while (count <= group_number) {
     print(paste('Calculating foliar cover performance for group ', toString(count), '...', sep = ''))
     prediction_numbers = analysis_data %>%
       # Select foliar cover prediction columns
-      select(site_visit_code, alnus, bderishr, beach, betshr, bettre, brotre, dryas, dsalix, empnig, erivag,
+      select(site_visit_code, alnus, bderishr, beach, betshr, bettre, brotre, dryas, dsalix, empnig, erivag, feather,
              forb, gramin, halgra, lichen, mwcalama, ndsalix, neetre, nerishr, picgla, picmar, picsit,
              poptre, populbt, rhoshr, rubspe, sphagn, tsuhet, tsumer, vaculi, vacvit, wetforb, wetsed) %>%
       # Reformat data to rows

@@ -48,10 +48,9 @@ year_summary['obs_years'] = year_summary['min'].astype(int).astype(str) + '-' + 
 
 # Create subregion lookup table
 subregion_lookup = site_visit_data[['group_id', 'subregion', 'focal_unit']].drop_duplicates()
-subregion_lookup['focal_unit'] = subregion_lookup['focal_unit'].str.title()
 subregion_lookup['unit_name'] = subregion_lookup['subregion']
 subregion_lookup['unit_name'] = np.where(subregion_lookup['focal_unit'] != 'all',
-                                         subregion_lookup['subregion'] + ' ' + subregion_lookup['focal_unit'],
+                                         subregion_lookup['subregion'] + ' (' + subregion_lookup['focal_unit'] + ')',
                                          subregion_lookup['unit_name'])
 subregion_lookup = subregion_lookup[['group_id', 'unit_name']].drop_duplicates()
 
@@ -94,9 +93,22 @@ performance_data = performance_data[['group_id', 'unit_name', 'obs_years', 'sele
     'mean_var', 'mean_sil', 'gam_clust', 'gam_ind', 'gam_akvwc', 'gam_lf',
     'scaled_ind', 'scaled_akvwc', 'scaled_lf']]
 
+# Scale and round values and percentages
+performance_data['nmds_stress'] = performance_data['nmds_stress'].round(2)
+performance_data['mean_var'] = performance_data['mean_var'].round(2)
+performance_data['mean_sil'] = performance_data['mean_sil'].round(2)
+performance_data['gam_clust'] = performance_data['gam_clust'].round(2) * 100
+performance_data['gam_ind'] = performance_data['gam_ind'].round(2) * 100
+performance_data['gam_akvwc'] = performance_data['gam_akvwc'].round(2) * 100
+performance_data['gam_lf'] = performance_data['gam_lf'].round(2) * 100
+performance_data['scaled_ind'] = performance_data['scaled_ind'].round(2) * 100
+performance_data['scaled_akvwc'] = performance_data['scaled_akvwc'].round(2) * 100
+performance_data['scaled_lf'] = performance_data['scaled_lf'].round(2) * 100
+
+
 # Rename columns for final table
 table_data = performance_data.rename(columns={'unit_name': 'Benchmark Dataset',
-                                              'obs_years ': 'Observation Years',
+                                              'obs_years': 'Year Range',
                                               'selected_n': 'Count',
                                               'nmds_stress': 'NMDS Stress',
                                               'cluster_n': 'Clust.',
@@ -108,6 +120,19 @@ table_data = performance_data.rename(columns={'unit_name': 'Benchmark Dataset',
 performance_data = performance_data[['group_id', 'unit_name', 'gam_clust', 'gam_ind', 'gam_akvwc', 'gam_lf',
                                      'scaled_ind', 'scaled_akvwc', 'scaled_lf']]
 
+# Calculate mean and standard deviation as a list of tuples
+summary_list = [
+    ('foliar_mean', performance_data['scaled_ind'].mean()),
+    ('foliar_std', performance_data['scaled_ind'].std()),
+    ('akvwc_mean', performance_data['scaled_akvwc'].mean()),
+    ('akvwc_std', performance_data['scaled_akvwc'].std()),
+    ('lf_mean', performance_data['scaled_lf'].mean()),
+    ('lf_std', performance_data['scaled_lf'].std())
+]
+
+# Create mean and standard deviation dataframe directly from the list
+summary_data = pd.DataFrame(summary_list, columns=['Summary', 'Value'])
+
 # Sort by group id
 table_data = table_data.sort_values(by='group_id')
 performance_data = performance_data.sort_values(by='group_id')
@@ -118,3 +143,4 @@ with pd.ExcelWriter(performance_output, engine='openpyxl') as writer:
     table_data.to_excel(writer, sheet_name='Table2', index=False)
     performance_data.to_excel(writer, sheet_name='Performance', index=False)
     equation_data.to_excel(writer, sheet_name='Equations', index=False)
+    summary_data.to_excel(writer, sheet_name='Summary', index=False)

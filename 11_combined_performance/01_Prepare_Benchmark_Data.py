@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------
 # Prepare benchmark data
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2026-05-26
+# Last Updated: 2026-05-29
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: 'Prepare benchmark data' identifies the subset of site visits appropriate to ordination and clustering for the combined performance assessment and parses the data to subregions.
 # ---------------------------------------------------------------------------
@@ -19,9 +19,8 @@ import rasterio
 version_date = '20260415'
 
 # Define diagnostic species sets
-#### ADD FEATHERMOSS!!!
 diagnostic_sets = ['alnus', 'bderishr', 'beach', 'betshr', 'bettre', 'brotre',
-                   'dryas', 'dsalix', 'empnig', 'erivag', 'forb', 'gramin',
+                   'dryas', 'dsalix', 'empnig', 'erivag', 'feather', 'forb', 'gramin',
                    'halgra', 'lichen', 'mwcalama', 'ndsalix', 'neetre', 'nerishr',
                    'picgla', 'picmar', 'picsit', 'poptre', 'populbt', 'rhoshr', 'rubspe',
                    'sphagn', 'tsuhet', 'tsumer', 'vaculi', 'vacvit', 'wetforb', 'wetsed']

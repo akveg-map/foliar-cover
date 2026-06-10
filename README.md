@@ -1,3 +1,7 @@
+<div align="left">
+  <img src="assets/akveg_logo.png" width="300" style="margin-bottom: -20px;" alt="AKVEG logo with text: Alaska Vegetation Map">
+</div>
+
 # Continuous Foliar Cover Maps for Alaska and Yukon
 
 [![Project Status: Active](https://img.shields.io/badge/Project%20Status-Active-brightgreen.svg)](#)
@@ -190,6 +194,10 @@ Scripts in this folder downloaded historical climate data from [Scenarios Networ
 
 We calculated total annual precipitation and minimum January temperature as per pixel averages of raster values representing each year. To calculate summer warmth index, we first summed mean temperature rasters for May through September for each year and then calculated the per pixel average of the sum raster values. The historical climate data had an original resolution of 2 km for the majority of our map domain. Additionally, we relied on SNAP data with 15 km resolution to cover the included portion of Northwest Territories, which did not overlap the 2 km resolution SNAP data. To avoid resolution artifacts in the foliar cover maps, we resampled the climate data to a 10 m resolution using bilinear interpolation.
 
+### 6. Data Disturbance
+
+Scripts in this folder compile burn perimeters and pixels from multiple sources across Alaska and adjacent Canada. The output of these scripts is a raster where the values indicate the year (yyyy) of the most recent burn. Values of 0 indicate no documented burn. This raster dataset enables filtering of field data based on burn year relative to observation year.
+
 ### 7. Data Ingestion
 
 Scripts in this folder converted the topographic, hydrographic, and climate covariate rasters to cloud-optimized geotiffs and ingested them into Google Earth Engine to support model development, specifically extraction of area-weighted means to geometries representing site visits. The radiometric covariates were initially developed within Google Earth Engine and therefore did not need to be separately ingested.
@@ -265,7 +273,11 @@ For each subregion unit, we conducted two stages of clustering. For both cluster
 
 ### 12. Summary Tables and Figures
 
-Scripts in this folder produce summary tables, figures, and text files for an associated manuscript and data repository. We developed chart and plot figures using Plotly (Krutchen et al. 2025) in Python 3.12. We developed map figures using R 4.5.2 (R Core Team 2025) with ggplot2 (Wickham 2016) and ggspatial (Dunnington 2025).
+Scripts in this folder produce summary tables, figures, and text files for an associated manuscript, data repositories, and online documentation. We developed chart and plot figures using Plotly (Krutchen et al. 2025) in Python 3.12. We developed map figures using R 4.5.2 (R Core Team 2025) with ggplot2 (Wickham 2016) and ggspatial (Dunnington 2025).
+
+### 13. Prepare Data Packages
+
+Scripts in this folder prepare tabular and geospatial data for archiving in the [NSF Arctic Data Center](https://arcticdata.io/). Processing steps include creating tabular summaries as csv files, standardizing raster and vector geospatial data formats, filling in details in ISO 19139 XML metadata templates, and standardizing covariate importances.
 
 ## Covariates
 
@@ -384,9 +396,11 @@ Table 2. Covariate types, abbreviations (Abbr.), and names. Covariate abbreviati
 | Radiometry         | s2_5_ndwi   | Senescence NDWI                                    |
 
 ## Credits
-If you use this repository, the algorithms, or the associated foliar cover maps in your work, please cite the corresponding manuscript:
+If you use these scripts to process data for your research, you can cite this software repository:
 
-> Nawrocki, T.W., M.J. Macander, A.F. Wells, A. Droghini, G.V. Frost, L.A. Flagstad, M.L. Carlson, H.A. Gravley, M. Hannam, A.E. Miller, C. Roland, C.B. Heslop, T.V. Boucher, K.C. Baer, B.T. Spellman, M. Patz, L.B. Saperstein, D. Gordon, C. Willier, and E.M. Powers. 2026. Continuous foliar cover maps of diagnostic species sets for Alaska and adjacent Yukon circa 2023. Version 2.1. Code Repository. Available: [DOI]
+> > Nawrocki, T.W., and M.J. Macander. 2026. Continuous foliar cover maps of diagnostic species sets for Alaska and adjacent Canada. Code Archive. Zenodo. [Insert DOI]
+
+If you use the foliar cover map data, please instead cite the data archive on NSF Arctic Data Center.
 
 ### Acknowledgements
 
@@ -394,7 +408,7 @@ Funding support to complete this work was provided by the U.S. Fish and Wildlife
 
 ### License
 
-This project is provided under the GNU General Public License v3.0. It is free to use and modify in part or in whole.
+All scripts and configuration files in this repository are licensed under the [MIT License](https://github.com/akveg-map/foliar-cover/blob/main/LICENSE). You are free to copy, modify, distribute, and use this software, including for private and commercial purposes. If you wish to re-distribute this code, please include the original copyright notice and permission notice in your code package.
 
 ### Software References
 
@@ -504,7 +518,7 @@ Wright, M.N., and A. Ziegler. 2017. ranger: A Fast Implementation of Random Fore
 
 Yasumoto, A. 2025. ftExtra: Extensions for Flextable. R package. Available: https://github.com/atusy/ftExtra
 
-## Methods References
+### Methods References
 
 **We provide the following references to the methods and data sources that we used to develop the AKVEG Map continuous foliar cover maps. Please refer to the "Usage" section for descriptions of covariate processing and data sources.**
 

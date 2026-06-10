@@ -28,8 +28,8 @@ drive = 'C:/'
 root_folder = 'ACCS_Work'
 
 # Define folder structure
-project_folder = os.path.join(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map')
-input_folder = os.path.join(project_folder, 'Data/Data_Input/site_data', f'version_{version_date}')
+project_folder = os.path.join(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map/Data')
+input_folder = os.path.join(project_folder, 'Data_Input/site_data', f'version_{version_date}')
 
 # Define input files
 site_visit_input = os.path.join(input_folder, 'akveg_site_visits_3338.csv')

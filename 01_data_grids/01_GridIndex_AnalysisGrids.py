@@ -2,277 +2,114 @@
 # ---------------------------------------------------------------------------
 # Create analysis grids
 # Author: Timm Nawrocki
-# Last Updated: 2025-12-16
-# Usage: Must be executed in an ArcGIS Pro Python 3.11+ installation.
-# Description: "Create analysis grids" creates major and minor grid indices and overlapping grid tiles from a manually-generated study area polygon.
+# Last Updated: 2026-06-09
+# Usage: Must be executed in a Python 3.12+ installation.
+# Description: 'Create analysis grids' creates major and minor grid indices and overlapping grid tiles from a manually-generated study area polygon.
 # ---------------------------------------------------------------------------
 
 # Import packages
-import arcpy
-from package_GeospatialProcessing import arcpy_geoprocessing
-from package_GeospatialProcessing import create_grid_tiles
-from package_GeospatialProcessing import select_location
 import os
+import time
+import geopandas as gpd
+from shapely.geometry import box
+from akutils import *
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
 
 # Set root directory
-drive = 'N:/'
-root_folder = os.path.join(drive, 'ACCS_Work')
+drive = 'C:/'
+root_folder = 'ACCS_Work'
 
-# Set data folder
-project_folder = os.path.join(root_folder, 'Projects/VegetationEcology/AKVEG_Map/Data')
-
-# Define geodatabases
-main_geodatabase = os.path.join(project_folder, 'AKVEG_Map.gdb')
-regions_geodatabase = os.path.join(project_folder, 'AKVEG_Regions.gdb')
-work_geodatabase = os.path.join(project_folder, 'AKVEG_Workspace.gdb')
+# Define folder structure
+project_folder = os.path.join(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map/Data')
+region_folder = os.path.join(project_folder, 'Data_Input/region_data')
+grid_folder = os.path.join(project_folder, 'Data_Input/grid_data')
 
 # Define input raster datasets
-akyuk_feature = os.path.join(regions_geodatabase, 'AlaskaYukon_MapDomain_3338')
-akyuk_raster = os.path.join(project_folder, 'Data_Input/AlaskaYukon_MapDomain.tif')
-nab_feature = os.path.join(regions_geodatabase, 'NorthAmericanBeringia_ModelArea_3338')
-tnp_feature = os.path.join(regions_geodatabase, 'TemperateNorthPacific_ModelArea_3338')
+domain_input = os.path.join(region_folder, 'AlaskaYukon_ProjectDomain_v2p1_3338.shp')
 
 # Define output grid datasets
-full_400 = os.path.join(work_geodatabase, 'Full_400_Tiles_3338')
-full_100 = os.path.join(work_geodatabase, 'Full_100_Tiles_3338')
-full_050 = os.path.join(work_geodatabase, 'Full_050_Tiles_3338')
-full_010 = os.path.join(work_geodatabase, 'Full_010_Tiles_3338')
-akyuk_400 = os.path.join(regions_geodatabase, 'AlaskaYukon_400_Tiles_3338')
-akyuk_100 = os.path.join(regions_geodatabase, 'AlaskaYukon_100_Tiles_3338')
-akyuk_050 = os.path.join(regions_geodatabase, 'AlaskaYukon_050_Tiles_3338')
-akyuk_010 = os.path.join(regions_geodatabase, 'AlaskaYukon_010_Tiles_3338')
-nab_400 = os.path.join(regions_geodatabase, 'NorthAmericanBeringia_400_Tiles_3338')
-nab_100 = os.path.join(regions_geodatabase, 'NorthAmericanBeringia_100_Tiles_3338')
-nab_050 = os.path.join(regions_geodatabase, 'NorthAmericanBeringia_050_Tiles_3338')
-nab_010 = os.path.join(regions_geodatabase, 'NorthAmericanBeringia_010_Tiles_3338')
-tnp_400 = os.path.join(regions_geodatabase, 'TemperateNorthPacific_400_Tiles_3338')
-tnp_100 = os.path.join(regions_geodatabase, 'TemperateNorthPacific_100_Tiles_3338')
-tnp_050 = os.path.join(regions_geodatabase, 'TemperateNorthPacific_050_Tiles_3338')
-tnp_010 = os.path.join(regions_geodatabase, 'TemperateNorthPacific_010_Tiles_3338')
+akyuk_400 = os.path.join(grid_folder, 'AlaskaYukon_400_Tiles_3338.shp')
+akyuk_100 = os.path.join(grid_folder, 'AlaskaYukon_100_Tiles_3338.shp')
+akyuk_050 = os.path.join(grid_folder, 'AlaskaYukon_050_Tiles_3338.shp')
+akyuk_010 = os.path.join(grid_folder, 'AlaskaYukon_010_Tiles_3338.shp')
 
-#### GENERATE 400 KM GRIDS
+#### CONFIGURE ENVIRONMENT & ITERATION PARAMETERS
 ####____________________________________________________
 
-# Create the 400 km grid tiles
-full_400_kwargs = {'distance_km': 400,
-                   'origin_coordinate': '-2199995 5',
-                   'height': 2400,
-                   'length': 4000,
-                   'work_geodatabase': work_geodatabase,
-                   'input_array': [akyuk_feature],
-                   'output_array': [full_400]
-                   }
-if arcpy.Exists(full_400) == 0:
-    print('Creating 400 km grid tiles...')
-    arcpy_geoprocessing(create_grid_tiles, **full_400_kwargs)
-    print('----------')
-else:
-    print('400 km tiles already exist.')
-    print('----------')
+# Define grid generation constants
+origin_x = -2199995.0
+origin_y = 5.0
+height_km = 2400
+length_km = 4000
+grid_distances = [400, 100, 50, 10]
 
-# Select the 400 km tiles for Alaska-Yukon
-akyuk_400_kwargs = {'work_geodatabase': work_geodatabase,
-                    'input_array': [akyuk_feature, full_400],
-                    'output_array': [akyuk_400]}
-if arcpy.Exists(akyuk_400) == 0:
-    print('Selecting 400 km grid tiles for Alaska-Yukon...')
-    arcpy_geoprocessing(select_location, **akyuk_400_kwargs)
-    print('----------')
-else:
-    print('400 km grid tiles for Alaska-Yukon already exist.')
-    print('----------')
+# Read the map domain
+domain_data = gpd.read_file(domain_input)
+crs_3338 = domain_data.crs
 
-# Select the 400 km tiles for North American Beringia
-nab_400_kwargs = {'work_geodatabase': work_geodatabase,
-                  'input_array': [nab_feature, full_400],
-                  'output_array': [nab_400]}
-if arcpy.Exists(nab_400) == 0:
-    print('Selecting 400 km grid tiles for North American Beringia...')
-    arcpy_geoprocessing(select_location, **nab_400_kwargs)
-    print('----------')
-else:
-    print('400 km grid tiles for North American Beringia already exist.')
-    print('----------')
+# Define the fields to retain in the final outputs
+export_fields = ['grid_code', 'shape_leng', 'shape_area', 'geometry']
 
-# Select the 400 km tiles for Temperate North Pacific
-tnp_400_kwargs = {'work_geodatabase': work_geodatabase,
-                  'input_array': [tnp_feature, full_400],
-                  'output_array': [tnp_400]}
-if arcpy.Exists(tnp_400) == 0:
-    print('Selecting 400 km grid tiles for Temperate North Pacific...')
-    arcpy_geoprocessing(select_location, **tnp_400_kwargs)
-    print('----------')
-else:
-    print('400 km grid tiles for Temperate North Pacific already exist.')
-    print('----------')
-
-#### GENERATE 100 KM GRIDS
+#### GENERATE GRIDS
 ####____________________________________________________
 
-# Create the 100 km grid tiles
-full_100_kwargs = {'distance_km': 100,
-                   'origin_coordinate': '-2199995 5',
-                   'height': 2400,
-                   'length': 4000,
-                   'work_geodatabase': work_geodatabase,
-                   'input_array': [akyuk_feature],
-                   'output_array': [full_100]
-                   }
-if arcpy.Exists(full_100) == 0:
-    print('Creating 100 km grid tiles...')
-    arcpy_geoprocessing(create_grid_tiles, **full_100_kwargs)
-    print('----------')
-else:
-    print('100 km tiles already exist.')
-    print('----------')
+# Create a grid for each specified grid distance
+for distance_km in grid_distances:
+    print(f'Processing {distance_km} km grids...')
+    start_time = time.time()
+    
+    # Define the output grid name
+    dist_label = f'{distance_km:03}'
+    grid_output = os.path.join(grid_folder, f'AlaskaYukon_{dist_label}_Tiles_3338.shp')
 
-# Select the 100 km tiles for Alaska-Yukon
-akyuk_100_kwargs = {'work_geodatabase': work_geodatabase,
-                    'input_array': [akyuk_feature, full_100],
-                    'output_array': [akyuk_100]}
-if arcpy.Exists(akyuk_100) == 0:
-    print('Selecting 100 km grid tiles for Alaska-Yukon...')
-    arcpy_geoprocessing(select_location, **akyuk_100_kwargs)
-    print('----------')
-else:
-    print('100 km grid tiles for Alaska-Yukon already exist.')
-    print('----------')
+    # Calculate the number of rows and columns
+    number_rows = int(height_km / distance_km)
+    number_columns = int(length_km / distance_km)
+    distance_m = distance_km * 1000
 
-# Select the 100 km tiles for North American Beringia
-nab_100_kwargs = {'work_geodatabase': work_geodatabase,
-                  'input_array': [nab_feature, full_100],
-                  'output_array': [nab_100]}
-if arcpy.Exists(nab_100) == 0:
-    print('Selecting 100 km grid tiles for North American Beringia...')
-    arcpy_geoprocessing(select_location, **nab_100_kwargs)
-    print('----------')
-else:
-    print('100 km grid tiles for North American Beringia already exist.')
-    print('----------')
+    # Create the full grid
+    grid_records = []
 
-# Select the 100 km tiles for Temperate North Pacific
-tnp_100_kwargs = {'work_geodatabase': work_geodatabase,
-                  'input_array': [tnp_feature, full_100],
-                  'output_array': [tnp_100]}
-if arcpy.Exists(tnp_100) == 0:
-    print('Selecting 100 km grid tiles for Temperate North Pacific...')
-    arcpy_geoprocessing(select_location, **tnp_100_kwargs)
-    print('----------')
-else:
-    print('100 km grid tiles for Temperate North Pacific already exist.')
-    print('----------')
+    # Loop through columns (H) and rows (V)
+    for h in range(1, number_columns + 1):
+        for v in range(1, number_rows + 1):
 
-#### GENERATE 50 KM GRIDS
-####____________________________________________________
+            # Calculate v from north to south
+            v_from_south = number_rows - v + 1
 
-# Create the 50 km grid tiles
-full_050_kwargs = {'distance_km': 50,
-                   'origin_coordinate': '-2199995 5',
-                   'height': 2400,
-                   'length': 4000,
-                   'work_geodatabase': work_geodatabase,
-                   'input_array': [akyuk_feature],
-                   'output_array': [full_050]
-                   }
-if arcpy.Exists(full_050) == 0:
-    print('Creating 50 km grid tiles...')
-    arcpy_geoprocessing(create_grid_tiles, **full_050_kwargs)
-    print('----------')
-else:
-    print('50 km tiles already exist.')
-    print('----------')
+            # Calculate geometric bounds
+            xmin = origin_x + ((h - 1) * distance_m)
+            ymin = origin_y + ((v_from_south - 1) * distance_m)
+            xmax = origin_x + (h * distance_m)
+            ymax = origin_y + (v_from_south * distance_m)
 
-# Select the 50 km tiles for Alaska-Yukon
-akyuk_050_kwargs = {'work_geodatabase': work_geodatabase,
-                    'input_array': [akyuk_feature, full_050],
-                    'output_array': [akyuk_050]}
-if arcpy.Exists(akyuk_050) == 0:
-    print('Selecting 50 km grid tiles for Alaska-Yukon...')
-    arcpy_geoprocessing(select_location, **akyuk_050_kwargs)
-    print('----------')
-else:
-    print('50 km grid tiles for Alaska-Yukon already exist.')
-    print('----------')
+            # Create polygon geometry
+            poly = box(xmin, ymin, xmax, ymax)
 
-# Select the 50 km tiles for North American Beringia
-nab_050_kwargs = {'work_geodatabase': work_geodatabase,
-                  'input_array': [nab_feature, full_050],
-                  'output_array': [nab_050]}
-if arcpy.Exists(nab_050) == 0:
-    print('Selecting 50 km grid tiles for North American Beringia...')
-    arcpy_geoprocessing(select_location, **nab_050_kwargs)
-    print('----------')
-else:
-    print('50 km grid tiles for North American Beringia already exist.')
-    print('----------')
+            # Format grid code strings
+            grid_code = f'AK{dist_label}H{h:03}V{v:03}'
 
-# Select the 50 km tiles for Temperate North Pacific
-tnp_050_kwargs = {'work_geodatabase': work_geodatabase,
-                  'input_array': [tnp_feature, full_050],
-                  'output_array': [tnp_050]}
-if arcpy.Exists(tnp_050) == 0:
-    print('Selecting 50 km grid tiles for Temperate North Pacific...')
-    arcpy_geoprocessing(select_location, **tnp_050_kwargs)
-    print('----------')
-else:
-    print('50 km grid tiles for Temperate North Pacific already exist.')
-    print('----------')
+            # Append attributes and geometry
+            grid_records.append({
+                'grid_code': grid_code,
+                'geometry': poly
+            })
 
-#### GENERATE 10 KM GRIDS
-####____________________________________________________
+    # Convert records to a GeoDataFrame
+    grid_data = gpd.GeoDataFrame(grid_records, crs=crs_3338)
 
-# Create the 100 km grid tiles
-full_010_kwargs = {'distance_km': 10,
-                   'origin_coordinate': '-2199995 5',
-                   'height': 2400,
-                   'length': 4000,
-                   'work_geodatabase': work_geodatabase,
-                   'input_array': [akyuk_feature],
-                   'output_array': [full_010]
-                   }
-if arcpy.Exists(full_010) == 0:
-    print('Creating 10 km grid tiles...')
-    arcpy_geoprocessing(create_grid_tiles, **full_010_kwargs)
-    print('----------')
-else:
-    print('10 km tiles already exist.')
-    print('----------')
+    # Calculate geometric length (perimeter) and area
+    grid_data['shape_leng'] = grid_data.geometry.length
+    grid_data['shape_area'] = grid_data.geometry.area
 
-# Select the 10 km tiles for Alaska-Yukon
-akyuk_010_kwargs = {'work_geodatabase': work_geodatabase,
-                    'input_array': [akyuk_feature, full_010],
-                    'output_array': [akyuk_010]}
-if arcpy.Exists(akyuk_010) == 0:
-    print('Selecting 10 km grid tiles for Alaska-Yukon...')
-    arcpy_geoprocessing(select_location, **akyuk_010_kwargs)
-    print('----------')
-else:
-    print('10 km grid tiles for Alaska-Yukon already exist.')
-    print('----------')
+    # Perform spatial join to retain grids that intersect the map domain
+    grid_data = gpd.sjoin(grid_data, domain_data, how='inner', predicate='intersects')
 
-# Select the 10 km tiles for North American Beringia
-nab_010_kwargs = {'work_geodatabase': work_geodatabase,
-                  'input_array': [nab_feature, full_010],
-                  'output_array': [nab_010]}
-if arcpy.Exists(nab_010) == 0:
-    print('Selecting 10 km grid tiles for North American Beringia...')
-    arcpy_geoprocessing(select_location, **nab_010_kwargs)
-    print('----------')
-else:
-    print('10 km grid tiles for North American Beringia already exist.')
-    print('----------')
+    # Restrict fields for export
+    grid_data = grid_data[export_fields]
 
-# Select the 10 km tiles for Temperate North Pacific
-tnp_010_kwargs = {'work_geodatabase': work_geodatabase,
-                  'input_array': [tnp_feature, full_010],
-                  'output_array': [tnp_010]}
-if arcpy.Exists(tnp_010) == 0:
-    print('Selecting 10 km grid tiles for Temperate North Pacific...')
-    arcpy_geoprocessing(select_location, **tnp_010_kwargs)
-    print('----------')
-else:
-    print('10 km grid tiles for Temperate North Pacific already exist.')
-    print('----------')
+    # Save selected grids to shapefile
+    grid_data.to_file(grid_output)
+    end_timing(start_time)

@@ -1,8 +1,0 @@
-{
-  "title": "Bog Blueberry (<i>Vaccinium uliginosum</i>)",
-  "name": "bog blueberry",
-  "rationale": "LightGBM provided the best quantitative performance.",
-  "description": "The bog blueberry diagnostic species set consists only of <i>Vaccinium uliginosum</i> L. <i>Vaccinium uliginosum</i> is common and widespread throughout the map domain. It can achieve high abundance as the canopy or in a sub-canopy stratum with highly flexible habitat preferences.",
-  "species": [
-  ]
-}

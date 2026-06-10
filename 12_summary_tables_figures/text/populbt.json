@@ -1,8 +1,0 @@
-{
-  "title": "Balsam Poplar (<i>Populus balsamifera / trichocarpa</i>)",
-  "name": "balsam poplar",
-  "rationale": "LightGBM provided the best quantitative performance.",
-  "description": "The balsam poplar diagnostic species set consists of <i>Populus balsamifera</i> L. and <i>Populus trichocarpa</i> Torr. & A. Gray ex Hook. These species are similar both in morphology and habitat; past treatments have considered them as subspecies of a broader <i>Populus balsamifera</i>. <i>Populus trichocarpa</i> occurs along the Pacific Coast, primarily within the temperate bioclimatic zone of the map domain. It is a common component of floodplain forests. <i>Populus balsamifera</i> grows throughout the boreal bioclimatic zone as well as small, sporadic clusters in the Arctic bioclimatic zone along sheltered river drainages and perennial springs (Breen 2014). It is a common component of floodplain forests and also commonly grows on mountain slopes and recently deglaciated gravels and silts. Of the trees that grow in the boreal bioclimatic zone, <i>Populus balsamifera</i> tends to grow to the highest elevation and extend furthest west (e.g., down the Alaska Peninsula in the vicinity of Aniakchak National Monument and Preserve) and north (e.g., into the North Slope of the Brooks Range). The ranges of the two species overlap in the Alaska-Yukon Southern and Alaska Southwest vegetation regions, as well as on Kodiak Island. Hybrids form where their ranges overlap (Viereck and Little 2007).",
-  "species": [
-  ]
-}

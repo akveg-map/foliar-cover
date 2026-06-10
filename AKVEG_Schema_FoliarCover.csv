@@ -1,690 +1,690 @@
 ﻿top_absence,abundance,type,lifeform,target_abbr,target,constituents
-TRUE,FALSE,diagnostic species set,1. needleleaf tree,abies,Abies trees,Abies
-TRUE,FALSE,diagnostic species set,1. needleleaf tree,abies,Abies trees,Abies amabilis
-TRUE,FALSE,diagnostic species set,1. needleleaf tree,abies,Abies trees,Abies lasiocarpa
-TRUE,FALSE,diagnostic species set,1. needleleaf tree,calnoo,Callitropsis nootkatensis,Callitropsis
-TRUE,FALSE,diagnostic species set,1. needleleaf tree,calnoo,Callitropsis nootkatensis,Callitropsis nootkatensis
-TRUE,FALSE,diagnostic species set,1. needleleaf tree,larlar,Larix laricina,Larix
-TRUE,FALSE,diagnostic species set,1. needleleaf tree,larlar,Larix laricina,Larix laricina
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Abies
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Abies amabilis
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Abies lasiocarpa
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Callitropsis
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Callitropsis nootkatensis
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Larix
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Larix laricina
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Picea
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Picea ×lutzii
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Picea glauca
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Picea mariana
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Picea sitchensis
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Pinus
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Pinus contorta
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Pinus contorta var. contorta
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Pinus contorta var. latifolia
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Taxus
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Taxus brevifolia
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Thuja
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Thuja plicata
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,tree needleleaf
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Tsuga
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Tsuga heterophylla
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,needleleaf trees,Tsuga mertensiana
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,picgla,Picea glauca - ×lutzii,Picea ×lutzii
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,picgla,Picea glauca - ×lutzii,Picea glauca
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,picmar,Picea mariana,Picea mariana
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,picsit,Picea sitchensis,Picea sitchensis
-TRUE,FALSE,diagnostic species set,1. needleleaf tree,pinus,Pinus trees,Pinus
-TRUE,FALSE,diagnostic species set,1. needleleaf tree,pinus,Pinus trees,Pinus contorta
-TRUE,FALSE,diagnostic species set,1. needleleaf tree,pinus,Pinus trees,Pinus contorta var. contorta
-TRUE,FALSE,diagnostic species set,1. needleleaf tree,pinus,Pinus trees,Pinus contorta var. latifolia
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,tsuhet,Tsuga heterophylla,Tsuga heterophylla
-TRUE,TRUE,diagnostic species set,1. needleleaf tree,tsumer,Tsuga mertensiana,Tsuga mertensiana
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,bettre,Betula trees,Betula kenaica
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,bettre,Betula trees,Betula neoalaskana
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,bettre,Betula trees,Betula papyrifera
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,broadleaf trees,Betula kenaica
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,broadleaf trees,Betula neoalaskana
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,broadleaf trees,Betula papyrifera
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,broadleaf trees,Malus fusca
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,broadleaf trees,Populus
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,broadleaf trees,Populus balsamifera
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,broadleaf trees,Populus tremuloides
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,broadleaf trees,Populus trichocarpa
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,broadleaf trees,tree broadleaf
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,poptre,Populus tremuloides,Populus tremuloides
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,populbt,Populus balsamifera + trichocarpa,Populus balsamifera
-TRUE,TRUE,diagnostic species set,2. broadleaf tree,populbt,Populus balsamifera + trichocarpa,Populus trichocarpa
-TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alnus shrubs,Alnus
-TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alnus shrubs,Alnus alnobetula
-TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alnus shrubs,Alnus alnobetula ssp. fruticosa
-TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alnus shrubs,Alnus alnobetula ssp. sinuata
-TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alnus shrubs,Alnus incana
-TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alnus shrubs,Alnus incana ssp. tenuifolia
-FALSE,TRUE,diagnostic species set,3. shrub,bderishr,broadleaf deciduous ericaceous shrubs,Vaccinium alaskaense
-FALSE,TRUE,diagnostic species set,3. shrub,bderishr,broadleaf deciduous ericaceous shrubs,Vaccinium membranaceum
-FALSE,TRUE,diagnostic species set,3. shrub,bderishr,broadleaf deciduous ericaceous shrubs,Vaccinium ovalifolium
-FALSE,TRUE,diagnostic species set,3. shrub,bderishr,broadleaf deciduous ericaceous shrubs,Vaccinium parvifolium
-TRUE,TRUE,diagnostic species set,3. shrub,betshr,Betula shrubs,Betula glandulosa
-TRUE,TRUE,diagnostic species set,3. shrub,betshr,Betula shrubs,Betula nana
-TRUE,TRUE,diagnostic species set,3. shrub,betshr,Betula shrubs,Betula nana ssp. exilis
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix alaxensis
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix alaxensis var. alaxensis
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix alaxensis var. longistylis
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix arbusculoides
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix athabascensis
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix barclayi
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix barrattiana
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix bebbiana
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix candida
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix commutata
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix glauca
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix glauca ssp. acutifolia
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix glauca ssp. stipulifera
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix hastata
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix hookeriana
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix interior
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix lasiandra
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix lasiandra var. caudata
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix lasiandra var. lasiandra
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix niphoclada
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix planifolia
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix prolixa
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix pseudomonticola
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix pseudomyrsinites
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix pulchra
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix richardsonii
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix scouleriana
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix setchelliana
-TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,non-dwarf Salix shrubs,Salix sitchensis
-TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron shrubs,Rhododendron
-TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron shrubs,Rhododendron groenlandicum
-TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron shrubs,Rhododendron lapponicum
-TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron shrubs,Rhododendron lapponicum ssp. alpinum
-TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron shrubs,Rhododendron tomentosum
-TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron shrubs,Rhododendron tomentosum ssp. decumbens
-TRUE,TRUE,diagnostic species set,3. shrub,rubspe,Rubus spectabilis,Rubus spectabilis
-TRUE,TRUE,diagnostic species set,3. shrub,vaculi,Vaccinium uliginosum + caespitosum,Vaccinium uliginosum
-TRUE,TRUE,diagnostic species set,3. shrub,vaculi,Vaccinium uliginosum + caespitosum,Vaccinium caespitosum
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas shrubs,Dryas
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas shrubs,Dryas ajanensis
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas shrubs,Dryas ajanensis ssp. beringensis
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas shrubs,Dryas alaskensis
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas shrubs,Dryas drummondii
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas shrubs,Dryas hookeriana
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas shrubs,Dryas integrifolia
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas shrubs,Dryas integrifolia ssp. integrifolia
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas shrubs,Dryas integrifolia ssp. sylvatica
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix arctica
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix arctophila
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix chamissonis
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix nummularia
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix ovalifolia
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix ovalifolia var. arctolitoralis
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix ovalifolia var. cyclophylla
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix ovalifolia var. glacialis
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix ovalifolia var. ovalifolia
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix phlebophylla
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix polaris
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix reticulata
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix rotundifolia
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix rotundifolia var. dodgeana
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix rotundifolia var. rotundifolia
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix sphenophylla
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix sphenophylla ssp. pseudotorulosa
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,dwarf Salix,Salix stolonifera
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,empnig,Empetrum nigrum,Empetrum
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,empnig,Empetrum nigrum,Empetrum nigrum
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Cassiope
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Cassiope lycopodioides
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Cassiope mertensiana
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Cassiope tetragona
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Cassiope tetragona ssp. saximontana
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Cassiope tetragona ssp. tetragona
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Empetrum
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Empetrum nigrum
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Harrimanella
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Harrimanella stelleriana
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Phyllodoce
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Phyllodoce aleutica
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Phyllodoce caerulea
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Phyllodoce empetriformis
-TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,needleleaf ericaceous shrubs,Phyllodoce glanduliflora
-FALSE,TRUE,diagnostic species set,4. dwarf shrub,vacvit,Vaccinium vitis-idaea,Vaccinium vitis-idaea
-TRUE,TRUE,diagnostic species set,5. graminoid,erivag,Eriophorum vaginatum,Eriophorum vaginatum
-FALSE,TRUE,functional group,5. graminoid,gramin,graminoid,graminoid
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Calamagrostis deschampsioides
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Carex glareosa
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Carex glareosa ssp. glareosa
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Carex glareosa ssp. pribylovensis
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Carex lyngbyei
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Carex ramenskii
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Carex subspathacea
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Carex ursina
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Puccinellia alaskana
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Puccinellia andersonii
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Puccinellia angustata
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Puccinellia geniculata
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Puccinellia nutkaensis
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Puccinellia phryganodes
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Puccinellia pumila
-TRUE,TRUE,diagnostic species set,5. graminoid,halgra,halophytic graminoids,Puccinellia vaginata
-TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,mesic-wet Calamagrostis,Calamagrostis canadensis
-TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,mesic-wet Calamagrostis,Calamagrostis canadensis ssp. canadensis
-TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,mesic-wet Calamagrostis,Calamagrostis canadensis ssp. langsdorffii
-TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,mesic-wet Calamagrostis,Calamagrostis inexpansa
-TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,mesic-wet Calamagrostis,Calamagrostis neglecta
-TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,mesic-wet Calamagrostis,Calamagrostis neglecta ssp. groenlandica
-TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,mesic-wet Calamagrostis,Calamagrostis neglecta ssp. neglecta
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Agrostis clavata
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Alopecurus aequalis
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Alopecurus geniculatus
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Arctophila fulva
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Beckmannia syzigachne
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Catabrosa aquatica
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Deschampsia brevifolia
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Deschampsia sukatschewii ssp. borealis
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Glyceria borealis
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Glyceria grandis
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Glyceria grandis var. grandis
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Glyceria grandis var. komarovii
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Glyceria leptostachya
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Glyceria pulchella
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Glyceria striata
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus alpinoarticulatus
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus alpinoarticulatus ssp. americanus
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus arcticus
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus arcticus ssp. alaskanus
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus articulatus
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus balticus
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus balticus ssp. ater
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus biglumis
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus bufonius
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus effusus
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus haenkei
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus mertensianus
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus minutulus
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus nodosus
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus ranarius
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus stygius
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus stygius ssp. americanus
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Juncus supiniformis
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Phalaris arundinacea
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Phalaris arundinacea (cultivar)
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Phippsia algida
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Podagrostis aequivalvis
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Scolochloa festucacea
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Triglochin maritima
-TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,wetland grasses and rushes,Triglochin palustris
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex adelostoma
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex aquatilis
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex arcta
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex bicolor
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex chordorrhiza
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex diandra
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex echinata
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex echinata ssp. echinata
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex echinata ssp. phyllomanica
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex enanderi
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex glareosa
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex glareosa ssp. glareosa
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex glareosa ssp. pribylovensis
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex gynocrates
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex holostoma
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex interior
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex kellogii
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex lachenalii
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex lasiocarpa
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex laxa
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex leptalea
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex leptalea ssp. leptalea
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex limosa
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex livida
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex lyngbyei
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex marina
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex marina ssp. marina
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex membranacea
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex microglochin
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex pauciflora
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex paupercula
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex pluriflora
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex rariflora
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex rostrata
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex rotundata
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex saxatilis
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex saxatilis ssp. laxa
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex sitchensis
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex utriculata
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex vaginata
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex viridula
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Carex viridula ssp. viridula
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum ×medium
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum ×medium ssp. album
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum angustifolium
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum chamissonis
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum gracile
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum gracile ssp. gracile
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum komarovii
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum russeolum
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum russeolum ssp. leiocarpum
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum scheuchzeri
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum scheuchzeri ssp. arcticum
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum scheuchzeri ssp. scheuchzeri
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum triste
-TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,wetland sedges,Eriophorum viridicarinatum
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Atriplex gmelinii
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Atriplex gmelinii var. alaskensis
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Atriplex gmelinii var. gmelinii
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Cakile edentula 
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Cakile edentula ssp. edentula
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Carex gmelinii
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Carex macrocephala
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Hockenya peploides
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Honckenya peploides ssp. diffusa
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Honckenya peploides ssp. major
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Lathyrus japonicus
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Leymus mollis
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Leymus mollis ssp. mollis
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Leymus mollis ssp. villosissimus
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Mertensia maritima
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Mertensia maritima ssp. asiatica
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Mertensia maritima ssp. tenella
-TRUE,TRUE,diagnostic species set,6. forb,beach,beach herbaceous,Senecio pseudoarnica
-FALSE,TRUE,functional group,6. forb,forb,forb,forb
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Acorus americanus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Alisma triviale
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Bidens cernua
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Brasenia schreberi
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Calla palustris
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Callitriche anceps
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Callitriche hermaphroditica
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Callitriche heterophylla
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Callitriche palustris
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Caltha biflora
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Caltha leptosepala
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Caltha natans
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Caltha palustris
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Caltha palustris ssp. asarifolia
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Caltha palustris ssp. radicans
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Ceratophyllum demersum
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Chrysosplenium tetrandrum
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Cicuta bulbifera
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Cicuta douglasii
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Cicuta virosa
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Comarum palustre
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Coptidium lapponicum
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Coptidium pallasii
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Cotula coronopifolia
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Crassula aquatica
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Drosera anglica
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Drosera rotundifolia
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Elodea canadensis
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Epilobium davuricum
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Epilobium leptophyllum
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Epilobium palustre
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Halerpestes cymbalaria
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Hippuris lanceolata
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Hippuris montana
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Hippuris tetraphylla
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Hippuris vulgaris
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Koenigia islandica
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lathyrus palustris
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lathyrus palustris ssp. pilosus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lemna minor
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lemna trisulca
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lemna turionifera
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Limosella aquatica
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lobelia dortmanna
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lomatogonium rotatum
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lomatogonium rotatum ssp. rotatum
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lomatogonium rotatum ssp. tenuifolium
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lycopus lucidus ssp. americanus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lycopus uniflorus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lysichiton americanus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lysimachia maritima
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lysimachia thyrsiflora
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Lythrum salicaria
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Malaxis paludosa
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Menyanthes trifoliata
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Microseris borealis
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Mimulus guttatus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Montia chamissoi
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Montia fontana
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Myriophyllum farwellii
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Myriophyllum sibiricum
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Myriophyllum verticillatum
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Najas flexilis
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Nasturtium officinale
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Nephrophyllidium crista-galli
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Nuphar polysepala
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Nymphaea odorata
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Nymphaea odorata ssp. odorata
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Nymphaea tetragona
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Oenanthe sarmentosa
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Oxybasis rubra
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Oxybasis rubra var. humilis
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Oxybasis rubra var. rubra
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Pedicularis chamissonis
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Persicaria amphibia
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Persicaria amphibia ssp. laevimarginata
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Persicaria hydropiperoides
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Phyllospadix scouleri
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Pinguicula villosa
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Pinguicula vulgaris
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Pinguicula vulgaris ssp. macroceras
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Pinguicula vulgaris ssp. vulgaris
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Platanthera chorisiana
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Platanthera huronensis
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton alpinus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton alpinus ssp. tenuifolius
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton berchtoldii
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton epihydrus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton foliosus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton foliosus ssp. foliosus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton friesii
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton gramineus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton natans
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton obtusifolius
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton praelongus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton richardsonii
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton robbinsii
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton subsibiricus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Potamogeton zosteriformis
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Primula cuneifolia
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Primula cuneifolia ssp. cuneifolia
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Primula cuneifolia ssp. saxifragifolia
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Ranunculus hyperboreus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Ranunculus hyperboreus ssp. arnellii
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Ranunculus hyperboreus ssp. hyperboreus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Ranunculus mongolicus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Ranunculus sceleratus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Ranunculus sceleratus ssp. multifidus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Ranunculus subrigidus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Ranunculus trichophyllus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Rumex occidentalis
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Rumex occidentalis ssp. fenestratus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Ruppia cirrhosa
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Ruppia maritima
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Sagittaria cuneata
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Salicornia depressa
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Saxifraga bracteata
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Saxifraga hirculus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Saxifraga hirculus ssp. compacta
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Saxifraga hirculus ssp. hirculus
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Saxifraga hirculus ssp. propinqua
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Saxifraga hyperborea
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Saxifraga rivularis
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Saxifraga rivularis ssp. arctolitoralis
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Scheuchzeria palustris
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Scheuchzeria palustris ssp. americana
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Scutellaria galericulata
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Scutellaria galericulata ssp. pubescens
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Sium suave
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Sparganium angustifolium
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Sparganium emersum
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Sparganium hyperboreum
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Sparganium multipedunculatum
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Sparganium natans
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Spiranthes romanzoffiana
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Stellaria humifusa
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Stuckenia filiformis
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Stuckenia filiformis ssp. borealis
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Stuckenia filiformis ssp. occidentalis
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Stuckenia pectinata
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Stuckenia vaginata
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Subularia aquatica
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Subularia aquatica ssp. americana
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Subularia aquatica ssp. aquatica
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Symphyotrichum boreale
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Typha latifolia
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Utricularia intermedia
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Utricularia minor
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Utricularia ochroleuca
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Utricularia vulgaris ssp. macrorhiza
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Veronica americana
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Veronica anagallis-aquatica
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Veronica scutellata
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Veronica serpyllifolia
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Veronica serpyllifolia ssp. humifusa
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Veronica serpyllifolia ssp. serpyllifolia
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Zannichellia palustris
-FALSE,TRUE,diagnostic species set,6. forb,wetforb,wetland forbs,Zostera marina
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Calliergon
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Calliergon cordifolium
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Calliergon giganteum
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Calliergon megalophyllum
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Calliergon richardsonii
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Calliergonella
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Calliergonella cuspidata
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Drepanocladus
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Drepanocladus aduncus
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Drepanocladus arcticus
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Drepanocladus latinervis
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Drepanocladus longifolius
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Drepanocladus polygamus
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Drepanocladus sordidus
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Hamatocaulis
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Hamatocaulis lapponicus
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Hamatocaulis vernicosus
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Loeskypnum
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Loeskypnum badium
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Loeskypnum wickesiae
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Meesia
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Meesia triquetra
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Meesia uliginosa
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Pseudocalliergon
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Pseudocalliergon angustifolium
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Pseudocalliergon brevifolium
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Pseudocalliergon trifarium
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Pseudocalliergon turgescens
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Sarmentypnum
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Sarmentypnum exannulatum
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Sarmentypnum pseudosarmentosum
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Sarmentypnum sarmentosum
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Sarmentypnum trichophyllum
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Sarmentypnum tundrae
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Scorpidium
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Warnstorfia
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Warnstorfia fluitans
-FALSE,FALSE,diagnostic species set,7. bryophytes,bromos,brown moss,Warnstorfia pseudostraminea
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Abietinella
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Abietinella abietina
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Antitrichia
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Antitrichia californica
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Antitrichia curtipendula
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachytheciastrum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachytheciastrum trachypodium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium acutum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium albicans
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium asperrimum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium boreale
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium cirrosum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium coruscum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium erythrorrhizon
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium erythrorrhizon var. erythrorrhizon
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium frigidum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium jacuticum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium rivulare
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium rotaeanum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium turgidum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Brachythecium udum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Bryhnia
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Bryhnia hultenii
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Buckiella
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Buckiella undulata
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Cirriphyllum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Cirriphyllum piliferum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Claopodium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Claopodium bolanderi
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Claopodium crispifolium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Claopodium pellucinerve
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Climacium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Climacium americanum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Climacium dendroides
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Ctenidium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Ctenidium molluscum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Ctenidium schofieldii
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Echinophyllum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Echinophyllum sachalinense
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Elodium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Elodium blandowii
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Elodium paludosum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Eurhynchiastrum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Eurhynchiastrum pulchellum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Eurhynchiastrum pulchellum var. barnesii
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Eurhynchiastrum pulchellum var. pulchellum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Gollania
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Gollania turgens
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Herzogiella
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Herzogiella adscendens
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Herzogiella striatella
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Homalothecium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Homalothecium aeneum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Homalothecium fulgescens
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Homalothecium nuttallii
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Hylocomiadelphus
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Hylocomiadelphus triquetrus
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Hylocomiastrum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Hylocomiastrum pyrenaicum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Hylocomiastrum umbratum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Hylocomium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Hylocomium splendens
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Hypopterygium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Hypopterygium flavolimbatum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Isothecium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Isothecium cardotii
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Isothecium myosuroides
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Isothecium stoloniferum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Kindbergia
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Kindbergia oregana
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Kindbergia praelonga
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Leptopterigynandrum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Leptopterigynandrum austroalpinum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Lescuraea
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Lescuraea saxicola
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Leskea
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Leskea polycarpa
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Leskeella
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Leskeella nervosa
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Myuroclada
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Myuroclada maximowiczii
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Neckera
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Neckera douglasii
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Neckera menziesii
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Neckera pennata
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pleuroziopsis
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pleuroziopsis ruthenica
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pleurozium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pleurozium schreberi
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskea
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskea atricha
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskea baileyi
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskea incurvata
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskea incurvata var. incurvata
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskea patens
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskea radicosa
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskea radicosa var. denudata
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskea radicosa var. radicosa
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskea saviana
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskea stenophylla
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskeella
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskeella rupestris
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudoleskeella tectorum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudostereodon
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Pseudostereodon procerrimus
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Rhytidiadelphus
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Rhytidiadelphus japonicus
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Rhytidiadelphus loreus
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Rhytidiadelphus squarrosus
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Rhytidiadelphus subpinnatus
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Rhytidiopsis
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Rhytidiopsis robusta
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Rhytidium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Rhytidium rugosum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Roaldia
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Roaldia revoluta
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Roaldia revoluta var. revoluta
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Sciuro-hypnum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Sciuro-hypnum hylotapetum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Sciuro-hypnum latifolium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Sciuro-hypnum oedipodium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Sciuro-hypnum ornellanum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Sciuro-hypnum plumosum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Sciuro-hypnum populeum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Sciuro-hypnum reflexum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Sciuro-hypnum uncinifolium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Scleropodium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Scleropodium obtusifolium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Thamnobryum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Thamnobryum neckeroides
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Thuidium
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Thuidium delicatulum
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Thuidium delicatulum var. radicans
-FALSE,TRUE,diagnostic species set,7. bryophytes,feather,feathermoss,Thuidium recognitum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum alaskense
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum andersonianum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum angustifolium
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum annulatum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum aongstroemii
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum arcticum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum austinii
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum balticum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum bartlettianum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum bergianum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum beringiense
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum brevifolium
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum capillifolium
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum compactum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum contortum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum cuspidatum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum fimbriatum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum fimbriatum ssp. concinnum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum fimbriatum ssp. fimbriatum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum fuscum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum girgensohnii
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum henryense
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum imbricatum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum inexspectatum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum inundatum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum jensenii
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum kenaiense
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum lenense
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum lindbergii
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum magellanicum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum majus
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum majus ssp. majus
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum majus ssp. norvegicum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum mendocinum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum mirum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum moss
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum obtusum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum orientale
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum pacificum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum papillosum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum perfoliatum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum platyphyllum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum pulchrum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum quinquefarium
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum riparium
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum rubellum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum rubiginosum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum russowii
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum sitchense
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum squarrosum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum steerei
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum subfulvum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum subnitens
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum subsecundum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum talbotianum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum tenellum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum teres
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum tescorum
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum tundrae
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum warnstorfii
-FALSE,TRUE,diagnostic species set,7. bryophytes,sphagn,Sphagnum,Sphagnum wilfii
-FALSE,TRUE,functional group,8. lichen,lichen,lichen,lichen
-TRUE,TRUE,abiotic,9. abiotic,bare,bare ground,n/a
-TRUE,TRUE,none,9. abiotic,perwat,percentage growing season surface water,n/a
+TRUE,FALSE,diagnostic species set,1. needleleaf tree,abies,Fir Trees,Abies
+TRUE,FALSE,diagnostic species set,1. needleleaf tree,abies,Fir Trees,Abies amabilis
+TRUE,FALSE,diagnostic species set,1. needleleaf tree,abies,Fir Trees,Abies lasiocarpa
+TRUE,FALSE,diagnostic species set,1. needleleaf tree,calnoo,Alaska Yellow Cedar,Callitropsis
+TRUE,FALSE,diagnostic species set,1. needleleaf tree,calnoo,Alaska Yellow Cedar,Callitropsis nootkatensis
+TRUE,FALSE,diagnostic species set,1. needleleaf tree,larlar,Tamarack,Larix
+TRUE,FALSE,diagnostic species set,1. needleleaf tree,larlar,Tamarack,Larix laricina
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Abies
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Abies amabilis
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Abies lasiocarpa
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Callitropsis
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Callitropsis nootkatensis
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Larix
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Larix laricina
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Picea
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Picea ×lutzii
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Picea glauca
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Picea mariana
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Picea sitchensis
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Pinus
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Pinus contorta
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Pinus contorta var. contorta
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Pinus contorta var. latifolia
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Taxus
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Taxus brevifolia
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Thuja
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Thuja plicata
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,tree needleleaf
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Tsuga
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Tsuga heterophylla
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,neetre,Needleleaf Trees,Tsuga mertensiana
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,picgla,White Spruce,Picea ×lutzii
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,picgla,White Spruce,Picea glauca
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,picmar,Black Spruce,Picea mariana
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,picsit,Sitka Spruce,Picea sitchensis
+TRUE,FALSE,diagnostic species set,1. needleleaf tree,pinus,Shore and Lodgepole Pine,Pinus
+TRUE,FALSE,diagnostic species set,1. needleleaf tree,pinus,Shore and Lodgepole Pine,Pinus contorta
+TRUE,FALSE,diagnostic species set,1. needleleaf tree,pinus,Shore and Lodgepole Pine,Pinus contorta var. contorta
+TRUE,FALSE,diagnostic species set,1. needleleaf tree,pinus,Shore and Lodgepole Pine,Pinus contorta var. latifolia
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,tsuhet,Western Hemlock,Tsuga heterophylla
+TRUE,TRUE,diagnostic species set,1. needleleaf tree,tsumer,Mountain Hemlock,Tsuga mertensiana
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,bettre,Birch Trees,Betula kenaica
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,bettre,Birch Trees,Betula neoalaskana
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,bettre,Birch Trees,Betula papyrifera
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,Broadleaf Trees,Betula kenaica
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,Broadleaf Trees,Betula neoalaskana
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,Broadleaf Trees,Betula papyrifera
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,Broadleaf Trees,Malus fusca
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,Broadleaf Trees,Populus
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,Broadleaf Trees,Populus balsamifera
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,Broadleaf Trees,Populus tremuloides
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,Broadleaf Trees,Populus trichocarpa
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,brotre,Broadleaf Trees,tree broadleaf
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,poptre,Aspen,Populus tremuloides
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,populbt,Poplar and Cottonwood,Populus balsamifera
+TRUE,TRUE,diagnostic species set,2. broadleaf tree,populbt,Poplar and Cottonwood,Populus trichocarpa
+TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alder Shrubs,Alnus
+TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alder Shrubs,Alnus alnobetula
+TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alder Shrubs,Alnus alnobetula ssp. fruticosa
+TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alder Shrubs,Alnus alnobetula ssp. sinuata
+TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alder Shrubs,Alnus incana
+TRUE,TRUE,diagnostic species set,3. shrub,alnus,Alder Shrubs,Alnus incana ssp. tenuifolia
+FALSE,TRUE,diagnostic species set,3. shrub,bderishr,Tall Blueberry Shrubs,Vaccinium alaskaense
+FALSE,TRUE,diagnostic species set,3. shrub,bderishr,Tall Blueberry Shrubs,Vaccinium membranaceum
+FALSE,TRUE,diagnostic species set,3. shrub,bderishr,Tall Blueberry Shrubs,Vaccinium ovalifolium
+FALSE,TRUE,diagnostic species set,3. shrub,bderishr,Tall Blueberry Shrubs,Vaccinium parvifolium
+TRUE,TRUE,diagnostic species set,3. shrub,betshr,Birch Shrubs,Betula glandulosa
+TRUE,TRUE,diagnostic species set,3. shrub,betshr,Birch Shrubs,Betula nana
+TRUE,TRUE,diagnostic species set,3. shrub,betshr,Birch Shrubs,Betula nana ssp. exilis
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix alaxensis
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix alaxensis var. alaxensis
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix alaxensis var. longistylis
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix arbusculoides
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix athabascensis
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix barclayi
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix barrattiana
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix bebbiana
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix candida
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix commutata
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix glauca
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix glauca ssp. acutifolia
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix glauca ssp. stipulifera
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix hastata
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix hookeriana
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix interior
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix lasiandra
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix lasiandra var. caudata
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix lasiandra var. lasiandra
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix niphoclada
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix planifolia
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix prolixa
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix pseudomonticola
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix pseudomyrsinites
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix pulchra
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix richardsonii
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix scouleriana
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix setchelliana
+TRUE,TRUE,diagnostic species set,3. shrub,ndsalix,Willow Shrubs,Salix sitchensis
+TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron Shrubs,Rhododendron
+TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron Shrubs,Rhododendron groenlandicum
+TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron Shrubs,Rhododendron lapponicum
+TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron Shrubs,Rhododendron lapponicum ssp. alpinum
+TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron Shrubs,Rhododendron tomentosum
+TRUE,TRUE,diagnostic species set,3. shrub,rhoshr,Rhododendron Shrubs,Rhododendron tomentosum ssp. decumbens
+TRUE,TRUE,diagnostic species set,3. shrub,rubspe,Salmonberry,Rubus spectabilis
+TRUE,TRUE,diagnostic species set,3. shrub,vaculi,Low Blueberry Shrubs,Vaccinium uliginosum
+TRUE,TRUE,diagnostic species set,3. shrub,vaculi,Low Blueberry Shrubs,Vaccinium caespitosum
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas Dwarf Shrubs,Dryas
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas Dwarf Shrubs,Dryas ajanensis
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas Dwarf Shrubs,Dryas ajanensis ssp. beringensis
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas Dwarf Shrubs,Dryas alaskensis
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas Dwarf Shrubs,Dryas drummondii
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas Dwarf Shrubs,Dryas hookeriana
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas Dwarf Shrubs,Dryas integrifolia
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas Dwarf Shrubs,Dryas integrifolia ssp. integrifolia
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dryas,Dryas Dwarf Shrubs,Dryas integrifolia ssp. sylvatica
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix arctica
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix arctophila
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix chamissonis
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix nummularia
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix ovalifolia
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix ovalifolia var. arctolitoralis
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix ovalifolia var. cyclophylla
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix ovalifolia var. glacialis
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix ovalifolia var. ovalifolia
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix phlebophylla
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix polaris
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix reticulata
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix rotundifolia
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix rotundifolia var. dodgeana
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix rotundifolia var. rotundifolia
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix sphenophylla
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix sphenophylla ssp. pseudotorulosa
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,dsalix,Willow Dwarf Shrubs,Salix stolonifera
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,empnig,Crowberry,Empetrum
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,empnig,Crowberry,Empetrum nigrum
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Cassiope
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Cassiope lycopodioides
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Cassiope mertensiana
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Cassiope tetragona
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Cassiope tetragona ssp. saximontana
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Cassiope tetragona ssp. tetragona
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Empetrum
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Empetrum nigrum
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Harrimanella
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Harrimanella stelleriana
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Phyllodoce
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Phyllodoce aleutica
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Phyllodoce caerulea
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Phyllodoce empetriformis
+TRUE,TRUE,diagnostic species set,4. dwarf shrub,nerishr,Needleleaf Ericaceous Shrubs,Phyllodoce glanduliflora
+FALSE,TRUE,diagnostic species set,4. dwarf shrub,vacvit,Lingonberry,Vaccinium vitis-idaea
+TRUE,TRUE,diagnostic species set,5. graminoid,erivag,Tussock Cottongrass,Eriophorum vaginatum
+FALSE,TRUE,functional group,5. graminoid,gramin,Graminoids,graminoid
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Calamagrostis deschampsioides
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Carex glareosa
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Carex glareosa ssp. glareosa
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Carex glareosa ssp. pribylovensis
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Carex lyngbyei
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Carex ramenskii
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Carex subspathacea
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Carex ursina
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Puccinellia alaskana
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Puccinellia andersonii
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Puccinellia angustata
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Puccinellia geniculata
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Puccinellia nutkaensis
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Puccinellia phryganodes
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Puccinellia pumila
+TRUE,TRUE,diagnostic species set,5. graminoid,halgra,Halophytic Graminoids,Puccinellia vaginata
+TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,Mesic-wet Calamagrostis,Calamagrostis canadensis
+TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,Mesic-wet Calamagrostis,Calamagrostis canadensis ssp. canadensis
+TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,Mesic-wet Calamagrostis,Calamagrostis canadensis ssp. langsdorffii
+TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,Mesic-wet Calamagrostis,Calamagrostis inexpansa
+TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,Mesic-wet Calamagrostis,Calamagrostis neglecta
+TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,Mesic-wet Calamagrostis,Calamagrostis neglecta ssp. groenlandica
+TRUE,TRUE,diagnostic species set,5. graminoid,mwcalama,Mesic-wet Calamagrostis,Calamagrostis neglecta ssp. neglecta
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Agrostis clavata
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Alopecurus aequalis
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Alopecurus geniculatus
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Arctophila fulva
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Beckmannia syzigachne
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Catabrosa aquatica
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Deschampsia brevifolia
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Deschampsia sukatschewii ssp. borealis
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Glyceria borealis
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Glyceria grandis
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Glyceria grandis var. grandis
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Glyceria grandis var. komarovii
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Glyceria leptostachya
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Glyceria pulchella
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Glyceria striata
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus alpinoarticulatus
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus alpinoarticulatus ssp. americanus
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus arcticus
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus arcticus ssp. alaskanus
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus articulatus
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus balticus
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus balticus ssp. ater
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus biglumis
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus bufonius
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus effusus
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus haenkei
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus mertensianus
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus minutulus
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus nodosus
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus ranarius
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus stygius
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus stygius ssp. americanus
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Juncus supiniformis
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Phalaris arundinacea
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Phalaris arundinacea (cultivar)
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Phippsia algida
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Podagrostis aequivalvis
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Scolochloa festucacea
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Triglochin maritima
+TRUE,FALSE,diagnostic species set,5. graminoid,wetgram,Wetland Grasses and Rushes,Triglochin palustris
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex adelostoma
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex aquatilis
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex arcta
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex bicolor
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex chordorrhiza
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex diandra
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex echinata
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex echinata ssp. echinata
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex echinata ssp. phyllomanica
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex enanderi
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex glareosa
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex glareosa ssp. glareosa
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex glareosa ssp. pribylovensis
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex gynocrates
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex holostoma
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex interior
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex kellogii
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex lachenalii
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex lasiocarpa
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex laxa
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex leptalea
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex leptalea ssp. leptalea
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex limosa
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex livida
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex lyngbyei
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex marina
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex marina ssp. marina
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex membranacea
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex microglochin
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex pauciflora
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex paupercula
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex pluriflora
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex rariflora
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex rostrata
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex rotundata
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex saxatilis
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex saxatilis ssp. laxa
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex sitchensis
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex utriculata
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex vaginata
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex viridula
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Carex viridula ssp. viridula
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum ×medium
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum ×medium ssp. album
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum angustifolium
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum chamissonis
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum gracile
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum gracile ssp. gracile
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum komarovii
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum russeolum
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum russeolum ssp. leiocarpum
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum scheuchzeri
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum scheuchzeri ssp. arcticum
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum scheuchzeri ssp. scheuchzeri
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum triste
+TRUE,TRUE,diagnostic species set,5. graminoid,wetsed,Wetland Sedges,Eriophorum viridicarinatum
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Atriplex gmelinii
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Atriplex gmelinii var. alaskensis
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Atriplex gmelinii var. gmelinii
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Cakile edentula 
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Cakile edentula ssp. edentula
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Carex gmelinii
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Carex macrocephala
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Hockenya peploides
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Honckenya peploides ssp. diffusa
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Honckenya peploides ssp. major
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Lathyrus japonicus
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Leymus mollis
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Leymus mollis ssp. mollis
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Leymus mollis ssp. villosissimus
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Mertensia maritima
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Mertensia maritima ssp. asiatica
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Mertensia maritima ssp. tenella
+TRUE,TRUE,diagnostic species set,6. forb,beach,Beach Herbaceous,Senecio pseudoarnica
+FALSE,TRUE,functional group,6. forb,forb,Forbs,forb
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Acorus americanus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Alisma triviale
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Bidens cernua
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Brasenia schreberi
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Calla palustris
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Callitriche anceps
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Callitriche hermaphroditica
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Callitriche heterophylla
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Callitriche palustris
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Caltha biflora
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Caltha leptosepala
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Caltha natans
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Caltha palustris
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Caltha palustris ssp. asarifolia
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Caltha palustris ssp. radicans
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Ceratophyllum demersum
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Chrysosplenium tetrandrum
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Cicuta bulbifera
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Cicuta douglasii
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Cicuta virosa
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Comarum palustre
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Coptidium lapponicum
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Coptidium pallasii
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Cotula coronopifolia
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Crassula aquatica
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Drosera anglica
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Drosera rotundifolia
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Elodea canadensis
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Epilobium davuricum
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Epilobium leptophyllum
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Epilobium palustre
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Halerpestes cymbalaria
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Hippuris lanceolata
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Hippuris montana
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Hippuris tetraphylla
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Hippuris vulgaris
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Koenigia islandica
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lathyrus palustris
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lathyrus palustris ssp. pilosus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lemna minor
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lemna trisulca
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lemna turionifera
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Limosella aquatica
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lobelia dortmanna
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lomatogonium rotatum
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lomatogonium rotatum ssp. rotatum
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lomatogonium rotatum ssp. tenuifolium
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lycopus lucidus ssp. americanus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lycopus uniflorus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lysichiton americanus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lysimachia maritima
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lysimachia thyrsiflora
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Lythrum salicaria
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Malaxis paludosa
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Menyanthes trifoliata
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Microseris borealis
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Mimulus guttatus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Montia chamissoi
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Montia fontana
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Myriophyllum farwellii
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Myriophyllum sibiricum
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Myriophyllum verticillatum
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Najas flexilis
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Nasturtium officinale
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Nephrophyllidium crista-galli
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Nuphar polysepala
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Nymphaea odorata
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Nymphaea odorata ssp. odorata
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Nymphaea tetragona
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Oenanthe sarmentosa
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Oxybasis rubra
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Oxybasis rubra var. humilis
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Oxybasis rubra var. rubra
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Pedicularis chamissonis
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Persicaria amphibia
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Persicaria amphibia ssp. laevimarginata
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Persicaria hydropiperoides
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Phyllospadix scouleri
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Pinguicula villosa
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Pinguicula vulgaris
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Pinguicula vulgaris ssp. macroceras
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Pinguicula vulgaris ssp. vulgaris
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Platanthera chorisiana
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Platanthera huronensis
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton alpinus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton alpinus ssp. tenuifolius
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton berchtoldii
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton epihydrus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton foliosus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton foliosus ssp. foliosus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton friesii
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton gramineus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton natans
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton obtusifolius
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton praelongus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton richardsonii
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton robbinsii
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton subsibiricus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Potamogeton zosteriformis
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Primula cuneifolia
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Primula cuneifolia ssp. cuneifolia
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Primula cuneifolia ssp. saxifragifolia
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Ranunculus hyperboreus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Ranunculus hyperboreus ssp. arnellii
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Ranunculus hyperboreus ssp. hyperboreus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Ranunculus mongolicus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Ranunculus sceleratus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Ranunculus sceleratus ssp. multifidus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Ranunculus subrigidus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Ranunculus trichophyllus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Rumex occidentalis
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Rumex occidentalis ssp. fenestratus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Ruppia cirrhosa
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Ruppia maritima
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Sagittaria cuneata
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Salicornia depressa
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Saxifraga bracteata
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Saxifraga hirculus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Saxifraga hirculus ssp. compacta
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Saxifraga hirculus ssp. hirculus
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Saxifraga hirculus ssp. propinqua
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Saxifraga hyperborea
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Saxifraga rivularis
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Saxifraga rivularis ssp. arctolitoralis
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Scheuchzeria palustris
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Scheuchzeria palustris ssp. americana
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Scutellaria galericulata
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Scutellaria galericulata ssp. pubescens
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Sium suave
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Sparganium angustifolium
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Sparganium emersum
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Sparganium hyperboreum
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Sparganium multipedunculatum
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Sparganium natans
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Spiranthes romanzoffiana
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Stellaria humifusa
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Stuckenia filiformis
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Stuckenia filiformis ssp. borealis
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Stuckenia filiformis ssp. occidentalis
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Stuckenia pectinata
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Stuckenia vaginata
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Subularia aquatica
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Subularia aquatica ssp. americana
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Subularia aquatica ssp. aquatica
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Symphyotrichum boreale
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Typha latifolia
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Utricularia intermedia
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Utricularia minor
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Utricularia ochroleuca
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Utricularia vulgaris ssp. macrorhiza
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Veronica americana
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Veronica anagallis-aquatica
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Veronica scutellata
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Veronica serpyllifolia
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Veronica serpyllifolia ssp. humifusa
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Veronica serpyllifolia ssp. serpyllifolia
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Zannichellia palustris
+FALSE,TRUE,diagnostic species set,6. forb,wetforb,Wetland Forbs,Zostera marina
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Calliergon
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Calliergon cordifolium
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Calliergon giganteum
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Calliergon megalophyllum
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Calliergon richardsonii
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Calliergonella
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Calliergonella cuspidata
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Drepanocladus
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Drepanocladus aduncus
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Drepanocladus arcticus
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Drepanocladus latinervis
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Drepanocladus longifolius
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Drepanocladus polygamus
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Drepanocladus sordidus
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Hamatocaulis
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Hamatocaulis lapponicus
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Hamatocaulis vernicosus
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Loeskypnum
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Loeskypnum badium
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Loeskypnum wickesiae
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Meesia
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Meesia triquetra
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Meesia uliginosa
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Pseudocalliergon
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Pseudocalliergon angustifolium
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Pseudocalliergon brevifolium
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Pseudocalliergon trifarium
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Pseudocalliergon turgescens
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Sarmentypnum
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Sarmentypnum exannulatum
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Sarmentypnum pseudosarmentosum
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Sarmentypnum sarmentosum
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Sarmentypnum trichophyllum
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Sarmentypnum tundrae
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Scorpidium
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Warnstorfia
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Warnstorfia fluitans
+FALSE,FALSE,diagnostic species set,7. bryophyte,bromos,Brown Moss,Warnstorfia pseudostraminea
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Abietinella
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Abietinella abietina
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Antitrichia
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Antitrichia californica
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Antitrichia curtipendula
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachytheciastrum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachytheciastrum trachypodium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium acutum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium albicans
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium asperrimum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium boreale
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium cirrosum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium coruscum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium erythrorrhizon
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium erythrorrhizon var. erythrorrhizon
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium frigidum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium jacuticum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium rivulare
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium rotaeanum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium turgidum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Brachythecium udum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Bryhnia
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Bryhnia hultenii
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Buckiella
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Buckiella undulata
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Cirriphyllum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Cirriphyllum piliferum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Claopodium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Claopodium bolanderi
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Claopodium crispifolium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Claopodium pellucinerve
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Climacium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Climacium americanum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Climacium dendroides
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Ctenidium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Ctenidium molluscum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Ctenidium schofieldii
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Echinophyllum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Echinophyllum sachalinense
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Elodium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Elodium blandowii
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Elodium paludosum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Eurhynchiastrum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Eurhynchiastrum pulchellum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Eurhynchiastrum pulchellum var. barnesii
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Eurhynchiastrum pulchellum var. pulchellum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Gollania
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Gollania turgens
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Herzogiella
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Herzogiella adscendens
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Herzogiella striatella
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Homalothecium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Homalothecium aeneum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Homalothecium fulgescens
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Homalothecium nuttallii
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Hylocomiadelphus
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Hylocomiadelphus triquetrus
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Hylocomiastrum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Hylocomiastrum pyrenaicum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Hylocomiastrum umbratum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Hylocomium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Hylocomium splendens
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Hypopterygium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Hypopterygium flavolimbatum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Isothecium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Isothecium cardotii
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Isothecium myosuroides
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Isothecium stoloniferum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Kindbergia
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Kindbergia oregana
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Kindbergia praelonga
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Leptopterigynandrum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Leptopterigynandrum austroalpinum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Lescuraea
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Lescuraea saxicola
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Leskea
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Leskea polycarpa
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Leskeella
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Leskeella nervosa
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Myuroclada
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Myuroclada maximowiczii
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Neckera
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Neckera douglasii
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Neckera menziesii
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Neckera pennata
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pleuroziopsis
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pleuroziopsis ruthenica
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pleurozium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pleurozium schreberi
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskea
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskea atricha
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskea baileyi
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskea incurvata
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskea incurvata var. incurvata
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskea patens
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskea radicosa
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskea radicosa var. denudata
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskea radicosa var. radicosa
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskea saviana
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskea stenophylla
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskeella
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskeella rupestris
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudoleskeella tectorum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudostereodon
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Pseudostereodon procerrimus
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Rhytidiadelphus
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Rhytidiadelphus japonicus
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Rhytidiadelphus loreus
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Rhytidiadelphus squarrosus
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Rhytidiadelphus subpinnatus
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Rhytidiopsis
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Rhytidiopsis robusta
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Rhytidium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Rhytidium rugosum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Roaldia
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Roaldia revoluta
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Roaldia revoluta var. revoluta
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Sciuro-hypnum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Sciuro-hypnum hylotapetum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Sciuro-hypnum latifolium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Sciuro-hypnum oedipodium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Sciuro-hypnum ornellanum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Sciuro-hypnum plumosum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Sciuro-hypnum populeum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Sciuro-hypnum reflexum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Sciuro-hypnum uncinifolium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Scleropodium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Scleropodium obtusifolium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Thamnobryum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Thamnobryum neckeroides
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Thuidium
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Thuidium delicatulum
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Thuidium delicatulum var. radicans
+FALSE,TRUE,diagnostic species set,7. bryophyte,feather,Feathermoss,Thuidium recognitum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum alaskense
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum andersonianum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum angustifolium
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum annulatum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum aongstroemii
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum arcticum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum austinii
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum balticum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum bartlettianum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum bergianum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum beringiense
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum brevifolium
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum capillifolium
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum compactum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum contortum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum cuspidatum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum fimbriatum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum fimbriatum ssp. concinnum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum fimbriatum ssp. fimbriatum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum fuscum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum girgensohnii
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum henryense
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum imbricatum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum inexspectatum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum inundatum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum jensenii
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum kenaiense
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum lenense
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum lindbergii
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum magellanicum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum majus
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum majus ssp. majus
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum majus ssp. norvegicum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum mendocinum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum mirum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum moss
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum obtusum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum orientale
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum pacificum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum papillosum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum perfoliatum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum platyphyllum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum pulchrum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum quinquefarium
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum riparium
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum rubellum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum rubiginosum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum russowii
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum sitchense
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum squarrosum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum steerei
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum subfulvum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum subnitens
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum subsecundum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum talbotianum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum tenellum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum teres
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum tescorum
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum tundrae
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum warnstorfii
+FALSE,TRUE,diagnostic species set,7. bryophyte,sphagn,Sphagnum Moss,Sphagnum wilfii
+FALSE,TRUE,functional group,8. lichen,lichen,Lichen,lichen
+TRUE,TRUE,abiotic,9. abiotic,bare,Bare Ground,n/a
+TRUE,TRUE,none,9. abiotic,water,Peak Growing Season Sub-canopy Surface Water,n/a

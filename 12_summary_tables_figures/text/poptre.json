@@ -1,8 +1,0 @@
-{
-  "title": "Aspen (<i>Populus tremuloides</i>)",
-  "name": "aspen",
-  "rationale": "LightGBM provided the best quantitative performance. We removed all summer warmth index and mean annual precipitation covariates because of visible artifacts associated with the coarse resolution of those data.",
-  "description": "The aspen diagnostic species set consists only of <i>Populus tremuloides</i> Michx. This species occurs throughout the boreal bioclimatic zone of the map domain. While it is common and widespread in Yukon and Eastern Alaska, it becomes more sporadic moving west. Along the western side of its range, it becomes somewhat uncommon. In the Alaska Pacific vegetation region, <i>Populus tremuloides</i> occurs away from the immediate vicinity of the coast and in areas that receive less annual precipitation than the rest of the region, such as Haines.",
-  "species": [
-  ]
-}

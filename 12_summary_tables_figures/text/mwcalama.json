@@ -1,8 +1,0 @@
-{
-  "title": "Mesic-wet <i>Calamagrostis</i>",
-  "name": "mesic-wet <i>Calamagrostis</i>",
-  "rationale": "LightGBM provided the best quantitative performance.",
-  "description": "The mesic-wet <i>Calamagrostis</i> diagnostic species set consists of species in the genus <i>Calamagrostis</i> that typically grow in mesic to wet soil conditions: <i>Calamagrostis canadensis</i> (Michx.) P. Beauv.; <i>Calamagrostis inexpansa</i> A. Gray; and <i>Calamagrostis neglecta</i> (Ehrh.) G. Gaertn., B. Mey. & Scherb. As a set, these species are common and widespread throughout the map domain, except in the Arctic Northern vegetation region. Of the constituent species, <i>Calamagrostis canadensis</i> is the most widespread and the most frequently dominant or co-dominant. While the other two species are primarily boreal and Arctic, <i>Calamagrostis canadensis</i> is common in the temperate bioclimatic zone as well. This diagnostic species set is especially important in the southern half of the map domain and in recently burned areas in the boreal bioclimatic zone.",
-  "species": [
-  ]
-}

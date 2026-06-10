@@ -1,8 +1,0 @@
-{
-  "title": "Tussock Cottongrass (<i>Eriophorum vaginatum</i>)",
-  "name": "tussock cottongrass",
-  "rationale": "LightGBM provided the best quantitative performance.",
-  "description": "The tussock cottongrass diagnostic species set consists only of <i>Eriophorum vaginatum</i> L. This species is frequently dominant in the Arctic bioclimatic zone and Alaska Southwest vegetation regions. It also occurs in the boreal bioclimatic zone but is generally absent from the temperate and northern subpolar oceanic bioclimatic zones. <i>Eriophorum vaginatum</i> consistently forms tussocks that elevate the root system above cold, wet soil horizons, thus engineering more mesic microhabitat. <i>Carex bigelowii</i> Torr. ex Schwein. also forms tussocks but does not do so consistently (unless a tussock-forming <i>Carex lugens</i> Holm is split apart from <i>Carex bigelowii</i>). This diagnostic species set tends to also represent tussocks formed by <i>Carex bigelowii</i> in the boreal bioclimatic zone. We do not explicitly include tussock-forming <i>Carex bigelowii</i> in this diagnostic species set, however, because existing field data lack detail to separate tussock-forming <i>Carex bigelowii</i> from non-tussock-forming <i>Carex bigelowii</i>.",
-  "species": [
-  ]
-}

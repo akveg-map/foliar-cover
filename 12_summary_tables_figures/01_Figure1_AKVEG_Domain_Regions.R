@@ -16,6 +16,9 @@ library(sf)
 library(terra)
 library(tidyterra)
 
+# Define version date
+version_date = 'version_20260415'
+
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
 
@@ -24,10 +27,10 @@ drive = 'C:'
 root_folder = 'ACCS_Work'
 
 # Define folder structure
-project_folder = path(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map')
-base_folder = path(project_folder, 'Data/Data_Input/basemap')
-region_folder = path(project_folder, 'Data/Data_Input/region_data')
-output_folder = path(project_folder, 'Documents/Manuscript_FoliarCover_FloristicGradients/figures')
+project_folder = path(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map/Data')
+base_folder = path(project_folder, 'Data_Input/basemap')
+region_folder = path(project_folder, 'Data_Input/region_data')
+output_folder = path(project_folder, 'Data_Output/summary_results', version_date)
 
 # Define input files
 ocean_input = path(base_folder, 'Basemap_Ocean_3338.shp')

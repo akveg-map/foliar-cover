@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # ---------------------------------------------------------------------------
-# Figure 7. Boreal map results
+# Figure 6. Boreal map results
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2025-12-16
+# Last Updated: 2026-06-07
 # Usage: Must be executed in a R 4.4.3+ installation.
-# Description: "Figure 7. Boreal map results" creates a map figure for publication that shows three select foliar cover maps in the Alaska Pacific region.
+# Description: "Figure 6. Boreal map results" creates a map figure for publication that shows three select foliar cover maps in the Alaska Pacific region.
 # ---------------------------------------------------------------------------
 
 # Import required libraries
@@ -19,7 +19,7 @@ library(tidyterra)
 library(magick)
 
 # Set round date
-round_date = 'version_2.0_20250103'
+round_date = 'version_20260415'
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
@@ -29,27 +29,28 @@ drive = 'C:'
 root_folder = 'ACCS_Work'
 
 # Define folder structure
-project_folder = path(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map')
-raster_folder = path(project_folder, 'Data/Data_Output/data_package', round_date)
-base_folder = path(project_folder, 'Data/Data_Input/basemap')
-region_folder = path(project_folder, 'Data/Data_Input/region_data')
-output_folder = path(project_folder, 'Documents/Manuscript_FoliarCover_FloristicGradients/figures')
+project_folder = path(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map/Data')
+raster_folder = path(project_folder, 'Data_Output/rasters_final', round_date)
+base_folder = path(project_folder, 'Data_Input/basemap')
+region_folder = path(project_folder, 'Data_Input/region_data')
+output_folder = path(project_folder, 'Data_Output/summary_results', round_date)
+imagery_folder = path(output_folder, 'imagery')
 
 # Define input files
-imagery_input = path(output_folder, 'data', 'Figure7_Imagery_0.5m_3338.jpg')
-picgla_input = path(raster_folder, 'picgla/picgla_10m_3338.tif')
-populbt_input = path(raster_folder, 'populbt/populbt_10m_3338.tif')
-ndsalix_input = path(raster_folder, 'ndsalix/ndsalix_10m_3338.tif')
-alnus_input = path(raster_folder, 'alnus/alnus_10m_3338.tif')
+imagery_input = path(imagery_folder, 'Figure6_Imagery_0.5m_3338.jpg')
+picgla_input = path(raster_folder, 'picgla_Cvr_10m_3338.tif')
+populbt_input = path(raster_folder, 'populbt_Cvr_10m_3338.tif')
+ndsalix_input = path(raster_folder, 'ndsalix_Cvr_10m_3338.tif')
+alnus_input = path(raster_folder, 'alnus_Cvr_10m_3338.tif')
 ocean_input = path(base_folder, 'Basemap_Ocean_3338.shp')
 russia_input = path(region_folder, 'Russia_Coastline_3571.shp')
 na_input = path(region_folder, 'NorthAmerica_Coastline_4269.shp')
 river_input = path(base_folder, 'NaturalEarth_10m_Rivers_Centerlines.shp')
-domain_input = path(region_folder, 'AlaskaYukon_MapDomain_v2.0_3338.shp')
-region_input = path(region_folder, 'AlaskaYukon_Regions_v2.0_3338.shp')
+domain_input = path(region_folder, 'AlaskaYukon_MapDomain_v2p1_3338.shp')
+region_input = path(region_folder, 'AlaskaYukon_USNVC_ZonesRegions_v2p1_3338.shp')
 
 # Define output files
-figure_output = path(output_folder, 'Figure7_Boreal_Map_Results.jpg')
+figure_output = path(output_folder, 'Figure6_Boreal_Map_Results.jpg')
 
 #### CREATE DETAIL PLOTS
 ####____________________________________________________

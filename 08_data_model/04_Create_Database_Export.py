@@ -17,7 +17,7 @@ from akutils import connect_database_postgresql
 from akutils import query_to_dataframe
 
 # Set version date
-version_date = '20260326'
+version_date = '20260415'
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
@@ -48,7 +48,7 @@ domain_input = os.path.join(project_folder,
                             'AlaskaYukon_MapDomain_v2p1_3338.shp')
 region_input = os.path.join(project_folder,
                             'Data/Data_Input/region_data',
-                            'AlaskaYukon_Regions_v2.0_3338.shp')
+                            'AlaskaYukon_USNVC_ZonesRegions_v2p1_3338.shp')
 validation_input = os.path.join(project_folder,
                                 'Data/Data_Input/grid_data',
                                 'AlaskaYukon_100_Tiles_3338.tif')

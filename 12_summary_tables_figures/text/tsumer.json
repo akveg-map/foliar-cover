@@ -1,8 +1,0 @@
-{
-  "title": "Mountain Hemlock (<i>Tsuga mertensiana</i>)",
-  "name": "mountain hemlock",
-  "rationale": "LightGBM provided the best quantitative performance. We removed all climate covariates because of visible artifacts associated with the coarse resolution of those data.",
-  "description": "The mountain hemlock diagnostic species set consists only of <i>Tsuga mertensiana</i> (Bong.) Carrière. <i>Tsuga mertensiana</i> is common and widespread throughout the temperate bioclimatic zone of the map domain, but occasionally extends into the southernmost portion of the boreal bioclimatic zone (e.g., western Kenai Mountains and western side of Cook Inlet). On the northern edge of its range, <i>Tsuga mertensiana</i> commonly occurs at sea level, but it is replaced by <i>Tsuga heterophylla</i> near sea level in warmer parts of their shared ranges.",
-  "species": [
-  ]
-}

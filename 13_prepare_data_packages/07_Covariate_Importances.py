@@ -1,3 +1,11 @@
+# ---------------------------------------------------------------------------
+# Compile and plot covariate importances
+# Author: Timm Nawrocki, Alaska Center for Conservation Science
+# Last Updated: 2026-06-07
+# Usage: Must be executed in a Python 3.12+ installation.
+# Description: "Compile and plot covariate importances" standardizes covariate importances per diagnostic species set, model type (i.e., classifier or regressor), and outer cross-validation iteration. This script outputs summary plots and a single summary table.
+# ---------------------------------------------------------------------------
+
 # Import libraries
 import pandas as pd
 import plotly.express as px
@@ -8,8 +16,8 @@ import kaleido
 # Initialize kaleido
 kaleido.get_chrome_sync()
 
-# Set round date
-round_date = 'round_20241124'
+# Set version date
+version_date = '20260415'
 
 # Define colors and patterns
 plot_colors = {'classifier': "#36648B", 'regressor': "#53868B"}
@@ -26,27 +34,36 @@ drive = 'C:/'
 root_folder = 'ACCS_Work'
 
 # Define folder structure
-project_folder = os.path.join(drive, root_folder,
-                           'Projects/VegetationEcology/AKVEG_Map')
-data_folder = os.path.join(project_folder,
-                           'Data/Data_Output/model_results', round_date)
-plot_folder = os.path.join(project_folder,
-                           'Documents/Manuscript_FoliarCover_FloristicGradients/appendix_s1/figures')
+project_folder = os.path.join(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map')
+input_folder = os.path.join(project_folder, f'Data/Data_Output/model_results/version_{version_date}')
+output_folder = os.path.join(project_folder, f'Data/Data_Output/summary_results/version_{version_date}')
+plots_folder = os.path.join(output_folder, 'plots')
 
-# Define indicators
-indicators = ['alnus', 'betshr', 'bettre', 'brotre', 'dryas', 'dsalix', 'empnig', 'erivag',
-              'mwcalama', 'ndsalix', 'nerishr', 'picgla', 'picmar', 'picsit', 'poptre',
-              'populbt', 'rhoshr', 'rubspe', 'sphagn', 'tsumer', 'vaculi', 'vacvit', 'wetsed']
+# Define output files
+covariate_output = os.path.join(output_folder, 'Covariate_Summary.csv')
 
-# Loop through indicators
-for indicator in indicators:
-    print(f'Creating plot for {indicator}...')
+# Define diagnostic species sets
+diagnostic_sets = ['alnus', 'bderishr', 'beach', 'betshr', 'bettre', 'brotre',
+                   'dryas', 'dsalix', 'empnig', 'erivag', 'feather', 'forb', 'gramin',
+                   'halgra', 'lichen', 'mwcalama', 'ndsalix', 'neetre', 'nerishr',
+                   'picgla', 'picmar', 'picsit', 'poptre', 'populbt', 'rhoshr', 'rubspe',
+                   'sphagn', 'tsuhet', 'tsumer', 'vaculi', 'vacvit', 'wetforb', 'wetsed']
+
+#### STANDARDIZE COVARIATE IMPORTANCES
+####____________________________________________________
+
+# Initialize list to store all standardized importances across all diagnostic species sets
+importance_list = []
+
+# Loop through diagnostic species sets
+for diagnostic_set in diagnostic_sets:
+    print(f'Standardizing importances for {diagnostic_set}...')
 
     # Define input data
-    importance_input = os.path.join(data_folder, indicator, f'{indicator}_importances.csv')
+    importance_input = os.path.join(input_folder, diagnostic_set, f'{diagnostic_set}_importances.csv')
 
     # Define output files
-    importance_output = os.path.join(plot_folder, f'figure_importance_{indicator}.png')
+    importance_output = os.path.join(plots_folder, f'figure_importance_{diagnostic_set}.png')
 
     # Read importance data
     importance_data = pd.read_csv(importance_input)
@@ -58,8 +75,7 @@ for indicator in indicators:
     classifier_data = pd.DataFrame(columns=importance_data.columns)
 
     # Standardize importances per outer cv iteration
-    outer_cv_i = 1
-    while outer_cv_i <= 10:
+    for outer_cv_i in range(1, 11):
         # Select classifier importances for iteration
         subset_data = importance_data[(importance_data['component'] == 'classifier')
                                       & (importance_data['outer_cv_i'] == outer_cv_i)].copy()
@@ -75,15 +91,18 @@ for indicator in indicators:
                                      subset_data],
                                     axis=0)
 
-        # Increase count
-        outer_cv_i += 1
-
-    # Group by covariate and calculate statistics
+    # Group by covariate and calculate statistics for plotting
     classifier_data = (classifier_data
                        .groupby('covariate')['importance']
                        .agg(['mean', 'std'])
                        .reset_index())
     classifier_data.rename(columns={'mean': 'importance_mean', 'std': 'importance_std'}, inplace=True)
+
+    # Append classifier data to importance list
+    classifier_export = classifier_data.copy()
+    classifier_export['component'] = 'classifier'
+    classifier_export['diagnostic_set'] = diagnostic_set
+    importance_list.append(classifier_export)
 
     # Append identifier to covariate to distinguish classifier and regressor covariates
     classifier_data['covariate'] = classifier_data['covariate'] + ' '
@@ -99,9 +118,8 @@ for indicator in indicators:
     regressor_data = pd.DataFrame(columns=importance_data.columns)
 
     # Standardize importances per outer cv iteration
-    outer_cv_i = 1
-    while outer_cv_i <= 10:
-        # Select classifier importances for iteration
+    for outer_cv_i in range(1, 11):
+        # Select classifier importances for iteration (note: filtering for 'regressor' component)
         subset_data = importance_data[(importance_data['component'] == 'regressor')
                                       & (importance_data['outer_cv_i'] == outer_cv_i)].copy()
 
@@ -116,15 +134,18 @@ for indicator in indicators:
                                      subset_data],
                                     axis=0)
 
-        # Increase count
-        outer_cv_i += 1
-
-    # Group by covariate and calculate statistics
+    # Group by covariate and calculate statistics for plotting
     regressor_data = (regressor_data
                        .groupby('covariate')['importance']
                        .agg(['mean', 'std'])
                        .reset_index())
     regressor_data.rename(columns={'mean': 'importance_mean', 'std': 'importance_std'}, inplace=True)
+
+    # Append regressor data to importance list
+    regressor_export = regressor_data.copy()
+    regressor_export['component'] = 'regressor'
+    regressor_export['diagnostic_set'] = diagnostic_set
+    importance_list.append(regressor_export)
 
     # Sort, take top 10, and tag component
     regressor_data = regressor_data.sort_values(by='importance_mean', ascending=False).head(10)
@@ -161,7 +182,7 @@ for indicator in indicators:
         trace.textposition = 'outside'
         trace.textfont = dict(size=14, color = 'black')
 
-    # Customize Layout to match ggplot style
+    # Update layout
     importance_plot.update_layout(
         title=None,
         width=1000,
@@ -185,10 +206,10 @@ for indicator in indicators:
     # Rotate the x-axis labels
     importance_plot.update_xaxes(tickangle=45)
 
-    # Update error bar style to be black and thinner
+    # Update error bar style
     importance_plot.update_traces(error_y=dict(color='#000000', thickness=1.5, width=3))
 
-    # Sort X-axis by descending value (mimicking reorder)
+    # Sort X-axis by descending value
     importance_plot.update_xaxes(categoryorder='total descending')
 
     # Export plot
@@ -200,3 +221,17 @@ for indicator in indicators:
         height=500,
         scale=3
     )
+
+#### EXPORT COVARIATE IMPORTANCE TABLE
+####____________________________________________________
+
+print('Compiling and exporting importance table...')
+importance_data = pd.concat(importance_list, ignore_index=True)
+
+# Format results
+importance_data['importance_mean'] = importance_data['importance_mean'].round(2)
+importance_data['importance_std'] = importance_data['importance_std'].round(2)
+importance_data = importance_data[['diagnostic_set', 'component', 'covariate', 'importance_mean', 'importance_std']]
+
+# Export importance table
+importance_data.to_csv(covariate_output, index=False)

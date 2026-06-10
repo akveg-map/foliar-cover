@@ -1,8 +1,0 @@
-{
-  "title": "Birch Trees (<i>Betula</i> spp.)",
-  "name": "birch trees",
-  "rationale": "LightGBM provided the best quantitative performance.",
-  "description": "The birch trees diagnostic species set consists primarily of <i>Betula neoalaskana</i> Sarg., which is common throughout the boreal bioclimatic zone of Alaska and Yukon. <i>Betula kenaica</i> W.H. Evans also occurs in the Alaska Pacific, Alaska-Yukon Southern, and Alaska Southwest vegetation regions, often near the Pacific coast. <i>Betula papyrifera</i> Marshall occurs in Alaska only in the vicinity of Haines. In the past, <i>Betula neoalaskana</i> and <i>Betula kenaica</i> have commonly been considered as belonging within a broad <i>Betula papyrifera</i>. Thus, many of the observations within the map domain of <i>Betula papyrifera</i> refer to <i>Betula neoalaskana</i> or <i>Betula kenaica</i>.",
-  "species": [
-  ]
-}

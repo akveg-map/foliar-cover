@@ -1,9 +1,9 @@
 # ---------------------------------------------------------------------------
-# Summarize training data
+# Table 1. Individual Performance
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
 # Last Updated: 2026-05-26
 # Usage: Must be executed in a Python 3.12+ installation.
-# Description: "Calculate performance table" calculates a table of performance metrics at the site scale and landscape scale for all mapped diagnostic_sets. Landscape scale data are transformed by assigning all site visits from the cross-validation results to a predefined 10 km grid, removing grids that contain less than 3 points, and calculating mean observed and predicted cover values.
+# Description: "Table 1. Individual Performance" calculates a table of performance metrics at the site scale and landscape scale for all mapped diagnostic species sets for publication. Landscape scale data are transformed by assigning all site visits from the cross-validation results to a predefined 10 km grid, removing grids that contain less than 3 points, and calculating mean observed and predicted cover values.
 # ---------------------------------------------------------------------------
 
 # Import libraries
@@ -22,23 +22,23 @@ diagnostic_sets = {'neetre': 'Needleleaf Trees',
                    'picgla': 'White Spruce',
                    'picmar': 'Black Spruce',
                    'picsit': 'Sitka Spruce',
-                   'tsuhet': 'Western Hemlock',
                    'tsumer': 'Mountain Hemlock',
+                   'tsuhet': 'Western Hemlock',
                    'brotre': 'Broadleaf Trees',
                    'bettre': 'Birch Trees',
                    'poptre': 'Aspen',
-                   'populbt': 'Poplar',
+                   'populbt': 'Poplar and Cottonwood',
                    'alnus': 'Alder Shrubs',
                    'ndsalix': 'Willow Shrubs',
                    'betshr': 'Birch Shrubs',
                    'rubspe': 'Salmonberry',
-                   'vaculi': 'Bog Blueberry',
+                   'bderishr': 'Tall Blueberry Shrubs',
+                   'vaculi': 'Low Blueberry Shrubs',
                    'rhoshr': 'Rhododendron Shrubs',
-                   'bderishr': 'Broadleaf Ericaceous Shrubs',
                    'nerishr': 'Needleleaf Ericaceous Shrubs',
                    'empnig': 'Crowberry',
                    'vacvit': 'Lingonberry',
-                   'dryas': 'Dryas Shrubs',
+                   'dryas': 'Dryas Dwarf Shrubs',
                    'dsalix': 'Willow Dwarf Shrubs',
                    'forb': 'Forbs',
                    'wetforb': 'Wetland Forbs',
@@ -75,7 +75,7 @@ performance_output = os.path.join(output_folder, 'Table1_Individual_Performance.
 
 # Define output variables
 output_variables = ['abbrev', 'diagnostic_name', 'n_presence', 'cover_mean',
-                    'r2_site', 'rmse_site', 'r2_scaled', 'rmse_scaled',]
+                    'R2_site', 'RMSE_site', 'R2_scaled', 'RMSE_scaled',]
 
 #### CALCULATE MULTI-SCALE RESULTS
 ####____________________________________________________
@@ -144,7 +144,7 @@ for diagnostic_set, diagnostic_name in diagnostic_sets.items():
     # Calculate mean and median cover for presences at the site level
     site_presences = input_data[input_data['cover_percent'] >= 3]
     n_presence = len(site_presences)
-    cover_mean = round(site_presences['cover_percent'].mean(), 1)
+    cover_mean = round(site_presences['cover_percent'].mean(), 0)
 
     # Calculate scaled performance from grid summary
     y_scaled_obs = grid_summary['mean_cover_percent'].astype(float)
@@ -163,10 +163,10 @@ for diagnostic_set, diagnostic_name in diagnostic_sets.items():
         'diagnostic_name': diagnostic_name,
         'n_presence': n_presence,
         'cover_mean': cover_mean,
-        'r2_site': r2_site,
-        'rmse_site': rmse_site,
-        'r2_scaled': round(r2_scaled, 3) if pd.notna(r2_scaled) else np.nan,
-        'rmse_scaled': round(rmse_scaled, 1) if pd.notna(rmse_scaled) else np.nan
+        'R2_site': round(r2_site, 2) if pd.notna(r2_site) else np.nan,
+        'RMSE_site': round(rmse_site, 1) if pd.notna(rmse_site) else np.nan,
+        'R2_scaled': round(r2_scaled, 2) if pd.notna(r2_scaled) else np.nan,
+        'RMSE_scaled': round(rmse_scaled, 1) if pd.notna(rmse_scaled) else np.nan
     }
 
     performance_results.append(diagnostic_set_dict)
@@ -179,7 +179,11 @@ for diagnostic_set, diagnostic_name in diagnostic_sets.items():
 
 # Convert list of dicts to DataFrame
 print('Exporting final performance table to csv...')
-performance_data = pd.DataFrame(performance_results, columns=output_variables)
+performance_data = pd.DataFrame(performance_results, columns=output_variables).rename(columns={
+    'diagnostic_name': 'Diagnostic Species Set',
+    'n_presence': 'Pres.',
+    'cover_mean': 'Mean Cover %'
+})
 
 # Export to csv
 performance_data.to_excel(performance_output, index=False)

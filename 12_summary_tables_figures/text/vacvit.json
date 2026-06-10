@@ -1,8 +1,0 @@
-{
-  "title": "Lingonberry (<i>Vaccinium vitis-idaea</i>)",
-  "name": "lingonberry",
-  "rationale": "LightGBM and Random Forests performed similarly. We selected Random Forests for the lower computational demands.",
-  "description": "The lingonberry diagnostic species set consists only of <i>Vaccinium vitis-idaea</i> L. <i>Vaccinium vitis-idaea</i> is common and widespread throughout the map domain. Although it rarely dominates or co-dominates plant communities, it occurs in a wide variety of communities at low to moderate abundances. This species is also commonly known as lowbush cranberry.",
-  "species": [
-  ]
-}

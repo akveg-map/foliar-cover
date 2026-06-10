@@ -1,8 +1,0 @@
-{
-  "title": "Black Spruce (<i>Picea mariana</i>)",
-  "name": "black spruce",
-  "rationale": "LightGBM provided the best quantitative performance.",
-  "description": "The black spruce diagnostic species set consists only of Picea mariana (Mill.) Britton, Sterns, & Poggenb.",
-  "species": [
-  ]
-}

@@ -1,9 +1,9 @@
 # ---------------------------------------------------------------------------
 # Summarize training data
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2026-05-26
+# Last Updated: 2026-06-03
 # Usage: Must be executed in a Python 3.12+ installation.
-# Description: "Parse training data" parses train-validate-test data for all diagnostic species sets.
+# Description: "Summarize training data" calculates training data metrics across all diagnostic species sets.
 # ---------------------------------------------------------------------------
 
 # Import packages

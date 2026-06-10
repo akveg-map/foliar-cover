@@ -1,8 +1,0 @@
-{
-  "title": "Crowberry (<i>Empetrum nigrum</i>)",
-  "name": "crowberry",
-  "rationale": "LightGBM provided the best quantitative performance. We removed the summer warmth and January minimum temperature covariates because of visible artifacts associated with the coarse resolution of those data.",
-  "description": "The crowberry diagnostic species set consists only of <i>Empetrum nigrum</i> L. <i>Empetrum nigrum</i> is common and widespread throughout the map domain. Although we also included this species within the needleleaf ericaceous shrubs diagnostic species set, we mapped <i>Empetrum nigrum</i> independently to represent communities where it dominates or co-dominates, especially in the Aleutian-Kamchatka vegetation region.",
-  "species": [
-  ]
-}

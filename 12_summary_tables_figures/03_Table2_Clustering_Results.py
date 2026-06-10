@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # ---------------------------------------------------------------------------
-# Compile results
+# Table 2. Clustering Results
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
 # Last Updated: 2026-05-28
 # Usage: Must be executed in a Python 3.12+ installation.
-# Description: "Compile results" creates a summary table of the ordination and clustering results from all subregions.
+# Description: "Table 2. Clustering Results" creates a summary table of the ordination and clustering results from all subregions for publication.
 # ---------------------------------------------------------------------------
 
 # Import packages

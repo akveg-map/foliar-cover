@@ -1,63 +1,55 @@
 # ---------------------------------------------------------------------------
 # Plot characteristics of training and validation data
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2025-12-16
+# Last Updated: 2026-06-08
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Plot characteristics of training and validation data" plots stacked bar charts for the cover version and temporal range of data.
 # ---------------------------------------------------------------------------
 
 # Import libraries
+import os
+import numpy as np
 import pandas as pd
-import geopandas as gpd
-from shapely.geometry import Point
 import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.io as pio
-import os
 import kaleido
 
 # Initialize kaleido
 kaleido.get_chrome_sync()
+
+# Set version date
+version_date = '20260415'
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
 
 # Set root directory
 drive = 'C:/'
-root_folder = 'ACCS_Work/Projects/VegetationEcology/AKVEG_Map'
+root_folder = 'ACCS_Work'
 
 # Define folder structure
-input_folder = os.path.join(drive, root_folder, 'Documents/Manuscript_FoliarCover_FloristicGradients/tables')
-region_folder = os.path.join(drive, root_folder, 'Data/Data_Input/region_data')
-output_folder = os.path.join(drive, root_folder, 'Documents/Manuscript_FoliarCover_FloristicGradients/figures')
+project_folder = os.path.join(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map/Data')
+site_folder = os.path.join(project_folder, f'Data_Input/site_data/version_{version_date}')
+region_folder = os.path.join(project_folder, 'Data_Input/region_data')
+output_folder = os.path.join(project_folder, f'Data_Output/summary_results/version_{version_date}')
 
 # Define input file
-site_input = os.path.join(input_folder, '00_Training_Data_Summary.xlsx')
-region_input = os.path.join(region_folder, 'AlaskaYukon_Regions_v2.0_3338.shp')
+site_input = os.path.join(site_folder, 'akveg_site_visits_3338.csv')
 
 # Define output files
-html_output = os.path.join(output_folder, 'Figure3b_Training_Validation_Data.html')
-plot_output = os.path.join(output_folder, 'Figure3b_Training_Validation_Data.png')
+html_output = os.path.join(output_folder, 'FigureA1b_Training_Data.html')
+plot_output = os.path.join(output_folder, 'FigureA1b_Training_Data.png')
 
 #### CREATE PLOT
 ####____________________________________________________
 
-# Read region data to geopandas dataframe
-region_data = gpd.read_file(region_input)[['region', 'geometry']]
-
 # Read training data
-site_visit_selected = pd.read_excel(site_input, sheet_name='data')
+site_visit_data = pd.read_csv(site_input)
 
-# Create geometry for site visits
-geometry = [Point(xy) for xy in zip(site_visit_selected['longitude_dd'], site_visit_selected['latitude_dd'])]
-site_visit_selected = gpd.GeoDataFrame(site_visit_selected, geometry=geometry, crs='EPSG:4269')
-
-# Reproject points to match region data
-if site_visit_selected.crs != region_data.crs:
-    site_visit_selected = site_visit_selected.to_crs(region_data.crs)
-
-# Join regions to site visit data
-site_visit_selected = gpd.sjoin(site_visit_selected, region_data, how="left", predicate="within")
+# Subset the training data
+site_visit_data = site_visit_data[site_visit_data['exclude'] == 0]
+site_visit_data = site_visit_data[site_visit_data['project_code'] != 'akveg_absences']
 
 # Define a function to assign the year interval
 def assign_year(observe_year):
@@ -75,18 +67,29 @@ def assign_year(observe_year):
         return 'omit'
 
 # Apply function to create new column
-site_visit_selected['year_interval'] = site_visit_selected['observe_year'].apply(assign_year)
+site_visit_data['year_interval'] = site_visit_data['observe_year'].apply(assign_year)
+
+# Remove data without assigned year
+site_visit_data = site_visit_data[site_visit_data['year_interval'] != 'omit']
 
 # Summarize data by cover version
-cover_data = site_visit_selected.groupby(['cover_version', 'region']).size().reset_index(name='count')
+site_visit_data['cover_version'] = np.where(site_visit_data['cover_type'] == 'absolute canopy cover',
+                                            'absolute', 'none')
+site_visit_data['cover_version'] = np.where(site_visit_data['cover_type'] == 'absolute foliar cover',
+                                            'absolute', site_visit_data['cover_version'])
+site_visit_data['cover_version'] = np.where(site_visit_data['cover_type'] == 'top canopy cover',
+                                            'top', site_visit_data['cover_version'])
+site_visit_data['cover_version'] = np.where(site_visit_data['cover_type'] == 'top foliar cover',
+                                            'top', site_visit_data['cover_version'])
+cover_data = site_visit_data.groupby(['cover_version', 'region']).size().reset_index(name='count')
 
 # Summarize data by year interval
-year_data = site_visit_selected.groupby(['year_interval', 'region']).size().reset_index(name='count')
+year_data = site_visit_data.groupby(['year_interval', 'region']).size().reset_index(name='count')
 
 # Define custom fill
 cover_colors = {
-    'absolute': '#242B40',
-    'top': '#E1E5EE'
+    'absolute': '#A80000',
+    'top': '#F5B8B8'
 }
 cover_patterns = {
     'absolute': 'x',

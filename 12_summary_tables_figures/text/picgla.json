@@ -1,8 +1,0 @@
-{
-  "title": "White Spruce (<i>Picea glauca</i> – <i>×lutzii</i>)",
-  "name": "white spruce",
-  "rationale": "LightGBM provided the best quantitative performance.",
-  "description": "The white spruce diagnostic species set consists of <i>Picea glauca</i> (Moench) Voss and <i>Picea ×lutzii</i> Little, a fertile hybrid between <i>Picea glauca</i> and <i>Picea sitchensis</i> (Bong.) Carrière. <i>Picea glauca</i> is common and widespread throughout the boreal bioclimatic zone of the map domain. <i>Picea ×lutzii</i> is common in the Kenai Mountains at the transition between the boreal and temperate bioclimatic zones. <i>Picea ×lutzii</i> is also known from several locations in Lake Clark National Park in Southwest Alaska. We merged <i>Picea ×lutzii</i> with <i>Picea glauca</i> because our models were not able to reliably distinguish the between the two and the distinction can be difficult to make in the field.",
-  "species": [
-  ]
-}

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # ---------------------------------------------------------------------------
-# Figure 3a. Training and validation data
+# Figure A.1. Training data map
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2025-12-16
+# Last Updated: 2026-06-08
 # Usage: Must be executed in a R 4.4.3+ installation.
-# Description: "Figure 3a. Training and validation data" creates a map figure for publication that shows the training and validation data selected for the AKVEG foliar cover maps.
+# Description: "Figure A.1. Training data map" creates a map figure for publication that shows the training and validation data selected for the AKVEG foliar cover maps.
 # ---------------------------------------------------------------------------
 
 # Import required libraries
@@ -23,6 +23,9 @@ library(tidyterra)
 library(tibble)
 library(tidyr)
 
+# Set round date
+round_date = 'version_20260415'
+
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
 
@@ -31,36 +34,41 @@ drive = 'C:'
 root_folder = 'ACCS_Work'
 
 # Define folder structure
-project_folder = path(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map')
-input_folder = path(project_folder, 'Documents/Manuscript_FoliarCover_FloristicGradients/tables')
-base_folder = path(project_folder, 'Data/Data_Input/basemap')
-region_folder = path(project_folder, 'Data/Data_Input/region_data')
-output_folder = path(project_folder, 'Documents/Manuscript_FoliarCover_FloristicGradients/figures')
+project_folder = path(drive, root_folder, 'Projects/VegetationEcology/AKVEG_Map/Data')
+site_folder = path(project_folder, 'Data_Input/site_data', round_date)
+base_folder = path(project_folder, 'Data_Input/basemap')
+region_folder = path(project_folder, 'Data_Input/region_data')
+output_folder = path(project_folder, 'Data_Output/summary_results', round_date)
 
 # Define input files
-site_input = path(input_folder, '00_Training_Data_Summary.xlsx')
+site_input = path(site_folder, 'akveg_site_visits_3338.csv')
 ocean_input = path(base_folder, 'Basemap_Ocean_3338.shp')
 russia_input = path(region_folder, 'Russia_Coastline_3571.shp')
 na_input = path(region_folder, 'NorthAmerica_Coastline_4269.shp')
 river_input = path(base_folder, 'NaturalEarth_10m_Rivers_Centerlines.shp')
-domain_input = path(region_folder, 'AlaskaYukon_MapDomain_v2.0_3338.shp')
-region_input = path(region_folder, 'AlaskaYukon_Regions_v2.0_3338.shp')
+domain_input = path(region_folder, 'AlaskaYukon_MapDomain_v2p1_3338.shp')
+region_input = path(region_folder, 'AlaskaYukon_USNVC_ZonesRegions_v2p1_3338.shp')
 
 # Define output files
-figure_output = path(output_folder, 'Figure3a_Training_Validation_Data.jpg')
+figure_output = path(output_folder, 'FigureA1a_Training_Data.jpg')
 
 #### CREATE MAP PLOT
 ####____________________________________________________
 
 # Read input data
-site_visit_selected = read_xlsx(site_input, sheet = 'data') %>%
-  # Convert geometries to points with EPSG:4269
-  st_as_sf(x = ., coords = c('longitude_dd', 'latitude_dd'), crs = 4269, remove = FALSE) %>%
-  # Reproject coordinates to EPSG 3338
-  st_transform(crs = st_crs(3338)) %>%
-  # Add EPSG:3338 centroid coordinates
-  mutate(cent_x = st_coordinates(.$geometry)[,1],
-         cent_y = st_coordinates(.$geometry)[,2]) %>%
+site_visit_selected = read_csv(site_input) %>%
+  # Convert geometries to points with EPSG:3338
+  st_as_sf(x = ., coords = c('cent_x', 'cent_y'), crs = 3338, remove = FALSE) %>%
+  # Remove the excluded sites
+  filter(exclude == 0) %>%
+  # Remove the absences
+  filter(project_code != 'akveg_absences') %>%
+  # Summarize cover version
+  mutate(cover_version = case_when(cover_type == 'absolute canopy cover' ~ 'absolute',
+                                   cover_type == 'absolute foliar cover' ~ 'absolute',
+                                   cover_type == 'top canopy cover' ~ 'top',
+                                   cover_type == 'top foliar cover' ~ 'top',
+                                   TRUE ~ 'ERROR')) %>%
   # Arrange data to plot absolute cover on top
   arrange(desc(cover_version))
 
@@ -75,12 +83,12 @@ river_data = st_read(river_input) %>%
 domain_data = st_read(domain_input) %>%
   mutate(name = 'Alaska-Yukon Map Domain')
 region_data = st_read(region_input) %>%
-  select(biome, region)
+  select(zone, region)
 
 # Define custom fill colors
 custom_colors = c(
-  'absolute' = '#535A6C',
-  'top' = '#E1E5EE',
+  'absolute' = '#A80000',
+  'top' = '#F5B8B8',
   'Alaska-Yukon Map Domain' = 'black'
 )
 
@@ -124,7 +132,7 @@ map_plot = ggplot() +
           color = 'black',
           pch = 21,
           linewidth = 0.3,
-          size = 2) +
+          size = 3) +
   geom_sf(data = region_data, color = 'white', fill = NA, linewidth = 1.5) +
   geom_sf(data = region_data, color = 'black', fill = NA, linewidth = 0.5) +
   geom_sf(data = domain_data, aes(color = name), fill = NA, linewidth = 1.5) +
@@ -148,14 +156,14 @@ map_plot = ggplot() +
     legend.title = element_blank(),
     legend.position = 'top',
     legend.margin = margin(t = 10),
-    plot.title = element_text(size = 20),
+    plot.title = element_text(size = 20)
   ) +
   guides(
     fill = guide_legend(override.aes = list(size = 5)),
     color = guide_legend(override.aes = list(size = 2))
-  )
+  ) +
   labs(
-    fill = "Biome"
+    fill = "Cover Type"
   )
 
 # Export plot

@@ -1,8 +1,0 @@
-{
-  "title": "Birch Shrubs (<i>Betula</i> spp.)",
-  "name": "birch shrubs",
-  "rationale": "LightGBM provided the best quantitative performance.",
-  "description": "The birch shrubs diagnostic species set consists of all <i>Betula</i> taxa that occur in Alaska and Yukon as shrubs: <i>Betula nana</i> ssp. <i>exilis</i> (Sukaczev) Hultén and <i>Betula glandulosa</i> Michx. These taxa frequently hybridize with each other and often cannot be clearly separated (Furlow 1997). <i>Betula glandulosa</i> also frequently hybridizes with <i>Betula neoalaskana</i> Sarg. to form a tall shrub birch hybrid, which has been referred to variously as <i>Betula neoalaskana</i> × <i>glandulosa</i> or <i>Betula ×dugleana</i> Lepage. Hultén (1968) listed the hybrid under <i>Betula occidentalis</i>, but the material from Alaska and Yukon does not match the original concept of <i>Betula occidentalis</i>. Given that we do not have a clear name to apply to the birch shrub hybrid in Alaska, we apply the temporary name <i>Betula</i> cf. <i>occidentalis</i> ined. We excluded <i>Betula</i> cf. <i>occidentalis</i> ined. from birch shrubs because it tends to grow in sporadic clusters, rather than the continuous cover often formed by <i>Betula nana</i> ssp. <i>exilis</i> and <i>Betula glandulosa</i>, and it often grows into a form intermediate between a tree and a shrub.",
-  "species": [
-  ]
-}

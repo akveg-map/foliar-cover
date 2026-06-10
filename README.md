@@ -1,9 +1,9 @@
 <div align="left">
   <img src="assets/akveg_logo.png" width="300" style="margin-bottom: -20px;" alt="AKVEG logo with text: Alaska Vegetation Map">
 </div>
-
 # Continuous Foliar Cover Maps for Alaska and Yukon
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20621207.svg)](https://doi.org/10.5281/zenodo.20621207)
 [![Project Status: Active](https://img.shields.io/badge/Project%20Status-Active-brightgreen.svg)](#)
 [![Python Version](https://img.shields.io/badge/Python-3.7+-blue.svg)](#)
 [![R Version](https://img.shields.io/badge/R-4.0+-blue.svg)](#)

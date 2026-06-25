@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # ---------------------------------------------------------------------------
-# Train and validate LightGBM abundance model
+# Train and validate LightGBM distribution model
 # Author: Timm Nawrocki, Matt Macander
-# Last Updated: 2026-04-14
+# Last Updated: 2026-06-11
 # Usage: Must be executed in a Python 3.12+ installation.
-# Description: "Train and validate LightGBM abundance model" trains, exports, and validates a random forest classifier and a LightGBM regressor. The model validation accounts for spatial autocorrelation by grouping in 100 km blocks.
+# Description: "Train and validate LightGBM abundance model" trains, exports, and validates a LightGBM classifier. The model validation accounts for spatial autocorrelation by grouping in 100 km blocks.
 # ---------------------------------------------------------------------------
 
 # Define model targets
@@ -27,9 +27,6 @@ from sklearn.utils import shuffle
 from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import roc_auc_score
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import mean_absolute_error
-from sklearn.metrics import r2_score
 from google.cloud import storage
 
 #### SET UP DIRECTORIES, FILES, AND FIELDS

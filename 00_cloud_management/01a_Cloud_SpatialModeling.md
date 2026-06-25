@@ -156,11 +156,19 @@ vim ~/scripts/01a_Predict_Abundance.py
 vim ~/scripts/01b_Predict_Distribution.py
 vim ~/scripts/02_Postprocess_Rasters.py
 
-nohup python3 ~/scripts/00_Compile_Covariate_Rasters.py
-nohup python3 ~/scripts/01b_Validate_Train_Abundance_LGBM.py
-nohup python3 ~/scripts/01d_Validate_Train_Distribution_LGBM.py
-nohup python3 ~/scripts/01a_Predict_Abundance.py
-nohup python3 ~/scripts/01b_Predict_Distribution.py
-nohup python3 ~/scripts/02_Postprocess_Rasters.py
+nohup python3 -u ~/scripts/00_Compile_Covariate_Rasters.py &
+nohup python3 -u ~/scripts/01b_Validate_Train_Abundance_LGBM.py &
+nohup python3 -u ~/scripts/01d_Validate_Train_Distribution_LGBM.py &
+nohup python3 -u ~/scripts/01a_Predict_Abundance.py &
+nohup python3 -u ~/scripts/01b_Predict_Distribution.py &
+nohup python3 -u ~/scripts/02_Postprocess_Rasters.py &
+```
+
+To check on the status and activity of a nohup process, you can find the number of the process and then see the CPU and memory usage. The 'pgrep' command will pull a list of active processes with a number assigned to python3 if the process is active. In the example below, the number '1287' represents a python3 process. The 'ps' command shows the script used to initiate the process. The 'top' command shows the CPU and memory usage.
+
+```bash
+pgrep -fl python
+ps -p 1287 -f
+top -p 1287
 ```
 

@@ -45,9 +45,9 @@ gcs_base = 'gs://akveg-data/foliar_cover_v2p1'
 
 # Define final GCS path for the output
 if group in dist_list:
-    output_name = f'{group}_Dst_10m_3338.tif'
+    output_name = f'{group}_dst_10m_3338.tif'
 else:
-    output_name = f'{group}_Cvr_10m_3338.tif'
+    output_name = f'{group}_cvr_10m_3338.tif'
 final_gcs_output = f'{gcs_base}/{destination}/{output_name}'
 
 # Set root directory
@@ -85,17 +85,6 @@ merged_intermediate = os.path.join(intermediate_folder, f'{group}_merged.tif')
 # Define output files
 foliar_output = os.path.join(output_folder, output_name)
 
-#### DEFINE FUNCTIONS
-####____________________________________________________
-
-# Define a function to read raster block
-def read_raster_block(input_raster, window_bounds):
-    input_window = from_bounds(
-        *window_bounds,
-        transform=input_raster.transform).round_offsets().round_lengths()
-    output_block = input_raster.read(1, window=input_window, masked=False)
-    return output_block
-
 #### CONVERT RANGE TO RASTER
 ####____________________________________________________
 
@@ -103,9 +92,9 @@ def read_raster_block(input_raster, window_bounds):
 area_bounds = raster_bounds(area_input)
 
 # Set output raster options
-options = gdal.RasterizeOptions(
+range_options = gdal.RasterizeOptions(
     format='GTiff',
-    outputType=GDT_Int8,
+    outputType=gdal.GDT_Int8,
     creationOptions=[
         'COMPRESS=LZW',
         'TILED=YES',
@@ -115,7 +104,8 @@ options = gdal.RasterizeOptions(
     outputBounds=area_bounds,
     xRes=10,
     yRes=10,
-    attribute='range_id',
+    initValues=[0],
+    burnValues=[1],
     noData= nodata_value,
     allTouched=False
 )
@@ -125,18 +115,7 @@ if os.path.exists(range_input):
     if not os.path.exists(range_intermediate):
         print(f'Converting {group} range to raster...')
         start_time = time.time()
-        # Read range data
-        range_data = gpd.read_file(range_input)
-        # Ensure all geometries are merged to one multipolygon feature
-        combined_geometry = range_data.union_all()
-        range_data = gpd.GeoDataFrame(geometry=[combined_geometry], crs=range_data.crs)
-        # Set an ID for the range data
-        range_data['range_id'] = 1
-        # Export range data to geopackage
-        range_geopackage = os.path.join(intermediate_folder, f'range_{group}_3338.gpkg')
-        range_data.to_file(range_geopackage, driver='GPKG')
-        # Convert the range data to raster
-        gdal.Rasterize(range_intermediate, range_geopackage, options=options)
+        gdal.Rasterize(range_intermediate, range_input, options=range_options)
         end_timing(start_time)
 else:
     range_intermediate = area_input
@@ -152,7 +131,8 @@ tile_count = 1
 print('Downloading raster tiles...')
 start_time = time.time()
 for raster_uri in raster_tiles:
-    print(f'\tDownloading tile {tile_count} of {len(raster_tiles)}...')
+    if tile_count % 1000 == 0 or tile_count == len(raster_tiles):
+        print(f'\tDownloading tile {tile_count} of {len(raster_tiles)}...')
     # Extract filename from uri
     file_name = os.path.split(raster_uri)[1]
     # Define the local download path
@@ -236,9 +216,8 @@ with rasterio.open(merged_intermediate, 'w', **output_profile) as dst:
         window_bounds = rasterio.windows.bounds(window, area_raster.transform)
 
         # Load raster blocks
-        foliar_block = read_raster_block(foliar_raster, window_bounds)
+        foliar_block = read_raster_block(foliar_raster, window_bounds, pad_value=nodata_value)
         esa_block = read_raster_block(esa_raster, window_bounds)
-        range_block = read_raster_block(range_raster, window_bounds)
 
         # Set no data to zero
         raster_block = np.where(foliar_block == nodata_value, 0, foliar_block)
@@ -256,6 +235,7 @@ with rasterio.open(merged_intermediate, 'w', **output_profile) as dst:
 
         # Enforce range
         if os.path.exists(range_input):
+            range_block = read_raster_block(range_raster, window_bounds)
             raster_block = np.where(range_block == 1, raster_block, 0)
 
         # Enforce study area boundary

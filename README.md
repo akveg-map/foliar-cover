@@ -1,14 +1,16 @@
 <div align="left">
   <img src="assets/akveg_logo.png" width="300" style="margin-bottom: -20px;" alt="AKVEG logo with text: Alaska Vegetation Map">
 </div>
-# Continuous Foliar Cover Maps for Alaska and Yukon
+
+
+# Continuous Foliar Cover Maps for Alaska and Adjacent Canada
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20621207.svg)](https://doi.org/10.5281/zenodo.20621207)
 [![Project Status: Active](https://img.shields.io/badge/Project%20Status-Active-brightgreen.svg)](#)
 [![Python Version](https://img.shields.io/badge/Python-3.7+-blue.svg)](#)
 [![R Version](https://img.shields.io/badge/R-4.0+-blue.svg)](#)
 
-Continuous foliar cover maps of diagnostic species sets for Alaska and adjacent Yukon circa 2023
+Continuous foliar cover maps of diagnostic species sets for Alaska and adjacent Canada circa 2023
 
 *Author*: Timm W. Nawrocki, Alaska Center for Conservation Science, University of Alaska Anchorage
 
@@ -16,7 +18,7 @@ Continuous foliar cover maps of diagnostic species sets for Alaska and adjacent 
 
 *Created On*: 2019-10-22
 
-*Last Updated*: 2026-05-21
+*Last Updated*: 2026-06-24
 
 *Description*: Scripts for data acquisition, statistical modeling, raster post-processing, and performance assessments to map 10 m resolution foliar cover for 32 diagnostic species sets.
 

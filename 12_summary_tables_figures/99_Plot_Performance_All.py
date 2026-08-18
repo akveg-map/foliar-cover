@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # Plot foliar cover performance combined
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2025-12-16
+# Last Updated: 2026-07-21
 # Usage: Must be executed in a Python 3.12+ installation.
 # Description: "Plot foliar cover performance combined" plots the performance of all foliar cover models in two panels for site-scale and local-scale results.
 # ---------------------------------------------------------------------------
@@ -20,36 +20,36 @@ kaleido.get_chrome_sync()
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
 
-# Set round date
-round_date = 'round_20241124'
+# Set version date
+version_date = '20260415'
 
 # Set root directory
 drive = 'C:/'
 root_folder = 'ACCS_Work/Projects/VegetationEcology/AKVEG_Map'
 
 # Define folder structure
-model_folder = os.path.join(drive, root_folder, 'Data/Data_Output/model_results', round_date)
-output_folder = os.path.join(drive, root_folder, 'Documents/Manuscript_FoliarCover_FloristicGradients/figures')
+data_folder = os.path.join(drive, root_folder, f'Data/Data_Output/model_results/version_{version_date}')
+output_folder = os.path.join(drive, root_folder, f'Data/Data_Output/summary_results/version_{version_date}')
 
 # Define input file
-performance_input = os.path.join(model_folder, 'performance_table.csv')
+performance_input = os.path.join(output_folder, 'Table1_Individual_Performance.xlsx')
 
 # Define output files
-html_output = os.path.join(output_folder, 'Figure4_Performance_Combined.html')
-plot_output = os.path.join(output_folder, 'Figure4_Performance_Combined.png')
+html_output = os.path.join(output_folder, 'FigureX_Performance_Combined.html')
+plot_output = os.path.join(output_folder, 'FigureX_Performance_Combined.png')
 
 #### CREATE PLOT
 ####____________________________________________________
 
 # Read performance data
-performance_data = pd.read_csv(performance_input)
+performance_data = pd.read_excel(performance_input, sheet_name='Sheet1')
 
 # Calculate standardized RMSE
 performance_data['std_rmse_site'] = round(
-  (performance_data['rmse_site']/performance_data['cover_mean']),
+  (performance_data['RMSE_site']/performance_data['Mean Cover %']),
   2)
 performance_data['std_rmse_scaled'] = round(
-  (performance_data['rmse_scaled']/performance_data['cover_mean']),
+  (performance_data['RMSE_scaled']/performance_data['Mean Cover %']),
   2)
 
 # Create reference line shapes representing "good" model performance
@@ -66,9 +66,9 @@ shapes = [
 
 # Create site plot
 site_plot = px.scatter(performance_data,
-                       x='r2_site',
+                       x='R2_site',
                        y='std_rmse_site',
-                       custom_data=['indicator_name', 'rmse_site', 'cover_mean', 'n_presence'])
+                       custom_data=['Diagnostic Species Set', 'RMSE_site', 'Mean Cover %', 'Pres.'])
 site_plot.update_traces(hovertemplate='%{customdata[0]}<br>' +
                                       'R squared: %{x}<br>' +
                                       'RMSE: %{customdata[1]}<br>' +
@@ -77,9 +77,9 @@ site_plot.update_traces(hovertemplate='%{customdata[0]}<br>' +
 
 # Create scaled plot
 scaled_plot = px.scatter(performance_data,
-                         x='r2_scaled',
+                         x='R2_scaled',
                          y='std_rmse_scaled',
-                         custom_data=['indicator_name', 'rmse_scaled', 'cover_mean', 'n_grid'])
+                         custom_data=['Diagnostic Species Set', 'RMSE_scaled', 'Mean Cover %', 'Pres.'])
 scaled_plot.update_traces(hovertemplate='%{customdata[0]}<br>' +
                                         'R squared: %{x}<br>' +
                                         'RMSE: %{customdata[1]}<br>' +

@@ -1,9 +1,9 @@
 # ---------------------------------------------------------------------------
 # Plot foliar cover performance individual
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2025-12-16
+# Last Updated: 2026-07-21
 # Usage: Must be executed in a Python 3.12+ installation.
-# Description: "Plot foliar cover performance individual" plots the performance of each foliar cover model in two panels for site scale and landscape scale results.
+# Description: "Plot foliar cover performance individual" plots the performance of each foliar cover model in two panels for site scale and local scale results.
 # ---------------------------------------------------------------------------
 
 # Import libraries
@@ -19,46 +19,47 @@ import kaleido
 # Initialize kaleido
 kaleido.get_chrome_sync()
 
-# Set round date
-round_date = 'round_20241124'
-
 #### SET UP DIRECTORIES, FILES, AND FIELDS
 ####____________________________________________________
+
+# Set version date
+version_date = '20260415'
 
 # Set root directory
 drive = 'C:/'
 root_folder = 'ACCS_Work/Projects/VegetationEcology/AKVEG_Map'
 
 # Define folder structure
-data_folder = os.path.join(drive, root_folder,
-                           'Data/Data_Output/model_results', round_date)
-plot_folder = os.path.join(drive, root_folder,
-                           'Documents/Manuscript_FoliarCover_FloristicGradients/appendix_s1/figures')
+data_folder = os.path.join(drive, root_folder, f'Data/Data_Output/model_results/version_{version_date}')
+output_folder = os.path.join(drive, root_folder, f'Data/Data_Output/summary_results/version_{version_date}')
+plot_folder = os.path.join(output_folder, 'plots')
 
-# Define indicators
-indicators = ['alnus', 'betshr', 'bettre', 'brotre', 'dryas', 'dsalix', 'empnig', 'erivag',
-              'mwcalama', 'ndsalix', 'nerishr', 'picgla', 'picmar', 'picsit', 'poptre',
-              'populbt', 'rhoshr', 'rubspe', 'sphagn', 'tsumer', 'vaculi', 'vacvit', 'wetsed']
+# Define diagnostic_sets
+diagnostic_sets = ['alnus', 'bderishr', 'beach', 'betshr', 'bettre', 'brotre',
+                   'dryas', 'dsalix', 'empnig', 'erivag', 'feather', 'forb', 'gramin',
+                   'halgra', 'lichen', 'mwcalama', 'ndsalix', 'neetre', 'nerishr',
+                   'picgla', 'picmar', 'picsit', 'poptre', 'populbt', 'rhoshr', 'rubspe',
+                   'sphagn', 'tsuhet', 'tsumer', 'vaculi', 'vacvit', 'wetforb', 'wetsed']
 
 #### CREATE PLOTS
 ####____________________________________________________
 
-# Create output plot for each indicator
-for indicator in indicators:
-    print(f'Creating plot for {indicator}...')
+# Create output plot for each diagnostic_set
+for diagnostic_set in diagnostic_sets:
+    print(f'Creating plot for {diagnostic_set}...')
 
     # Define input files
-    site_input = os.path.join(data_folder, indicator, indicator + '_results.csv')
-    scaled_input = os.path.join(data_folder, indicator, indicator + '_scaled.csv')
+    site_input = os.path.join(data_folder, diagnostic_set, diagnostic_set + '_results.csv')
+    scaled_input = os.path.join(data_folder, diagnostic_set, diagnostic_set + '_scaled.csv')
 
     # Define output files
     html_output = os.path.join(plot_folder,
-                               f'figure_performance_{indicator}.html')
+                               f'figure_performance_{diagnostic_set}.html')
     plot_output = os.path.join(plot_folder,
-                               f'figure_performance_{indicator}.png')
+                               f'figure_performance_{diagnostic_set}.png')
 
     # Process performance data
-    site_data = pd.read_csv(site_input)[['st_vst', 'cvr_pct', 'prediction']]
+    site_data = pd.read_csv(site_input)[['site_visit_code', 'cover_percent', 'prediction']]
     scaled_data = pd.read_csv(scaled_input)
 
     # Define bin edges
@@ -66,7 +67,9 @@ for indicator in indicators:
     y_edges = np.linspace(0, 100, 21)
 
     # Compute 2D histogram for site scale data
-    hist, x_edges, y_edges = np.histogram2d(site_data['cvr_pct'], site_data['prediction'], bins=[x_edges, y_edges])
+    hist, x_edges, y_edges = np.histogram2d(site_data['cover_percent'],
+                                            site_data['prediction'],
+                                            bins=[x_edges, y_edges])
     hist_log = np.where(hist > 0, np.log1p(hist), np.nan)
 
     # Compute bin centers (for axis labels)
@@ -121,20 +124,20 @@ for indicator in indicators:
              showarrow=False, textangle=-90, font=dict(size=16)
              ),
         # Subplot 1 title
-        dict(text='Site-scale',
+        dict(text='a. Site scale',
              x=-0, y=1.12, xref='paper', yref='paper',
              showarrow=False, font=dict(size=18)
              ),
         # Subplot 2 title
-        dict(text='Landscape-scale',
+        dict(text='b. Local scale',
              x=0.65, y=1.12, xref='paper', yref='paper',
              showarrow=False, font=dict(size=18)
              )
     ]
 
-    # Create landscape plot
+    # Create local plot
     scaled_plot = px.scatter(scaled_data,
-                             x='mean_cvr_pct',
+                             x='mean_cover_percent',
                              y='mean_prediction')
 
     # Create combined plot
@@ -151,7 +154,7 @@ for indicator in indicators:
     combined_plot.update_layout(
         template='plotly_white',
         title=dict(
-            text='Observed versus predicted foliar cover at site and landscape scales',
+            text='Observed versus predicted foliar cover at site and local scales',
             x=0.5,
             y=0.94,
             xanchor='center',  # extra bottom padding
